@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "860434803849",
+    "firebase_url": "https://messaging-manager-64dcd.firebaseio.com",
+    "project_id": "messaging-manager-64dcd",
+    "storage_bucket": "messaging-manager-64dcd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860434803849:android:f6cde8818dc2745a046a58",
+        "android_client_info": {
+          "package_name": "com.message.messagingmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860434803849-u4jmu6afd0fdh0ua1v1arviaskmpjums.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.message.messagingmanager",
+            "certificate_hash": "36ad35b4e493cfeea8ea7b27a12fbf39e40f918d"
+          }
+        },
+        {
+          "client_id": "860434803849-q79g61b6f2ec0ar3buinv5k9qgomdm4b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9eo54f9fSc4ergaSJ-baOTtt2NAZI7sg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "860434803849-q79g61b6f2ec0ar3buinv5k9qgomdm4b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

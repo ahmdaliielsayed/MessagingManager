@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_upcoming"
+        android:icon="@drawable/ic_mail_outline_baby_blue_24dp"
+        android:title="@string/status_upcoming"/>
+
+    <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/ic_history_baby_blue_24dp"
+        android:title="@string/status_history"/>
+
+    <item
+        android:id="@+id/navigation_groups"
+        android:icon="@drawable/ic_group_add_baby_blue_24dp"
+        android:title="@string/itemGroups"/>
+</menu>

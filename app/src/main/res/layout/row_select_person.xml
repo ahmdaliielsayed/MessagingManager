@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="10dp"
+    android:id="@+id/cardView">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgViewGroup"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/user"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txtViewPersonName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/developerName"
+            android:textAlignment="viewStart"
+            android:textColor="@color/appColor"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/imgViewSelect"
+            app:layout_constraintStart_toEndOf="@+id/imgViewGroup"
+            app:layout_constraintTop_toTopOf="@+id/imgViewGroup" />
+
+        <ImageView
+            android:id="@+id/imgViewSelect"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/imgViewGroup"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgViewGroup"
+            app:srcCompat="@drawable/ic_done_baby_blue_24dp"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txtViewPhoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/developerNumber"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgViewGroup"
+            app:layout_constraintEnd_toEndOf="@+id/txtViewPersonName"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/txtViewPersonName" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

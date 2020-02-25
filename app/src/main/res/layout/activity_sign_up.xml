@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.SignUpActivity">
+
+    <include layout="@layout/app_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/editTxtEmailSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="72dp"
+                android:layout_marginEnd="32dp"
+                android:ems="10"
+                android:hint="@string/editTxtEmail"
+                android:importantForAutofill="auto"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="Autofill" />
+
+            <EditText
+                android:id="@+id/editTxtPasswordSignUp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/editTxtPassword"
+                android:textAlignment="viewStart"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="@+id/editTxtEmailSignUp"
+                app:layout_constraintStart_toStartOf="@+id/editTxtEmailSignUp"
+                app:layout_constraintTop_toBottomOf="@+id/editTxtEmailSignUp"
+                tools:ignore="Autofill" />
+
+            <EditText
+                android:id="@+id/editTxtRePasswordSignUp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/editTxtRePassword"
+                android:textAlignment="viewStart"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="@+id/editTxtPasswordSignUp"
+                app:layout_constraintStart_toStartOf="@+id/editTxtPasswordSignUp"
+                app:layout_constraintTop_toBottomOf="@+id/editTxtPasswordSignUp"
+                tools:ignore="Autofill" />
+
+            <Button
+                android:id="@+id/btnSignUp"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/btnSignUp"
+                android:background="@drawable/btn_style"
+                android:textColor="#fff"
+                app:layout_constraintEnd_toEndOf="@+id/editTxtRePasswordSignUp"
+                app:layout_constraintStart_toStartOf="@+id/editTxtRePasswordSignUp"
+                app:layout_constraintTop_toBottomOf="@+id/editTxtRePasswordSignUp" />
+
+            <TextView
+                android:id="@+id/txtViewAlreadyRegistered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                android:text="@string/txtViewAlreadyRegistered"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/btnSignUp"
+                app:layout_constraintStart_toStartOf="@+id/btnSignUp"
+                app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

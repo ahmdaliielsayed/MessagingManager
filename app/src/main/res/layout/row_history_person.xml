@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="10dp"
+    android:id="@+id/cardView">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgViewMsgType"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayoutDetails"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+            app:srcCompat="@drawable/ic_message_baby_blue_24dp"
+            tools:ignore="ContentDescription" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageButtonPopUp"
+            app:layout_constraintStart_toEndOf="@+id/imgViewMsgType"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgViewAccessTime"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_access_time_green_24dp"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/txtViewDateHistoryPerson"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/txtViewDateFormat"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/imgViewAccessTime"
+                app:layout_constraintTop_toTopOf="@+id/imgViewAccessTime" />
+
+            <TextView
+                android:id="@+id/txtViewDash"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/txtViewDash"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/txtViewDateHistoryPerson"
+                app:layout_constraintTop_toTopOf="@+id/txtViewDateHistoryPerson" />
+
+            <TextView
+                android:id="@+id/txtViewTimeHistoryPerson"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/txtViewTimeFormat"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/txtViewDash"
+                app:layout_constraintTop_toTopOf="@+id/txtViewDash" />
+
+            <TextView
+                android:id="@+id/txtViewStatusHistoryPerson"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/status_history"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/txtViewTimeHistoryPerson"
+                app:layout_constraintStart_toStartOf="@+id/txtViewDateHistoryPerson"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewDateHistoryPerson" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+            <ImageView
+                android:id="@+id/imgViewAccountPerson"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_account_circle_baby_blue_24dp"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/txtViewHistoryPersonName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/developerName"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imgViewAccountPerson"
+                app:layout_constraintTop_toTopOf="@+id/imgViewAccountPerson" />
+
+            <TextView
+                android:id="@+id/txtViewHistoryPhoneNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/developerNumber"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/txtViewHistoryPersonName"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewHistoryPersonName" />
+
+            <ImageView
+                android:id="@+id/imgViewMessage"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/imgViewAccountPerson"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewHistoryPhoneNumber"
+                app:srcCompat="@drawable/ic_message_baby_blue_24dp"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/txtViewHistoryMessage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textAlignment="viewStart"
+                android:text="@string/txtViewMessage"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txtViewHistoryPhoneNumber"
+                app:layout_constraintTop_toTopOf="@+id/imgViewMessage" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageButton
+            android:id="@+id/imageButtonPopUp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_delete_forever_red_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+            tools:ignore="ContentDescription" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

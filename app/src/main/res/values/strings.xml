@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">Message Scheduler</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <!--    <string name="title_home">Home</string>-->
+    <!--    <string name="title_dashboard">Dashboard</string>-->
+    <!--    <string name="title_notifications">Notifications</string>-->
+
+    <string name="status_upcoming">Upcoming</string>
+    <string name="status_sent">Sent</string>
+    <string name="status_delivered">Delivered</string>
+    <string name="status_history">History</string>
+
+    <string name="type_sms">SMS</string>
+    <string name="type_whats_app">WhatsApp</string>
+
+    <string name="msg_sent">Message sent successfully!</string>
+    <string name="msg_delivered">Message delivered successfully!</string>
+    <string name="msg_generic_failure">Generic failure!</string>
+    <string name="msg_no_service">No Service!</string>
+    <string name="msg_null_pdu">Null PDU!</string>
+    <string name="msg_radio_off">Radio off!</string>
+    <string name="msg_not_delivered">Message not delivered!</string>
+    <string name="msg_no_whats_app_installed">WhatsApp is not install on your device!</string>
+
+    <string name="whatsapp_suffix">_whats</string>
+
+    <!-- activity contacts dialogue -->
+    <string name="txtViewGroupName">Group Name</string>
+    <string name="txtViewNoItem">No Item Here!</string>
+
+    <!-- activity contacts group -->
+    <string name="btnDone">Done</string>
+
+    <!-- activity create group -->
+    <string name="btnCreate">Create</string>
+
+    <!-- activity edit schedule message -->
+    <string name="txtViewName">Name</string>
+    <string name="editTxtReceiverNumber">Receiver Number</string>
+    <string name="editTxtMessage">Message</string>
+    <string name="editTxtDate">Date</string>
+    <string name="editTxtTime">Time</string>
+    <string name="btnSMS">SMS</string>
+    <string name="btnWhatsApp">WhatsApp</string>
+
+    <!-- activity forget password -->
+    <string name="editTxtEmail">Email</string>
+    <string name="btnSend">Send</string>
+
+    <!-- activity schedule message -->
+    <array name="messageType">
+        <item>SMS</item>
+        <item>WhatsApp</item>
+    </array>
+    <string name="txtViewAdvancedOption">Advanced Options</string>
+
+    <!-- activity sign in -->
+    <string name="editTxtPassword">Password</string>
+    <string name="txtViewForgetPassword">Forget Password?</string>
+    <string name="btnSignIn">Sign In</string>
+    <string name="txtViewSignInWith">Sign In With</string>
+    <string name="txtViewDoNotHaveAccount">Do Not Have Account?</string>
+
+    <!-- activity sign up -->
+    <string name="editTxtRePassword">Confirm Password</string>
+    <string name="btnSignUp">Register</string>
+    <string name="txtViewAlreadyRegistered">Already Registered?</string>
+
+    <!-- activity splash -->
+    <string name="txtViewSplashActivity">Message Scheduler</string>
+
+    <!-- row contact dialogue -->
+    <string name="developerName">Ahmed Ali</string>
+    <string name="developerNumber">+20 106 320 8399</string>
+
+    <!-- row history person -->
+    <string name="txtViewDateFormat">12/11/2019</string>
+    <string name="txtViewDash">-</string>
+    <string name="txtViewTimeFormat">02:36</string>
+    <string name="txtViewMessage">any message could be here</string>
+
+    <!-- bottom nav menu -->
+    <string name="itemGroups">Groups</string>
+
+    <!-- menu home -->
+    <string name="itemMenuHome">Menu Home</string>
+    <string name="itemTips">Tips</string>
+    <string name="itemHelp">Help</string>
+    <string name="itemEmailUs">Email Us</string>
+    <string name="itemCallUs">Call Us</string>
+    <string name="itemRateUs">Rate Us</string>
+    <string name="itemProfile">Profile</string>
+    <string name="itemSIM">Configure Networks</string>
+    <string name="itemSettings">Settings</string>
+    <string name="itemLogout">Logout</string>
+
+    <!-- menu upcoming msg person -->
+    <string name="itemEdit">Edit</string>
+    <string name="itemDelete">Delete</string>
+
+    <!-- activity networks -->
+    <string name="SIMName">Network(SIM) Name</string>
+    <string name="ExampleNetwork">LIKE: Vodafone</string>
+    <string name="Prefix">Prefix</string>
+    <string name="ExamplePrefix">Ex: +2010</string>
+
+    <!-- activity select sim -->
+    <string name="txtViewNoItemText">No Item Here!\nPress here to add Networks</string>
+
+    <!-- activity tips -->
+    <string name="txtViewWarning">Your device may prevent this program (SMS Scheduler) from working properly at its scheduled times if it has battery application management features or background processes</string>
+    <string name="txtViewXiaomi">XIAOMI\'S DEVICE SETTINGS</string>
+    <string name="textViewAutoStart">Auto Start (Important)</string>
+    <string name="textViewStepAutoStart">Open Phone Settings > Permissions > Auto-Start > turn on for Message Scheduler.</string>
+    <string name="textViewBatterySaver">Battery Saver</string>
+    <string name="textViewStepBatterySaver">Open Phone Settings > Battery &amp; Performance > Choose apps > choose Message Scheduler > Choose no restrictions.</string>
+    <string name="textViewBatteryOptimization">Battery Optimization</string>
+    <string name="textViewBatteryOptimizationText">Disable Battery Optimization for Message Scheduler can help the app to work more reliably on Android 6.0 and higher.\nPlease notice that Message Scheduler doesn\'t use much battery.</string>
+    <string name="btnDoItNow">Do It Now</string>
+    <string name="textViewRecommendations">Further recommendations</string>
+    <string name="textViewRecommendationsOne">* Because the setting may be different on your devices, so we\'d recommend that you recheck again on Phone Settings > Apps > Message Scheduler > Battery > and make sure that Message Scheduler is allowed to run as background and isn\'t restricted by Battery Optimization.</string>
+    <string name="textViewRecommendationsTwo">* If your device includes some Battery Saver or Cleanup apps(for example: Cleanmaster, CM Suite, CCleaner, Battery Doctor, Greenify, and Amplify) make sure that Message Scheduler is added to whitelist.</string>
+    <string name="textViewRecommendationsThree">* Enable Alert mode on App Settings > Advanced is strongly recommended.</string>
+
+    <!-- activity groups -->
+    <string name="txtViewNoItemAddGroup">No Groups!\nClick Here to add Group</string>
+</resources>

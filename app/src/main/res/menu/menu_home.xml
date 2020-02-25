@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="@string/itemMenuHome"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_more_vert_white_24dp"
+        tools:ignore="AlwaysShowAction">
+
+        <menu>
+            <item
+                android:id="@+id/item_tips"
+                android:title="@string/itemTips"
+                android:orderInCategory="100"
+                android:icon="@drawable/ic_lightbulb_outline_baby_blue_24dp"
+                app:showAsAction="never" />
+
+<!--            <item-->
+<!--                android:id="@+id/item_help"-->
+<!--                android:title="@string/itemHelp"-->
+<!--                android:orderInCategory="100"-->
+<!--                android:icon="@drawable/ic_help_baby_blue_24dp"-->
+<!--                app:showAsAction="never" />-->
+
+            <item
+                android:id="@+id/item_emailUs"
+                android:title="@string/itemEmailUs"
+                android:orderInCategory="100"
+                android:icon="@drawable/ic_contact_mail_baby_blue_24dp"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/item_callUs"
+                android:title="@string/itemCallUs"
+                android:orderInCategory="100"
+                android:icon="@drawable/ic_contact_phone_baby_blue_24dp"
+                app:showAsAction="never" />
+
+<!--            <item-->
+<!--                android:id="@+id/item_rateUS"-->
+<!--                android:title="@string/itemRateUs"-->
+<!--                android:orderInCategory="100"-->
+<!--                android:icon="@drawable/ic_star_border_baby_blue_24dp"-->
+<!--                app:showAsAction="never" />-->
+
+<!--            <item-->
+<!--                android:id="@+id/item_profile"-->
+<!--                android:title="@string/itemProfile"-->
+<!--                android:orderInCategory="100"-->
+<!--                android:icon="@drawable/ic_account_circle_baby_blue_24dp"-->
+<!--                app:showAsAction="never" />-->
+
+            <item
+                android:id="@+id/item_SIM"
+                android:title="@string/itemSIM"
+                android:orderInCategory="100"
+                android:icon="@drawable/ic_sim_card_baby_blue_24dp"
+                app:showAsAction="never" />
+
+<!--            <item-->
+<!--                android:id="@+id/item_settings"-->
+<!--                android:title="@string/itemSettings"-->
+<!--                android:orderInCategory="100"-->
+<!--                android:icon="@drawable/ic_settings_baby_blue_24dp"-->
+<!--                app:showAsAction="never" />-->
+
+            <item
+                android:id="@+id/item_logout"
+                android:title="@string/itemLogout"
+                android:orderInCategory="100"
+                android:icon="@drawable/ic_power_settings_new_baby_blue_24dp"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+</menu>
