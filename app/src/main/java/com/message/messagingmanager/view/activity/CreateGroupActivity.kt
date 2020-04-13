@@ -32,12 +32,12 @@ class CreateGroupActivity : AppCompatActivity() {
         createGroupViewModel = ViewModelProviders.of(this, CreateGroupViewModelFactory(this@CreateGroupActivity))
             .get(CreateGroupViewModel::class.java)
 
-        toolbar.title = "Create Group"
+        toolbar.setTitle(R.string.createGroup)
         setSupportActionBar(toolbar)
 
         btnCreate.setOnClickListener {
             if (editTxtGroupName.text.toString().isEmpty()){
-                editTxtGroupName.error = "Group Name Required!"
+                editTxtGroupName.error = getText(R.string.groupName)
                 editTxtGroupName.requestFocus()
                 return@setOnClickListener
             } else {
@@ -61,7 +61,7 @@ class CreateGroupActivity : AppCompatActivity() {
                     progressBar.visibility = View.VISIBLE
                     createGroupViewModel.createGroupViewModel(editTxtGroupName.text.toString())
                 } else {
-                    Toast.makeText(this@CreateGroupActivity, "Give us the permission to read your contacts!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@CreateGroupActivity, R.string.readContactsPermission, Toast.LENGTH_LONG).show()
                 }
             }
         }

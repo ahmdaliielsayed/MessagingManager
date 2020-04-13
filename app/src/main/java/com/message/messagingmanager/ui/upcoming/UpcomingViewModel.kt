@@ -17,6 +17,7 @@ import com.message.messagingmanager.R
 import com.message.messagingmanager.model.Message
 import com.message.messagingmanager.view.activity.EditScheduleMessageActivity
 import com.message.messagingmanager.view.receiver.AlertReceiver
+import kotlinx.android.synthetic.main.activity_schedule_message.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -87,8 +88,8 @@ class UpcomingViewModel(internal var context: Activity) :
                     }
                     R.id.item_delete -> {
                         val builder = AlertDialog.Builder(context)
-                        builder.setMessage("R U sure to delete this message?")
-                        builder.setPositiveButton("Yes") { _, _ ->
+                        builder.setMessage(R.string.deleteMsg)
+                        builder.setPositiveButton(R.string.yes) { _, _ ->
                             databaseMsg.child(msg.getSmsId()).removeValue()
 
                             val alarmManager =
@@ -111,13 +112,13 @@ class UpcomingViewModel(internal var context: Activity) :
                                 PendingIntent.FLAG_UPDATE_CURRENT)
                             alarmManager.cancel(pendingIntent)
 
-                            Toast.makeText(context, "Msg Deleted Successfully!",
+                            Toast.makeText(context, R.string.confirmMsgDeletion,
                                 Toast.LENGTH_SHORT).show()
 
                             dataModelList!!.remove(msg)
                             setDataToAdapter(dataModelList!!)
                         }
-                        builder.setNegativeButton("No") { dialogInterface, _ -> dialogInterface.cancel() }
+                        builder.setNegativeButton(R.string.no) { dialogInterface, _ -> dialogInterface.cancel() }
 
                         val alertDialog = builder.create()
                         if (Build.VERSION.SDK_INT >= 26) {
@@ -155,8 +156,7 @@ class UpcomingViewModel(internal var context: Activity) :
                             alarmManager.set(AlarmManager.RTC_WAKEUP, Calendar.getInstance().time.time, pendingIntent)
                         }
 
-                        Toast.makeText(context, "Message scheduled Successfully to now!",
-                            Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, R.string.sendMsgNow, Toast.LENGTH_SHORT).show()
 
                         dataModelList!!.remove(msg)
                         setDataToAdapter(dataModelList!!)

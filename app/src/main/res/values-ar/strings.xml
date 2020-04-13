@@ -1,0 +1,189 @@
+<resources>
+    <string name="app_name">Message Scheduler</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <!--    <string name="title_home">Home</string>-->
+    <!--    <string name="title_dashboard">Dashboard</string>-->
+    <!--    <string name="title_notifications">Notifications</string>-->
+
+    <string name="status_upcoming">Upcoming</string>
+    <string name="status_sent">Sent</string>
+    <string name="status_delivered">Delivered</string>
+    <string name="status_history">History</string>
+
+    <string name="type_sms">SMS</string>
+    <string name="type_whats_app">WhatsApp</string>
+
+    <string name="msg_sent">تم إرسال الرسالة بنجاح!</string>
+    <string name="msg_delivered">تم تسليم الرسالة بنجاح!</string>
+    <string name="msg_generic_failure">فشل!</string>
+    <string name="msg_no_service">لاتوجد خدمة!</string>
+    <string name="msg_null_pdu">Null PDU!</string>
+    <string name="msg_radio_off">Radio off!</string>
+    <string name="msg_not_delivered">لم يتم تسليم الرسالة!</string>
+    <string name="msg_no_whats_app_installed">لم يتم تثبيت WhatsApp على جهازكـ!</string>
+
+    <!-- activity contacts -->
+    <string name="selectReceiver">اختر المُسْتَقْبِل</string>
+
+    <!-- activity contacts dialogue -->
+    <string name="txtViewGroupName">اسم المجموعة</string>
+    <string name="txtViewNoItem">لا يوجد عناصر هنا!</string>
+    <string name="deletePerson">هل تريد حذف هذا الشخص؟</string>
+    <string name="personDeleted">تم حذف الشخص بنجاح</string>
+
+    <!-- activity contacts group -->
+    <string name="btnDone">تم</string>
+    <string name="emptyGroup">لا يمكن إنشاء مجموعة فارغة!</string>
+    <string name="groupCreated">تم إنشاء المجموعة بنجاح!</string>
+
+    <!-- activity create group -->
+    <string name="btnCreate">انشاء</string>
+    <string name="createGroup">إنشاء مجموعة</string>
+    <string name="groupName">اسم المجموعة مطلوب!</string>
+    <string name="readContactsPermission">امنحنا الإذن لقراءة جهات الاتصال الخاصة بكـ!</string>
+
+    <!-- activity edit schedule message -->
+    <string name="txtViewName">اسم</string>
+    <string name="editTxtReceiverNumber">رقم المستقبل</string>
+    <string name="editTxtMessage">الرسالة</string>
+    <string name="editTxtDate">التاريخ</string>
+    <string name="editTxtTime">الوقت</string>
+    <string name="btnSMS">SMS</string>
+    <string name="btnWhatsApp">WhatsApp</string>
+    <string name="editScheduledMessages">تعديل الرسائل المجدولة</string>
+    <string name="enterValidDate">من فضلكـ ، ادخل تاريخ صحيح!</string>
+    <string name="enterValidTime">يرجى إدخال وقت صالح!</string>
+    <string name="enableAccessibility">تمكين الوصول</string>
+    <string name="accessibilitySteps">عند النقر على زر WhatsApp …\n○ قم باختيار المزيد من الخدمات التي تم تنزيلها أو الخدمات التي تم تثبيتها\n○ ثم WhatsappAccessibilityService\n○ ثم إمكانية الوصول قم بتفعيلها</string>
+    <string name="receiverNumber">رقم هاتف المُسْتَقْبِل مطلوب!</string>
+    <string name="validPhone">أدخل رقم هاتف صالح!\nأرقام فقط أو اختر من جهات الاتصال الخاصة بكـ!</string>
+    <string name="messageRequired">يجب ألا تكون الرسالة فارغة!</string>
+    <string name="messageSchedule">تمت جدولة الرسالة بنجاح!</string>
+    <string name="sendMessagePermission">امنحنا الإذن لإرسال رسائلكـ!</string>
+
+    <!-- activity forget password -->
+    <string name="editTxtEmail">البريد الإلكتروني</string>
+    <string name="btnSend">إرسال</string>
+    <string name="emailSentSuccessfully">تم إرسال البريد الإلكتروني لك بنجاح!\nمن فضلك ، تحقق من بريدك الإلكتروني.</string>
+    <string name="emailSent">أُرْسِلَ البريد الإلكتروني</string>
+    <string name="passwordReset">إعادة تعيين كلمة المرور</string>
+
+    <!-- activity schedule message -->
+    <array name="messageType">
+        <item>SMS</item>
+        <item>WhatsApp</item>
+    </array>
+    <string name="txtViewAdvancedOption">خيارات متقدمة</string>
+    <string name="selectContact">يجب تحديد جهة اتصال من الصورة الموجودة أعلى هذه الشاشة دون كتابة معلوماته!</string>
+    <string name="allContacts">سترى جميع جهات الاتصال الآن إذا ضغطت على الصورة أعلاه</string>
+    <string name="whatsAppContacts">سترى فقط جهات الاتصال التي لديها WhatsApp الآن إذا ضغطت على الصورة أعلاه!</string>
+    <string name="validPhoneNumber">أدخل رقم هاتف صالح!\مثل: 0106 320 8399\مثل: +201063208399\nأو اختر من جهات الاتصال الخاصة بك بالضغط على الصورة في أعلى هذه الشاشة!</string>
+
+    <!-- activity sign in -->
+    <string name="editTxtPassword">كلمه المرور</string>
+    <string name="txtViewForgetPassword">هل نسيت كلمة المرور؟</string>
+    <string name="btnSignIn">تسجيل الدخول</string>
+    <string name="txtViewSignInWith">تسجيل الدخول بـ</string>
+    <string name="txtViewDoNotHaveAccount">لا تملكـ حساب؟</string>
+    <string name="verifyEmail">من فضلكـ ، تحقق من عنوان بريدكـ الإلكتروني لتسجيل الدخول.</string>
+    <string name="error">خطأ</string>
+    <string name="ok">حسناََ</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="emailRequired">البريد الإلكتروني مطلوب!\nمن فضلك ، اكتب بريدك الإلكتروني!</string>
+    <string name="passwordRequired">كلمة المرور مطلوبة!\nمن فضلك ، اكتب كلمة المرور الخاصة بك!</string>
+    <string name="internetConnection">تم إغلاق نقل البيانات واتصال Wifi!\nافتح اتصال الإنترنت وحاول مرة أخرى!</string>
+
+    <!-- activity sign up -->
+    <string name="editTxtRePassword">تأكيد كلمة المرور</string>
+    <string name="btnSignUp">تسجيل</string>
+    <string name="txtViewAlreadyRegistered">هل أنت مسجل بالفعل؟</string>
+    <string name="registerSuccessfully">تم التسجيل بنجاح!\nمن فضلكـ ، تحقق من بريدكـ الإلكتروني للتحقق.</string>
+    <string name="verifyAccount">التحقق من الحساب</string>
+    <string name="authenticationFailed">فشلت المصادقة!\nهذا البريد الإلكتروني مسجل بالفعل من قبل!</string>
+    <string name="commentError">يرجى التعليق برسالة الخطأ في متجر Play لإصلاح هذا الخطأ!</string>
+    <string name="register">انشاء حساب جديد</string>
+    <string name="validEmail">مطلوب بريد إلكتروني صحيح!\nمثل: example@example.com</string>
+    <string name="passwordLength">يجب أن تتكون كلمة المرور من 6 أحرف على الأقل!</string>
+    <string name="confirmPassword">تأكيد كلمة المرور مطلوب!\nيرجى التأكد من صحة كلمة المرور الخاصة بك!</string>
+    <string name="passwordIncompatible">كلمتا مرور غير متوافقتين!</string>
+
+    <!-- activity splash -->
+    <string name="txtViewSplashActivity">Message Scheduler</string>
+
+    <!-- row contact dialogue -->
+    <string name="developerName">أحمد علي</string>
+    <string name="developerNumber">+20 106 320 8399</string>
+
+    <!-- row history person -->
+    <string name="txtViewDateFormat">12/11/2019</string>
+    <string name="txtViewDash">-</string>
+    <string name="txtViewTimeFormat">02:36</string>
+    <string name="txtViewMessage">يمكن أن تكون أي رسالة هنا</string>
+
+    <!-- bottom nav menu -->
+    <string name="itemGroups">Groups</string>
+
+    <!-- menu home -->
+    <string name="itemMenuHome">Menu Home</string>
+    <string name="itemTips">نصائح</string>
+    <string name="itemHelp">مساعدة</string>
+    <string name="itemEmailUs">ارسل لنا عبر البريد الإلكتروني</string>
+    <string name="itemCallUs">اتصل بنا</string>
+    <string name="itemRateUs">قيمنا</string>
+    <string name="itemProfile">الملف الشخصي</string>
+    <string name="itemSIM">تهيئة الشبكات</string>
+    <string name="itemSettings">إعدادات</string>
+    <string name="itemLogout">تسجيل خروج</string>
+
+    <!-- menu upcoming msg person -->
+    <string name="itemEdit">تعديل</string>
+    <string name="itemDelete">حذف</string>
+
+    <!-- activity networks -->
+    <string name="SIMName">اسم الشبكة (SIM)</string>
+    <string name="ExampleNetwork">مثل: فودافون</string>
+    <string name="Prefix">البداية</string>
+    <string name="ExamplePrefix">مثل: +2010</string>
+    <string name="simAdded">تمت إضافة بطاقة SIM بنجاح!</string>
+    <string name="configureNetworks">تهيئة الشبكات</string>
+    <string name="simName">اسم الشبكة (SIM) مطلوب!</string>
+    <string name="prefixRequired">بداية الشبكة (SIM) مطلوبة!</string>
+    <string name="prefixRestriction">يجب أن تبدأ الشبكة (SIM) بعلامة (+)!</string>
+    <string name="prefixError">يجب أن تكون بداية للشبكة (SIM) مكونة من رقمين على الأقل!\nبناءً على بلدك ، اكتب بداية الشبكة!</string>
+
+    <!-- activity schedule group message -->
+    <string name="scheduleMessages">جدولة الرسائل</string>
+
+    <!-- activity select sim -->
+    <string name="txtViewNoItemText">لا يوجد عناصر هنا!\nاضغط هنا لتهيئة الشبكات</string>
+    <string name="selectSIM">حدد الشبكة (SIM)</string>
+    <string name="deleteSIM">هل تريد حذف هذه البطاقة SIM؟</string>
+    <string name="simDeleted">تم حذف بطاقة SIM بنجاح!</string>
+
+    <!-- activity tips -->
+    <string name="txtViewWarning">قد يمنع جهازكـ هذا البرنامج (Message Scheduler) من العمل بشكل صحيح في الأوقات المجدولة إذا كان لديه ميزات إدارة تطبيق البطارية أو عمليات الخلفية</string>
+    <string name="txtViewXiaomi">إعدادات جهاز XIAOMI</string>
+    <string name="textViewAutoStart">البدء التلقائي (هام)</string>
+    <string name="textViewStepAutoStart">افتح إعدادات الهاتف> الأذونات> البدء التلقائي> شغّل برنامج Message Scheduler.</string>
+    <string name="textViewBatterySaver">حافظ البطارية</string>
+    <string name="textViewStepBatterySaver">افتح إعدادات الهاتف> البطارية والأداء> اختر التطبيقات> اختر Message Scheduler> اختر لا قيود.</string>
+    <string name="textViewBatteryOptimization">تحسين البطارية</string>
+    <string name="textViewBatteryOptimizationText">يمكن أن يساعد تعطيل تحسين البطارية لتطبيق Message Scheduler في مساعدة التطبيق على العمل بشكل أكثر موثوقية على Android 6.0 والإصدارات الأحدث.\nيرجى ملاحظة أن Message Scheduler لا يستهلكـ الكثير من البطارية.</string>
+    <string name="btnDoItNow">افعلها الآن</string>
+    <string name="textViewRecommendations">توصيات أخرى</string>
+    <string name="textViewRecommendationsOne">* نظراََ لأن الإعدادات قد تكون مختلفة على جهازكـ ، نوصي بإعادة التحقق مرة أخرى من إعدادات الهاتف> التطبيقات> Message Scheduler> البطارية> والتأكد من السماح بتشغيل برنامج Message Scheduler في الخلفية وعدم تقييده بواسطة البطارية الاقوي.</string>
+    <string name="textViewRecommendationsTwo">* إذا كان جهازكـ يتضمن بعض تطبيقات Battery Saver أو Cleanup (على سبيل المثال: Cleanmaster و CM Suite و CCleaner و Battery Doctor و Greenify و Amplify) فتأكد من إضافة Message Scheduler إلى القائمة البيضاء.</string>
+    <string name="textViewRecommendationsThree">* يُوصى بشدة بتمكين وضع التنبيه على إعدادات التطبيق> متقدم.</string>
+    <string name="tips">نصائح</string>
+
+    <!-- activity groups -->
+    <string name="txtViewNoItemAddGroup">لا توجد مجموعات!\nاضغط هنا لإضافة مجموعة</string>
+    <string name="deleteGroup">هل تريد حذف هذه المجموعة؟</string>
+    <string name="yes">نعم</string>
+    <string name="confirmGroupDeletion">تم حذف المجموعة بنجاح!</string>
+    <string name="no">لا</string>
+    <string name="deleteMsg">هل تريد حذف هذه الرسالة؟</string>
+    <string name="confirmMsgDeletion">تم حذف الرسالة بنجاح!</string>
+    <string name="sendMsgNow">تمت جدولة الرسالة بنجاح للآن!</string>
+    <string name="selectGroup">اختر مجموعة</string>
+</resources>

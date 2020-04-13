@@ -24,7 +24,7 @@ class ContactsGroupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contacts_group)
 
-        toolbar.title = "Create Group"
+        toolbar.setTitle(R.string.createGroup)
         setSupportActionBar(toolbar)
 
         groupId = intent?.extras?.getString("groupId")!!

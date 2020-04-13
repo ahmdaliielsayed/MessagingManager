@@ -73,7 +73,7 @@ class EditScheduleMessageActivity : AppCompatActivity() {
         editScheduleMessageViewModel = ViewModelProviders.of(this, EditScheduleMessageViewModelFactory(this@EditScheduleMessageActivity))
             .get(EditScheduleMessageViewModel::class.java)
 
-        toolbar.title = "Edit Scheduled Messages"
+        toolbar.setTitle(R.string.editScheduledMessages)
         setSupportActionBar(toolbar)
 
         /*** date ***/
@@ -113,8 +113,7 @@ class EditScheduleMessageActivity : AppCompatActivity() {
                 } catch (e: ParseException) {
                     e.printStackTrace()
                 }
-                myDateCheck!!.before(date) -> Toast.makeText(this@EditScheduleMessageActivity,
-                    "Please, Enter a valid Date!", Toast.LENGTH_LONG).show()
+                myDateCheck!!.before(date) -> Toast.makeText(this@EditScheduleMessageActivity, R.string.enterValidDate, Toast.LENGTH_LONG).show()
                 else -> {
                     editTxtDate.setText(startDate)
                     editTxtTime.setText("")
@@ -149,8 +148,7 @@ class EditScheduleMessageActivity : AppCompatActivity() {
                     myRealCalender.set(Calendar.MINUTE, minutes)
 
                     if (myRealCalender.time.before(myCalInstance.time)) {
-                        Toast.makeText(this@EditScheduleMessageActivity,
-                            "Please, Enter a valid Time!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@EditScheduleMessageActivity, R.string.enterValidTime, Toast.LENGTH_LONG).show()
                     } else {
                         hours1 = hourOfDay
                         min1 = minutes
@@ -190,10 +188,10 @@ class EditScheduleMessageActivity : AppCompatActivity() {
                 editScheduleWhatsAppMessage()
             } else {
                 AlertDialog.Builder(this@EditScheduleMessageActivity)
-                    .setTitle("Enable Accessibility")
-                    .setMessage("When clicking on WhatsApp Button …\n○ More downloaded services\n○ WhatsappAccessibilityService\n○ enable Accessibility")
+                    .setTitle(R.string.enableAccessibility)
+                    .setMessage(R.string.accessibilitySteps)
                     .setIcon(R.drawable.ic_check_circle_green_24dp)
-                    .setPositiveButton("Ok") { _, _ ->
+                    .setPositiveButton(R.string.ok) { _, _ ->
                         startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
                     }
                     .show()
@@ -302,22 +300,22 @@ class EditScheduleMessageActivity : AppCompatActivity() {
         var valid = true
 
         if (phoneNum.isEmpty() || phoneNum.isBlank()){
-            editTxtReceiverNumber.error = "Receiver Phone Number Required!"
+            editTxtReceiverNumber.error = getText(R.string.receiverNumber)
             editTxtReceiverNumber.requestFocus()
             valid = false
         } else if (TextUtils.isDigitsOnly(phoneNum) || !Patterns.PHONE.matcher(phoneNum).matches()){
-            editTxtReceiverNumber.error = "Enter a valid phone number!\nDigits only or choose from your contacts!"
+            editTxtReceiverNumber.error = getText(R.string.validPhone)
             editTxtReceiverNumber.requestFocus()
             valid = false
         } else if (smsMessage.isEmpty() || smsMessage.isBlank()){
-            editTxtMessage.error = "Message mustn't be empty!"
+            editTxtMessage.error = getText(R.string.messageRequired)
             editTxtMessage.requestFocus()
             valid = false
         } else if (editTxtDate.text.toString().trim().isEmpty()){
-            Toast.makeText(this@EditScheduleMessageActivity, "Enter a valid Date!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@EditScheduleMessageActivity, R.string.enterValidDate, Toast.LENGTH_SHORT).show()
             valid = false
         } else if (editTxtTime.text.toString().trim().isEmpty()){
-            Toast.makeText(this@EditScheduleMessageActivity, "Enter a valid Time!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@EditScheduleMessageActivity, R.string.enterValidTime, Toast.LENGTH_SHORT).show()
             valid = false
         }
 
@@ -359,7 +357,7 @@ class EditScheduleMessageActivity : AppCompatActivity() {
             }
         }
 
-        Toast.makeText(this@EditScheduleMessageActivity, "Message scheduled successfully!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@EditScheduleMessageActivity, R.string.messageSchedule, Toast.LENGTH_SHORT).show()
         finish()
     }
 
@@ -397,7 +395,7 @@ class EditScheduleMessageActivity : AppCompatActivity() {
             }
         }
 
-        Toast.makeText(this@EditScheduleMessageActivity, "Message scheduled successfully!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@EditScheduleMessageActivity, R.string.messageSchedule, Toast.LENGTH_SHORT).show()
         finish()
     }
 
@@ -409,7 +407,7 @@ class EditScheduleMessageActivity : AppCompatActivity() {
                 if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     editScheduleSMSMessage()
                 } else {
-                    Toast.makeText(this@EditScheduleMessageActivity, "Give us the permission to send your messages!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@EditScheduleMessageActivity, R.string.sendMessagePermission, Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -417,7 +415,7 @@ class EditScheduleMessageActivity : AppCompatActivity() {
                 if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     readContacts()
                 } else {
-                    Toast.makeText(this@EditScheduleMessageActivity, "Give us the permission to read your contacts!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@EditScheduleMessageActivity, R.string.readContactsPermission, Toast.LENGTH_LONG).show()
                 }
             }
         }

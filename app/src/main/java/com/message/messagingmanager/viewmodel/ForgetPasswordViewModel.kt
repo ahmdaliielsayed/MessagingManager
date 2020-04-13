@@ -12,11 +12,11 @@ class ForgetPasswordViewModel(private var forgetPasswordActivity: ForgetPassword
         fireBaseRepository.changePasswordRepository(email)
     }
 
-    fun setMsgAlertSuccess(msg: String) {
-        forgetPasswordActivity.setMsgAlertSuccess(msg)
+    fun setMsgAlert(msg: Int) {
+        forgetPasswordActivity.setMsgAlert(msg)
     }
 
-    fun setMsgAlertError(msg: String) {
-        forgetPasswordActivity.setMsgAlertError(msg)
+    fun setMsgAlert(msg: String) {
+        forgetPasswordActivity.setMsgAlert(msg)
     }
 }

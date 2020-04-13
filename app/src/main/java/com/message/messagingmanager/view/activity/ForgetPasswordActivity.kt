@@ -22,7 +22,7 @@ class ForgetPasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forget_password)
 
-        toolbar.title = "Forget Password"
+        toolbar.setTitle(R.string.passwordReset)
         setSupportActionBar(toolbar)
 
         forgetPasswordViewModel = ViewModelProviders.of(this, ForgetPasswordViewModelFactory(this@ForgetPasswordActivity))
@@ -34,15 +34,15 @@ class ForgetPasswordActivity : AppCompatActivity() {
             val email = editTxtEmailForgetPassword.text.toString().trim()
 
             if (email.isEmpty()) {
-                editTxtEmailForgetPassword.error = "Email Required!\nPlease, Type your Email!"
+                editTxtEmailForgetPassword.error = getText(R.string.emailRequired)
                 editTxtEmailForgetPassword.requestFocus()
                 return@setOnClickListener
             } else if (!isNetworkConnected()) {
                 AlertDialog.Builder(this@ForgetPasswordActivity)
-                    .setTitle("Error")
-                    .setMessage("Your Data transfer and Wifi connection closed!\nOpen Internet Connection and try again!")
+                    .setTitle(R.string.error)
+                    .setMessage(R.string.internetConnection)
                     .setIcon(R.drawable.cancel)
-                    .setPositiveButton("Ok") { _, _ -> }
+                    .setPositiveButton(R.string.ok) { _, _ -> }
                     .show()
                 return@setOnClickListener
             } else {
@@ -60,19 +60,19 @@ class ForgetPasswordActivity : AppCompatActivity() {
         return connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo!!.isConnected
     }
 
-    fun setMsgAlertSuccess(msg: String) {
+    fun setMsgAlert(msg: Int) {
         progressBar.visibility = View.GONE
         AlertDialog.Builder(this@ForgetPasswordActivity)
-            .setTitle("Email sent")
+            .setTitle(R.string.emailSent)
             .setMessage(msg)
             .setIcon(R.drawable.ic_check_circle_green_24dp)
-            .setPositiveButton("Ok") { _, _ ->
+            .setPositiveButton(R.string.ok) { _, _ ->
                 finish()
             }
             .show()
     }
 
-    fun setMsgAlertError(msg: String) {
+    fun setMsgAlert(msg: String) {
         progressBar.visibility = View.GONE
         AlertDialog.Builder(this@ForgetPasswordActivity)
             .setTitle("Error")

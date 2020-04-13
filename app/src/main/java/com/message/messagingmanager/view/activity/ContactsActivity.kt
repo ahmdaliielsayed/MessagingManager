@@ -35,7 +35,7 @@ class ContactsActivity : AppCompatActivity() {
 
         spinnerValue = intent.extras!!.getString("spinnerValue")!!
 
-        toolbar.title = "Select Receiver"
+        toolbar.setTitle(R.string.selectReceiver)
         setSupportActionBar(toolbar)
 
         getContacts()

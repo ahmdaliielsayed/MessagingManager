@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.message.messagingmanager.R
 import com.message.messagingmanager.model.Group
 import com.message.messagingmanager.model.Message
 import com.message.messagingmanager.model.SIM
@@ -35,7 +36,7 @@ class FireBaseRepository {
                     if (mAuth.currentUser!!.isEmailVerified) {
                         signInViewModel.openHomeActivity()
                     } else {
-                        signInViewModel.setMsgAlert("Please, verify your email address to login.")
+                        signInViewModel.setMsgAlert(R.string.verifyEmail)
                     }
                 } else {
                     task.exception?.message?.let {
@@ -57,17 +58,15 @@ class FireBaseRepository {
                     task.isSuccessful -> mAuth.currentUser!!.sendEmailVerification()
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                signUpViewModel.setMsgToast("Registered Successfully\nPlease, check your email for verification.")
+                                signUpViewModel.setMsgAlert(R.string.registerSuccessfully)
                             } else {
                                 task.exception?.message?.let {
                                     signUpViewModel.setMsgAlert(it)
                                 }
                             }
                         }
-                    task.exception is FirebaseAuthUserCollisionException -> signUpViewModel.setMsgAlert(
-                        "Authentication Failed!\nThis Email already registered before!"
-                    )
-                    else -> signUpViewModel.setMsgAlert("Please, comment with error on play store to fix this error!")
+                    task.exception is FirebaseAuthUserCollisionException -> signUpViewModel.setMsgAlert(R.string.authenticationFailed)
+                    else -> signUpViewModel.setMsgAlert(R.string.commentError)
                 }
             }
     }
@@ -80,10 +79,10 @@ class FireBaseRepository {
         mAuth.sendPasswordResetEmail(email)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    forgetPasswordViewModel.setMsgAlertSuccess("Email sent to you Successfully!\nPlease, check your email inbox.")
+                    forgetPasswordViewModel.setMsgAlert(R.string.emailSentSuccessfully)
                 } else {
                     task.exception?.message?.let {
-                        forgetPasswordViewModel.setMsgAlertError(it)
+                        forgetPasswordViewModel.setMsgAlert(it)
                     }
                 }
             }
@@ -180,6 +179,6 @@ class FireBaseRepository {
         val sim = SIM(simId, SIMName, SIMPrefix, FirebaseAuth.getInstance().currentUser!!.uid)
         databaseReferenceSIM.child(simId).setValue(sim)
 
-        networksViewModel.setMsgToast("SIM Added Successfully!")
+        networksViewModel.setMsgToast(R.string.simAdded)
     }
 }

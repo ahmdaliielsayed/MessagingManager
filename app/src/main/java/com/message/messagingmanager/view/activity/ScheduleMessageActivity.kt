@@ -79,7 +79,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
         txtViewPersonName.text = name
         editTxtReceiverNumber.setText(phone)
 
-        toolbar.title = "Schedule Messages"
+        toolbar.setTitle(R.string.scheduleMessages)
         setSupportActionBar(toolbar)
 
         /*** date ***/
@@ -119,8 +119,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
                     } catch (e: ParseException) {
                         e.printStackTrace()
                     }
-                    myDateCheck!!.before(date) -> Toast.makeText(this@ScheduleMessageActivity,
-                        "Please, Enter a valid Date!", Toast.LENGTH_LONG).show()
+                    myDateCheck!!.before(date) -> Toast.makeText(this@ScheduleMessageActivity, R.string.enterValidDate, Toast.LENGTH_LONG).show()
                     else -> {
                         editTxtDate.setText(startDate)
                         editTxtTime.setText("")
@@ -155,8 +154,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
                     myRealCalender.set(Calendar.MINUTE, minutes)
 
                     if (myRealCalender.time.before(myCalInstance.time)) {
-                        Toast.makeText(this@ScheduleMessageActivity,
-                            "Please, Enter a valid Time!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@ScheduleMessageActivity, R.string.enterValidTime, Toast.LENGTH_LONG).show()
                     } else {
                         hours1 = hourOfDay
                         min1 = minutes
@@ -195,10 +193,10 @@ class ScheduleMessageActivity : AppCompatActivity() {
             if (isAccessibilityOn(this@ScheduleMessageActivity, WhatsappAccessibilityService::class.java)) {
                 if (txtViewPersonName.text.toString().trim() == "No Name!") {
                     AlertDialog.Builder(this@ScheduleMessageActivity)
-                        .setTitle("Select Receiver")
-                        .setMessage("You must select contact from the image on top of this screen not typing his info!")
+                        .setTitle(R.string.selectReceiver)
+                        .setMessage(R.string.selectContact)
                         .setIcon(R.drawable.cancel)
-                        .setPositiveButton("Ok") { _, _ ->
+                        .setPositiveButton(R.string.ok) { _, _ ->
                             val permissionCheck: Int = ContextCompat.checkSelfPermission(this@ScheduleMessageActivity, Manifest.permission.READ_CONTACTS)
                             if (permissionCheck == PackageManager.PERMISSION_GRANTED){
                                 readContacts()
@@ -212,10 +210,10 @@ class ScheduleMessageActivity : AppCompatActivity() {
                 }
             } else {
                 AlertDialog.Builder(this@ScheduleMessageActivity)
-                    .setTitle("Enable Accessibility")
-                    .setMessage("When clicking on WhatsApp Button …\n○ More downloaded services\n○ WhatsappAccessibilityService\n○ enable Accessibility")
+                    .setTitle(R.string.enableAccessibility)
+                    .setMessage(R.string.accessibilitySteps)
                     .setIcon(R.drawable.ic_check_circle_green_24dp)
-                    .setPositiveButton("Ok") { _, _ ->
+                    .setPositiveButton(R.string.ok) { _, _ ->
                         startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
                     }
                     .show()
@@ -241,17 +239,13 @@ class ScheduleMessageActivity : AppCompatActivity() {
             override fun onItemSelected(adapterView: AdapterView<*>, view: View, i: Int, l: Long) {
                 when (i) {
                     0 -> {
-                        Toast.makeText(this@ScheduleMessageActivity,
-                            "You will see all contacts now if you press on the image above!",
-                            Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@ScheduleMessageActivity, R.string.allContacts, Toast.LENGTH_LONG).show()
                         spinnerValue = "SMS"
                         btnSMS.visibility = View.VISIBLE
                         btnWhatsApp.visibility = View.GONE
                     }
                     1 -> {
-                        Toast.makeText(this@ScheduleMessageActivity,
-                            "You will see only contacts that have WhatsApp now if you press on the image above!",
-                            Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@ScheduleMessageActivity, R.string.whatsAppContacts, Toast.LENGTH_LONG).show()
                         spinnerValue = "WhatsApp"
                         btnSMS.visibility = View.GONE
                         btnWhatsApp.visibility = View.VISIBLE
@@ -330,22 +324,22 @@ class ScheduleMessageActivity : AppCompatActivity() {
         var valid = true
 
         if (phoneNum.isEmpty() || phoneNum.isBlank()){
-            editTxtReceiverNumber.error = "Receiver Phone Number Required!"
+            editTxtReceiverNumber.error = getText(R.string.receiverNumber)
             editTxtReceiverNumber.requestFocus()
             valid = false
         } else if (TextUtils.isDigitsOnly(phoneNum) || !Patterns.PHONE.matcher(phoneNum).matches()){
-            editTxtReceiverNumber.error = "Enter a valid phone number!\nLIKE: 0106 320 8399\nLIKE: +201063208399\nor choose from your contacts by pressing on image on top of this screen!"
+            editTxtReceiverNumber.error = getText(R.string.validPhoneNumber)
             editTxtReceiverNumber.requestFocus()
             valid = false
         } else if (smsMessage.isEmpty() || smsMessage.isBlank()){
-            editTxtMessage.error = "Message mustn't be empty!"
+            editTxtMessage.error = getText(R.string.messageRequired)
             editTxtMessage.requestFocus()
             valid = false
         } else if (editTxtDate.text.toString().trim().isEmpty()){
-            Toast.makeText(this@ScheduleMessageActivity, "Enter a valid Date!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ScheduleMessageActivity, R.string.enterValidDate, Toast.LENGTH_SHORT).show()
             valid = false
         } else if (editTxtTime.text.toString().trim().isEmpty()){
-            Toast.makeText(this@ScheduleMessageActivity, "Enter a valid Time!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ScheduleMessageActivity, R.string.enterValidTime, Toast.LENGTH_SHORT).show()
             valid = false
         }
 
@@ -379,7 +373,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendarAlarm.timeInMillis, pendingIntent)
         }
 
-        Toast.makeText(this@ScheduleMessageActivity, "Message scheduled successfully!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@ScheduleMessageActivity, R.string.messageSchedule, Toast.LENGTH_SHORT).show()
         finish()
     }
 
@@ -409,7 +403,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendarAlarm.timeInMillis, pendingIntent)
         }
 
-        Toast.makeText(this@ScheduleMessageActivity, "Message scheduled successfully!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@ScheduleMessageActivity, R.string.messageSchedule, Toast.LENGTH_SHORT).show()
         finish()
     }
 
@@ -421,7 +415,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
                 if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     scheduleSMSMessage()
                 } else {
-                    Toast.makeText(this@ScheduleMessageActivity, "Give us the permission to send your messages!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@ScheduleMessageActivity, R.string.sendMessagePermission, Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -429,7 +423,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
                 if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     readContacts()
                 } else {
-                    Toast.makeText(this@ScheduleMessageActivity, "Give us the permission to read your contacts!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@ScheduleMessageActivity, R.string.readContactsPermission, Toast.LENGTH_LONG).show()
                 }
             }
         }

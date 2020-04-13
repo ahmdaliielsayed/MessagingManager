@@ -60,8 +60,8 @@ class GroupsViewModel(internal var context: Activity) :
 
         holder.getImgViewDeleteGroup()!!.setOnClickListener {
             val builder = AlertDialog.Builder(context)
-            builder.setMessage("R U sure to delete this group?")
-            builder.setPositiveButton("Yes") { _, _ ->
+            builder.setMessage(R.string.deleteGroup)
+            builder.setPositiveButton(R.string.yes) { _, _ ->
                 databaseGroup.child(group.getGroupId()).removeValue()
 
                 // delete related contacts
@@ -81,12 +81,12 @@ class GroupsViewModel(internal var context: Activity) :
                     }
                 })
 
-                Toast.makeText(context, "Group Deleted Successfully!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.confirmGroupDeletion, Toast.LENGTH_SHORT).show()
 
                 dataModelList.remove(group)
                 setDataToAdapter(dataModelList)
             }
-            builder.setNegativeButton("No") { dialogInterface, _ -> dialogInterface.cancel() }
+            builder.setNegativeButton(R.string.no) { dialogInterface, _ -> dialogInterface.cancel() }
 
             val alertDialog = builder.create()
             if (Build.VERSION.SDK_INT >= 26) {

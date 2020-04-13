@@ -37,12 +37,12 @@ class SIMAdapter(internal var context: Context) :
 
         holder.getIvDelete()!!.setOnClickListener {
             val builder = AlertDialog.Builder(context)
-            builder.setMessage("R U sure to delete this SIM?")
-            builder.setPositiveButton("Yes") { _, _ ->
+            builder.setMessage(R.string.deleteSIM)
+            builder.setPositiveButton(R.string.yes) { _, _ ->
                 databaseSIM.child(sim.getSimId()).removeValue()
-                Toast.makeText(context, "SIM deleted successfully!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.simDeleted, Toast.LENGTH_SHORT).show()
             }
-            builder.setNegativeButton("No") { dialogInterface, _ -> dialogInterface.cancel() }
+            builder.setNegativeButton(R.string.no) { dialogInterface, _ -> dialogInterface.cancel() }
 
             val alertDialog = builder.create()
             if (Build.VERSION.SDK_INT >= 26) {

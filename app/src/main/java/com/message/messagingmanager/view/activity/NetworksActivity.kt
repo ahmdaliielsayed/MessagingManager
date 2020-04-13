@@ -32,7 +32,7 @@ class NetworksActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_networks)
 
-        toolbar.title = "Configure Networks"
+        toolbar.setTitle(R.string.configureNetworks)
         setSupportActionBar(toolbar)
 
         networksViewModel = ViewModelProviders.of(this, NetworksViewModelFactory(this@NetworksActivity))
@@ -44,19 +44,19 @@ class NetworksActivity : AppCompatActivity() {
         btnAddPlus.setOnClickListener {
             when {
                 editTxtAddNetwork.text.toString().trim() == "" -> {
-                    editTxtAddNetwork.error = "Network(SIM) Name required!"             // getText(R.string.emptyNote)
+                    editTxtAddNetwork.error = getText(R.string.simName)
                     editTxtAddNetwork.requestFocus()
                 }
                 editTxtAddPrefix.text.toString().trim() == "" -> {
-                    editTxtAddPrefix.error = "Prefix of Network(SIM) required!"
+                    editTxtAddPrefix.error = getText(R.string.prefixRequired)
                     editTxtAddPrefix.requestFocus()
                 }
                 !editTxtAddPrefix.text.toString().startsWith("+") -> {
-                    editTxtAddPrefix.error = "Prefix of Network(SIM) should starts with sign (+)!"
+                    editTxtAddPrefix.error = getText(R.string.prefixRestriction)
                     editTxtAddPrefix.requestFocus()
                 }
                 editTxtAddPrefix.text.toString().trim().length < 2 -> {
-                    editTxtAddPrefix.error = "Prefix of Network(SIM) should be at least 2 digits!\nbased on your country, type the prefix of the network!"
+                    editTxtAddPrefix.error = getText(R.string.prefixError)
                     editTxtAddPrefix.requestFocus()
                 }
                 else -> {
@@ -68,7 +68,7 @@ class NetworksActivity : AppCompatActivity() {
         simsArrayList = ArrayList()
     }
 
-    fun setMsgToast(msg: String) {
+    fun setMsgToast(msg: Int) {
         editTxtAddNetwork.setText("")
         editTxtAddPrefix.setText("")
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -61,6 +60,7 @@
                 android:hint="@string/editTxtMessage"
                 android:inputType="textMultiLine"
                 android:paddingStart="16dp"
+                android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtViewNetworkName"
@@ -79,6 +79,7 @@
                 android:hint="@string/editTxtDate"
                 android:inputType="date"
                 android:paddingStart="16dp"
+                android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="@+id/editTxtMessage"
                 app:layout_constraintStart_toStartOf="@+id/editTxtMessage"
                 app:layout_constraintTop_toBottomOf="@+id/editTxtMessage"
@@ -97,6 +98,7 @@
                 android:hint="@string/editTxtTime"
                 android:inputType="time"
                 android:paddingStart="16dp"
+                android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="@+id/editTxtDate"
                 app:layout_constraintStart_toStartOf="@+id/editTxtDate"
                 app:layout_constraintTop_toBottomOf="@+id/editTxtDate"

@@ -25,7 +25,7 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        toolbar.title = "Register"
+        toolbar.setTitle(R.string.register)
         setSupportActionBar(toolbar)
 
         signUpViewModel = ViewModelProviders.of(this, SignUpViewModelFactory(this@SignUpActivity))
@@ -39,40 +39,39 @@ class SignUpActivity : AppCompatActivity() {
             val confirmPassword = editTxtRePasswordSignUp.text.toString().trim()
 
             if (email.isEmpty()) {
-                editTxtEmailSignUp.error = "Email Required!\nPlease, Type your Email!"
+                editTxtEmailSignUp.error = getText(R.string.emailRequired)
                 editTxtEmailSignUp.requestFocus()
                 return@setOnClickListener
             } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                editTxtEmailSignUp.error = "Valid Email Required!\nlike: example@example.com"
+                editTxtEmailSignUp.error = getText(R.string.validEmail)
                 editTxtEmailSignUp.requestFocus()
                 return@setOnClickListener
             } else if (password.isEmpty()) {
-                editTxtPasswordSignUp.error = "Password Required!\nPlease, Type your Password!"
+                editTxtPasswordSignUp.error = getText(R.string.passwordRequired)
                 editTxtPasswordSignUp.requestFocus()
                 return@setOnClickListener
             } else if (password.length < 6) {
-                editTxtPasswordSignUp.error = "Password should be at least 6 characters long!"
+                editTxtPasswordSignUp.error = getText(R.string.passwordLength)
                 editTxtPasswordSignUp.requestFocus()
                 return@setOnClickListener
             } else if (confirmPassword.isEmpty()) {
-                editTxtRePasswordSignUp.error =
-                    "Confirm Password Required!\nPlease, Confirm your Password!"
+                editTxtRePasswordSignUp.error = getText(R.string.confirmPassword)
                 editTxtRePasswordSignUp.requestFocus()
                 return@setOnClickListener
             } else if (password != confirmPassword) {
                 AlertDialog.Builder(this@SignUpActivity)
-                    .setTitle("Error")
-                    .setMessage("Two passwords incompatible!")
+                    .setTitle(R.string.error)
+                    .setMessage(R.string.passwordIncompatible)
                     .setIcon(R.drawable.cancel)
-                    .setPositiveButton("Ok") { _, _ -> }
+                    .setPositiveButton(R.string.ok) { _, _ -> }
                     .show()
                 return@setOnClickListener
             } else if (!isNetworkConnected()) {
                 AlertDialog.Builder(this@SignUpActivity)
-                    .setTitle("Error")
-                    .setMessage("Your Data transfer and Wifi connection closed!\nOpen Internet Connection and try again!")
+                    .setTitle(R.string.error)
+                    .setMessage(R.string.internetConnection)
                     .setIcon(R.drawable.cancel)
-                    .setPositiveButton("Ok") { _, _ -> }
+                    .setPositiveButton(R.string.ok) { _, _ -> }
                     .show()
                 return@setOnClickListener
             } else {
@@ -95,6 +94,21 @@ class SignUpActivity : AppCompatActivity() {
         return connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo!!.isConnected
     }
 
+    fun setMsgAlert(msg: Int) {
+        progressBar.visibility = View.GONE
+        AlertDialog.Builder(this@SignUpActivity)
+            .setTitle(R.string.verifyAccount)
+            .setMessage(msg)
+            .setIcon(R.drawable.ic_check_circle_green_24dp)
+            .setPositiveButton(R.string.ok) { _, _ ->
+                val intent = Intent(this@SignUpActivity, SignInActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                startActivity(intent)
+            }
+            .show()
+    }
+
     fun setMsgAlert(msg: String) {
         progressBar.visibility = View.GONE
         AlertDialog.Builder(this@SignUpActivity)
@@ -102,21 +116,6 @@ class SignUpActivity : AppCompatActivity() {
             .setMessage(msg)
             .setIcon(R.drawable.cancel)
             .setPositiveButton("Ok") { _, _ -> }
-            .show()
-    }
-
-    fun setMsgToast(msg: String) {
-        progressBar.visibility = View.GONE
-        AlertDialog.Builder(this@SignUpActivity)
-            .setTitle("Verify Account")
-            .setMessage(msg)
-            .setIcon(R.drawable.ic_check_circle_green_24dp)
-            .setPositiveButton("Ok") { _, _ ->
-                val intent = Intent(this@SignUpActivity, SignInActivity::class.java).apply {
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                }
-                startActivity(intent)
-            }
             .show()
     }
 

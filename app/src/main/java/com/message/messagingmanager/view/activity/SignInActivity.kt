@@ -24,7 +24,7 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
-        toolbar.title = "Login"
+        toolbar.setTitle(R.string.login)
         setSupportActionBar(toolbar)
 
         signInViewModel = ViewModelProviders.of(this, SignInViewModelFactory(this@SignInActivity))
@@ -41,19 +41,19 @@ class SignInActivity : AppCompatActivity() {
             val password = editTxtPasswordSignIn.text.toString().trim()
 
             if (email.isEmpty()) {
-                editTxtEmailSignIn.error = "Email Required!\nPlease, Type your Email!"
+                editTxtEmailSignIn.error = getText(R.string.emailRequired)
                 editTxtEmailSignIn.requestFocus()
                 return@setOnClickListener
             } else if (password.isEmpty()) {
-                editTxtPasswordSignIn.error = "Password Required!\nPlease, Type your Password!"
+                editTxtPasswordSignIn.error = getText(R.string.passwordRequired)
                 editTxtPasswordSignIn.requestFocus()
                 return@setOnClickListener
             } else if (!isNetworkConnected()) {
                 AlertDialog.Builder(this@SignInActivity)
-                    .setTitle("Error")
-                    .setMessage("Your Data transfer and Wifi connection closed!\nOpen Internet Connection and try again!")
+                    .setTitle(R.string.error)
+                    .setMessage(R.string.internetConnection)
                     .setIcon(R.drawable.cancel)
-                    .setPositiveButton("Ok") { _, _ -> }
+                    .setPositiveButton(R.string.ok) { _, _ -> }
                     .show()
                 return@setOnClickListener
             } else {
@@ -74,6 +74,16 @@ class SignInActivity : AppCompatActivity() {
             this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
         return connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo!!.isConnected
+    }
+
+    fun setMsgAlert(msg: Int) {
+        progressBar.visibility = View.GONE
+        AlertDialog.Builder(this@SignInActivity)
+            .setTitle(R.string.error)
+            .setMessage(msg)
+            .setIcon(R.drawable.cancel)
+            .setPositiveButton(R.string.ok) { _, _ -> }
+            .show()
     }
 
     fun setMsgAlert(msg: String) {

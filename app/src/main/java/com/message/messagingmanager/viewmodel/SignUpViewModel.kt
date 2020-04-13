@@ -12,8 +12,8 @@ class SignUpViewModel(private var signUpActivity: SignUpActivity) : ViewModel() 
         fireBaseRepository.signUpRepository(email, password)
     }
 
-    fun setMsgToast(msg: String) {
-        signUpActivity.setMsgToast(msg)
+    fun setMsgAlert(msg: Int) {
+        signUpActivity.setMsgAlert(msg)
     }
 
     fun setMsgAlert(msg: String) {

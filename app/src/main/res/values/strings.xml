@@ -20,19 +20,27 @@
     <string name="msg_null_pdu">Null PDU!</string>
     <string name="msg_radio_off">Radio off!</string>
     <string name="msg_not_delivered">Message not delivered!</string>
-    <string name="msg_no_whats_app_installed">WhatsApp is not install on your device!</string>
+    <string name="msg_no_whats_app_installed">WhatsApp is not installed on your device!</string>
 
-    <string name="whatsapp_suffix">_whats</string>
+    <!-- activity contacts -->
+    <string name="selectReceiver">Select Receiver</string>
 
     <!-- activity contacts dialogue -->
     <string name="txtViewGroupName">Group Name</string>
     <string name="txtViewNoItem">No Item Here!</string>
+    <string name="deletePerson">R U Sure To Delete This Person?</string>
+    <string name="personDeleted">Person Deleted Successfully</string>
 
     <!-- activity contacts group -->
     <string name="btnDone">Done</string>
+    <string name="emptyGroup">Can\'t create Empty group!</string>
+    <string name="groupCreated">Group contacts created successfully!</string>
 
     <!-- activity create group -->
     <string name="btnCreate">Create</string>
+    <string name="createGroup">Create Group</string>
+    <string name="groupName">Group Name Required!</string>
+    <string name="readContactsPermission">Give us the permission to read your contacts!</string>
 
     <!-- activity edit schedule message -->
     <string name="txtViewName">Name</string>
@@ -42,10 +50,23 @@
     <string name="editTxtTime">Time</string>
     <string name="btnSMS">SMS</string>
     <string name="btnWhatsApp">WhatsApp</string>
+    <string name="editScheduledMessages">Edit Scheduled Messages</string>
+    <string name="enterValidDate">Please, Enter a valid Date!</string>
+    <string name="enterValidTime">Please, Enter a valid Time!</string>
+    <string name="enableAccessibility">Enable Accessibility</string>
+    <string name="accessibilitySteps">When clicking on WhatsApp Button …\n○ More downloaded services\n○ WhatsappAccessibilityService\n○ enable Accessibility</string>
+    <string name="receiverNumber">Receiver Phone Number Required!</string>
+    <string name="validPhone">Enter a valid phone number!\nDigits only or choose from your contacts!</string>
+    <string name="messageRequired">Message mustn\'t be empty!</string>
+    <string name="messageSchedule">Message scheduled successfully!</string>
+    <string name="sendMessagePermission">Give us the permission to send your messages!</string>
 
     <!-- activity forget password -->
     <string name="editTxtEmail">Email</string>
     <string name="btnSend">Send</string>
+    <string name="emailSentSuccessfully">Email sent to you Successfully!\nPlease, check your email inbox.</string>
+    <string name="emailSent">Email sent</string>
+    <string name="passwordReset">Password Reset</string>
 
     <!-- activity schedule message -->
     <array name="messageType">
@@ -53,18 +74,38 @@
         <item>WhatsApp</item>
     </array>
     <string name="txtViewAdvancedOption">Advanced Options</string>
+    <string name="selectContact">You must select contact from the image on top of this screen not typing his info!</string>
+    <string name="allContacts">You will see all contacts now if you press on the image above</string>
+    <string name="whatsAppContacts">You will see only contacts that have WhatsApp now if you press on the image above!</string>
+    <string name="validPhoneNumber">Enter a valid phone number!\nLIKE: 0106 320 8399\nLIKE: +201063208399\nor choose from your contacts by pressing on image on top of this screen!</string>
 
     <!-- activity sign in -->
     <string name="editTxtPassword">Password</string>
-    <string name="txtViewForgetPassword">Forget Password?</string>
+    <string name="txtViewForgetPassword">Forgot Password?</string>
     <string name="btnSignIn">Sign In</string>
     <string name="txtViewSignInWith">Sign In With</string>
     <string name="txtViewDoNotHaveAccount">Do Not Have Account?</string>
+    <string name="verifyEmail">Please, verify your email address to login.</string>
+    <string name="error">Error</string>
+    <string name="ok">OK</string>
+    <string name="login">Login</string>
+    <string name="emailRequired">Email Required!\nPlease, Type your Email!</string>
+    <string name="passwordRequired">Password Required!\nPlease, Type your Password!</string>
+    <string name="internetConnection">Your Data transfer and Wifi connection closed!\nOpen Internet Connection and try again!</string>
 
     <!-- activity sign up -->
     <string name="editTxtRePassword">Confirm Password</string>
     <string name="btnSignUp">Register</string>
     <string name="txtViewAlreadyRegistered">Already Registered?</string>
+    <string name="registerSuccessfully">Registered Successfully\nPlease, check your email for verification.</string>
+    <string name="verifyAccount">Verify Account</string>
+    <string name="authenticationFailed">Authentication Failed!\nThis Email already registered before!</string>
+    <string name="commentError">Please, comment with error on play store to fix this error!</string>
+    <string name="register">Create new account</string>
+    <string name="validEmail">Valid Email Required!\nlike: example@example.com</string>
+    <string name="passwordLength">Password should be at least 6 characters long!</string>
+    <string name="confirmPassword">Confirm Password Required!\nPlease, Confirm your Password!</string>
+    <string name="passwordIncompatible">Two passwords incompatible!</string>
 
     <!-- activity splash -->
     <string name="txtViewSplashActivity">Message Scheduler</string>
@@ -103,12 +144,24 @@
     <string name="ExampleNetwork">LIKE: Vodafone</string>
     <string name="Prefix">Prefix</string>
     <string name="ExamplePrefix">Ex: +2010</string>
+    <string name="simAdded">SIM Added Successfully!</string>
+    <string name="configureNetworks">Configure Networks</string>
+    <string name="simName">Network(SIM) Name required!</string>
+    <string name="prefixRequired">Prefix of Network(SIM) required!</string>
+    <string name="prefixRestriction">Prefix of Network(SIM) should starts with sign (+)!</string>
+    <string name="prefixError">Prefix of Network(SIM) should be at least 2 digits!\nbased on your country, type the prefix of the network!</string>
+
+    <!-- activity schedule group message -->
+    <string name="scheduleMessages">Schedule Messages</string>
 
     <!-- activity select sim -->
     <string name="txtViewNoItemText">No Item Here!\nPress here to add Networks</string>
+    <string name="selectSIM">Select Network(SIM)</string>
+    <string name="deleteSIM">R U sure to delete this SIM?</string>
+    <string name="simDeleted">SIM deleted successfully!</string>
 
     <!-- activity tips -->
-    <string name="txtViewWarning">Your device may prevent this program (SMS Scheduler) from working properly at its scheduled times if it has battery application management features or background processes</string>
+    <string name="txtViewWarning">Your device may prevent this program (Messaging Manager) from working properly at its scheduled times if it has battery application management features or background processes</string>
     <string name="txtViewXiaomi">XIAOMI\'S DEVICE SETTINGS</string>
     <string name="textViewAutoStart">Auto Start (Important)</string>
     <string name="textViewStepAutoStart">Open Phone Settings > Permissions > Auto-Start > turn on for Message Scheduler.</string>
@@ -121,7 +174,16 @@
     <string name="textViewRecommendationsOne">* Because the setting may be different on your devices, so we\'d recommend that you recheck again on Phone Settings > Apps > Message Scheduler > Battery > and make sure that Message Scheduler is allowed to run as background and isn\'t restricted by Battery Optimization.</string>
     <string name="textViewRecommendationsTwo">* If your device includes some Battery Saver or Cleanup apps(for example: Cleanmaster, CM Suite, CCleaner, Battery Doctor, Greenify, and Amplify) make sure that Message Scheduler is added to whitelist.</string>
     <string name="textViewRecommendationsThree">* Enable Alert mode on App Settings > Advanced is strongly recommended.</string>
+    <string name="tips">Tips</string>
 
     <!-- activity groups -->
     <string name="txtViewNoItemAddGroup">No Groups!\nClick Here to add Group</string>
+    <string name="deleteGroup">R U sure to delete this group?</string>
+    <string name="yes">Yes</string>
+    <string name="confirmGroupDeletion">Group Deleted Successfully!</string>
+    <string name="no">No</string>
+    <string name="deleteMsg">R U Sure to delete this message?</string>
+    <string name="confirmMsgDeletion">Message Deleted Successfully!</string>
+    <string name="sendMsgNow">Message scheduled Successfully to now!</string>
+    <string name="selectGroup">Select Group</string>
 </resources>

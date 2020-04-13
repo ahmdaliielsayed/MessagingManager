@@ -35,7 +35,7 @@ class ContactsEditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contacts_edit)
 
-        toolbar.title = "Select Receiver"
+        toolbar.setTitle(R.string.selectReceiver)
         setSupportActionBar(toolbar)
 
         smsId = intent.getStringExtra("SmsId")

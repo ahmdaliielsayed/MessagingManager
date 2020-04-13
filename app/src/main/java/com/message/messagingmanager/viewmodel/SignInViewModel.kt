@@ -24,4 +24,8 @@ class SignInViewModel(private var signInActivity: SignInActivity) : ViewModel() 
     fun setMsgAlert(msg: String) {
         signInActivity.setMsgAlert(msg)
     }
+
+    fun setMsgAlert(msg: Int) {
+        signInActivity.setMsgAlert(msg)
+    }
 }

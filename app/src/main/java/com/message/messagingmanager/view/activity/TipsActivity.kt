@@ -19,7 +19,7 @@ class TipsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tips)
 
-        toolbar.title = "Tips"
+        toolbar.setTitle(R.string.tips)
         setSupportActionBar(toolbar)
 
         btnDoItNow.setOnClickListener {

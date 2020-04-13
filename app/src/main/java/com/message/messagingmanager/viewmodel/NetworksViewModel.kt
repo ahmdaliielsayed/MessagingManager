@@ -12,7 +12,7 @@ class NetworksViewModel(private var networksActivity: NetworksActivity) : ViewMo
         fireBaseRepository.addSIMRepository(SIMName, SIMPrefix)
     }
 
-    fun setMsgToast(msg: String) {
+    fun setMsgToast(msg: Int) {
         networksActivity.setMsgToast(msg)
     }
 }

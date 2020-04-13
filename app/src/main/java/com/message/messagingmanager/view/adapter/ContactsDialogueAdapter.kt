@@ -38,12 +38,12 @@ class ContactsDialogueAdapter(internal var context: Context) :
 
         holder.getIvDelete()!!.setOnClickListener {
             val builder = AlertDialog.Builder(context)
-            builder.setMessage("R Y Sure To Delete This Person?")
-            builder.setPositiveButton("Yes") { _, _ ->
+            builder.setMessage(R.string.deletePerson)
+            builder.setPositiveButton(R.string.yes) { _, _ ->
                 databaseReferenceContacts.child(contact.getContactId()).removeValue()
-                Toast.makeText(context, "Person Deleted Successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.personDeleted, Toast.LENGTH_SHORT).show()
             }
-            builder.setNegativeButton("No") { dialogInterface, _ -> dialogInterface.cancel() }
+            builder.setNegativeButton(R.string.no) { dialogInterface, _ -> dialogInterface.cancel() }
 
             val alertDialog = builder.create()
             if (Build.VERSION.SDK_INT >= 26) {

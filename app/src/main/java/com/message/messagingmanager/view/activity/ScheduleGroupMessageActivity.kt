@@ -104,7 +104,7 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
         groupName = intent.getStringExtra("groupName")
         txtViewGroupName.text = groupName
 
-        toolbar.title = "Schedule Messages"
+        toolbar.setTitle(R.string.scheduleMessages)
         setSupportActionBar(toolbar)
 
         /*** date ***/
@@ -147,8 +147,7 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
                     e.printStackTrace()
                 }
                 myDateCheck!!.before(date) -> Toast.makeText(
-                    this@ScheduleGroupMessageActivity,
-                    "Please, Enter a valid Date!", Toast.LENGTH_LONG
+                    this@ScheduleGroupMessageActivity, R.string.enterValidDate, Toast.LENGTH_LONG
                 ).show()
                 else -> {
                     editTxtDate.setText(startDate)
@@ -187,8 +186,7 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
 
                     if (myRealCalender.time.before(myCalInstance.time)) {
                         Toast.makeText(
-                            this@ScheduleGroupMessageActivity,
-                            "Please, Enter a valid Time!", Toast.LENGTH_LONG
+                            this@ScheduleGroupMessageActivity, R.string.enterValidTime, Toast.LENGTH_LONG
                         ).show()
                     } else {
                         hours1 = hourOfDay
@@ -235,10 +233,10 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
                 scheduleWhatsAppMessage()
             } else {
                 AlertDialog.Builder(this@ScheduleGroupMessageActivity)
-                    .setTitle("Enable Accessibility")
-                    .setMessage("When clicking on WhatsApp Button …\n○ More downloaded services\n○ WhatsappAccessibilityService\n○ enable Accessibility")
+                    .setTitle(R.string.enableAccessibility)
+                    .setMessage(R.string.accessibilitySteps)
                     .setIcon(R.drawable.ic_check_circle_green_24dp)
-                    .setPositiveButton("Ok") { _, _ ->
+                    .setPositiveButton(R.string.ok) { _, _ ->
                         startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
                     }
                     .show()
@@ -371,22 +369,14 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
         var valid = true
 
         if (smsMessage.isEmpty() || smsMessage.isBlank()) {
-            editTxtMessage.error = "Message mustn't be empty!"
+            editTxtMessage.error = getText(R.string.messageRequired)
             editTxtMessage.requestFocus()
             valid = false
         } else if (editTxtDate.text.toString().trim().isEmpty()) {
-            Toast.makeText(
-                this@ScheduleGroupMessageActivity,
-                "Enter a valid Date!",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(this@ScheduleGroupMessageActivity, R.string.enterValidDate, Toast.LENGTH_SHORT).show()
             valid = false
         } else if (editTxtTime.text.toString().trim().isEmpty()) {
-            Toast.makeText(
-                this@ScheduleGroupMessageActivity,
-                "Enter a valid Time!",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(this@ScheduleGroupMessageActivity, R.string.enterValidTime, Toast.LENGTH_SHORT).show()
             valid = false
         }
 
@@ -427,10 +417,7 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar, pendingIntent)
         }
 
-        Toast.makeText(
-            this@ScheduleGroupMessageActivity,
-            "Message scheduled successfully!", Toast.LENGTH_SHORT
-        ).show()
+        Toast.makeText(this@ScheduleGroupMessageActivity, R.string.messageSchedule, Toast.LENGTH_SHORT).show()
         finish()
     }
 
@@ -475,10 +462,7 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar, pendingIntent)
         }
 
-        Toast.makeText(
-            this@ScheduleGroupMessageActivity,
-            "Message scheduled successfully!", Toast.LENGTH_SHORT
-        ).show()
+        Toast.makeText(this@ScheduleGroupMessageActivity, R.string.messageSchedule, Toast.LENGTH_SHORT).show()
         finish()
     }
 
@@ -494,11 +478,7 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
                 if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     scheduleSMSMessage()
                 } else {
-                    Toast.makeText(
-                        this@ScheduleGroupMessageActivity,
-                        "Give us the permission to send your messages!",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(this@ScheduleGroupMessageActivity, R.string.sendMessagePermission, Toast.LENGTH_LONG).show()
                 }
             }
         }

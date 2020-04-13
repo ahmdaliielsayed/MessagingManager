@@ -85,7 +85,7 @@ class ContactsGroupAdapter(
         contactsGroupActivity.btnDone.setOnClickListener {
             when {
                 groupContactList.isEmpty() -> {
-                    Toast.makeText(contactsGroupActivity, "Can't create Empty group!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(contactsGroupActivity, R.string.emptyGroup, Toast.LENGTH_SHORT).show()
                 }
                 else -> {
                     if (deleteGroupContactList.size > 0){
@@ -115,11 +115,7 @@ class ContactsGroupAdapter(
                         databaseReferenceContact.child(contactId).setValue(contact)
                     }
 
-                    Toast.makeText(
-                        contactsGroupActivity,
-                        "Group contacts created successfully!",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(contactsGroupActivity, R.string.groupCreated, Toast.LENGTH_SHORT).show()
                     contactsGroupActivity.startActivity(
                         Intent(
                             contactsGroupActivity,

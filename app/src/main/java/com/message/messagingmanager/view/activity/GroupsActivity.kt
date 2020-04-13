@@ -27,7 +27,7 @@ class GroupsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_groups)
 
-        toolbar.title = "Select Group"
+        toolbar.setTitle(R.string.selectGroup)
         setSupportActionBar(toolbar)
 
         databaseReferenceGroups.keepSynced(true)

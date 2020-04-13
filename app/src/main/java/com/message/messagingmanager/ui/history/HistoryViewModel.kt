@@ -66,17 +66,16 @@ class HistoryViewModel(internal var context: Context) :
 
         holder.getImageButtonPopUp()!!.setOnClickListener {
             val builder = AlertDialog.Builder(context)
-            builder.setMessage("R U Sure to delete this message?")
-            builder.setPositiveButton("Yes") { _, _ ->
+            builder.setMessage(R.string.deleteMsg)
+            builder.setPositiveButton(R.string.yes) { _, _ ->
                 databaseMsg.child(msg.getSmsId()).removeValue()
 
-                Toast.makeText(context, "Message Deleted Successfully!",
-                    Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.confirmMsgDeletion, Toast.LENGTH_SHORT).show()
 
                 dataModelList.remove(msg)
                 setDataToAdapter(dataModelList)
             }
-            builder.setNegativeButton("No") { dialogInterface, _ -> dialogInterface.cancel() }
+            builder.setNegativeButton(R.string.no) { dialogInterface, _ -> dialogInterface.cancel() }
 
             val alertDialog = builder.create()
             if (Build.VERSION.SDK_INT >= 26) {

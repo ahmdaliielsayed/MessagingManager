@@ -28,7 +28,7 @@ class SelectSIMActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_sim)
 
-        toolbar.title = "Select Network(SIM)"
+        toolbar.setTitle(R.string.selectSIM)
         setSupportActionBar(toolbar)
 
         txtViewNoItem.setOnClickListener {
