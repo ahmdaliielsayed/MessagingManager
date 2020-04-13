@@ -22,6 +22,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
@@ -211,7 +212,14 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
                 if (isAccessibilityOn(this@ScheduleNetworkMessagesActivity, WhatsappAccessibilityService::class.java)) {
                     scheduleWhatsAppMessage()
                 } else {
-                    startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                    AlertDialog.Builder(this@ScheduleNetworkMessagesActivity)
+                        .setTitle("Enable Accessibility")
+                        .setMessage("When clicking on WhatsApp Button …\n○ More downloaded services\n○ WhatsappAccessibilityService\n○ enable Accessibility")
+                        .setIcon(R.drawable.ic_check_circle_green_24dp)
+                        .setPositiveButton("Ok") { _, _ ->
+                            startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                        }
+                        .show()
                 }
             } else {
                 ActivityCompat.requestPermissions(this@ScheduleNetworkMessagesActivity, arrayOf(Manifest.permission.READ_CONTACTS), PERMISSION_REQUEST_READ_CONTACTS)

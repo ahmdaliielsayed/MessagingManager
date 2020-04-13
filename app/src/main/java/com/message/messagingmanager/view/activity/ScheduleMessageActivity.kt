@@ -201,8 +201,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
                         .setPositiveButton("Ok") { _, _ ->
                             val permissionCheck: Int = ContextCompat.checkSelfPermission(this@ScheduleMessageActivity, Manifest.permission.READ_CONTACTS)
                             if (permissionCheck == PackageManager.PERMISSION_GRANTED){
-                                startActivity(Intent(this@ScheduleMessageActivity, ContactsActivity::class.java))
-                                finish()
+                                readContacts()
                             } else {
                                 ActivityCompat.requestPermissions(this@ScheduleMessageActivity, arrayOf(Manifest.permission.READ_CONTACTS), PERMISSION_REQUEST_READ_CONTACTS)
                             }
@@ -212,7 +211,14 @@ class ScheduleMessageActivity : AppCompatActivity() {
                     scheduleWhatsAppMessage()
                 }
             } else {
-                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                AlertDialog.Builder(this@ScheduleMessageActivity)
+                    .setTitle("Enable Accessibility")
+                    .setMessage("When clicking on WhatsApp Button …\n○ More downloaded services\n○ WhatsappAccessibilityService\n○ enable Accessibility")
+                    .setIcon(R.drawable.ic_check_circle_green_24dp)
+                    .setPositiveButton("Ok") { _, _ ->
+                        startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                    }
+                    .show()
             }
         }
 

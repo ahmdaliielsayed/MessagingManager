@@ -69,17 +69,17 @@ class HomeActivity : AppCompatActivity() {
             R.id.item_emailUs -> {
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.data = Uri.parse("email")
-                val s = arrayOf("ahmedali666680@yahoo.com", "fekragdida500@gmail.com")
+                val s = arrayOf("fekragdida500@gmail.com")
                 intent.putExtra(Intent.EXTRA_EMAIL, s)
                 intent.type = "message/rfc822"
                 val chooser = Intent.createChooser(intent, "Launch Gmail")
                 startActivity(chooser)
             }
-            R.id.item_callUs -> {
-                val intent = Intent(Intent.ACTION_DIAL)
-                intent.data = Uri.parse("tel:+201063208399")
-                startActivity(intent)
-            }
+//            R.id.item_callUs -> {
+//                val intent = Intent(Intent.ACTION_DIAL)
+//                intent.data = Uri.parse("tel:+201063208399")
+//                startActivity(intent)
+//            }
             R.id.item_SIM -> {
                 startActivity(Intent(this@HomeActivity, NetworksActivity::class.java))
             }

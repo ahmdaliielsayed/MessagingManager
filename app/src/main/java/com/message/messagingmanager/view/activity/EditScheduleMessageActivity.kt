@@ -20,6 +20,7 @@ import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
@@ -188,7 +189,14 @@ class EditScheduleMessageActivity : AppCompatActivity() {
             if (isAccessibilityOn(this@EditScheduleMessageActivity, WhatsappAccessibilityService::class.java)) {
                 editScheduleWhatsAppMessage()
             } else {
-                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                AlertDialog.Builder(this@EditScheduleMessageActivity)
+                    .setTitle("Enable Accessibility")
+                    .setMessage("When clicking on WhatsApp Button …\n○ More downloaded services\n○ WhatsappAccessibilityService\n○ enable Accessibility")
+                    .setIcon(R.drawable.ic_check_circle_green_24dp)
+                    .setPositiveButton("Ok") { _, _ ->
+                        startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                    }
+                    .show()
             }
         }
 

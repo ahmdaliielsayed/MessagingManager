@@ -31,12 +31,12 @@
                 android:icon="@drawable/ic_contact_mail_baby_blue_24dp"
                 app:showAsAction="never" />
 
-            <item
-                android:id="@+id/item_callUs"
-                android:title="@string/itemCallUs"
-                android:orderInCategory="100"
-                android:icon="@drawable/ic_contact_phone_baby_blue_24dp"
-                app:showAsAction="never" />
+<!--            <item-->
+<!--                android:id="@+id/item_callUs"-->
+<!--                android:title="@string/itemCallUs"-->
+<!--                android:orderInCategory="100"-->
+<!--                android:icon="@drawable/ic_contact_phone_baby_blue_24dp"-->
+<!--                app:showAsAction="never" />-->
 
 <!--            <item-->
 <!--                android:id="@+id/item_rateUS"-->
