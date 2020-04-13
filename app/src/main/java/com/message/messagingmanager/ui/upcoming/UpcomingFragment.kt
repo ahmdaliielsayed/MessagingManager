@@ -50,6 +50,7 @@ class UpcomingFragment() : Fragment() {
             val intent = Intent(activity, ScheduleMessageActivity::class.java)
             intent.putExtra("SmsReceiverName", "No Name!")
             intent.putExtra("SmsReceiverNumber", "")
+            intent.putExtra("spinnerValue", "")
             startActivity(intent)
         }
 

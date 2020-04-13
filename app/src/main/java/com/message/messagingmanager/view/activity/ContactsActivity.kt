@@ -120,9 +120,9 @@ class ContactsActivity : AppCompatActivity() {
         cursorSms!!.close()
 
         adapter = if (spinnerValue == "SMS") {
-            ContactsAdapter(arrSMSContacts, this)
+            ContactsAdapter(arrSMSContacts, this, "SMS")
         } else {
-            ContactsAdapter(arrWhatsContacts, this)
+            ContactsAdapter(arrWhatsContacts, this, "WhatsApp")
         }
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL,false)
         recyclerView.adapter = adapter

@@ -60,6 +60,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
 
     private var name: String = ""
     private var phone: String = ""
+    private var spinnerValue: String = ""
 
     private lateinit var scheduleMessageViewModel: ScheduleMessageViewModel
 
@@ -73,6 +74,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
 
         name = intent.getStringExtra("SmsReceiverName")
         phone = intent.getStringExtra("SmsReceiverNumber")
+        spinnerValue = intent.getStringExtra("spinnerValue")
 
         txtViewPersonName.text = name
         editTxtReceiverNumber.setText(phone)
@@ -217,20 +219,16 @@ class ScheduleMessageActivity : AppCompatActivity() {
         imgViewContacts.setOnClickListener {
             val permissionCheck: Int = ContextCompat.checkSelfPermission(this@ScheduleMessageActivity, Manifest.permission.READ_CONTACTS)
             if (permissionCheck == PackageManager.PERMISSION_GRANTED){
-                progressBar.visibility = View.VISIBLE
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    imgViewContacts.visibility = View.INVISIBLE
-                    btnSMS.focusable = View.NOT_FOCUSABLE
-                    btnWhatsApp.focusable = View.NOT_FOCUSABLE
-                }
-
-                val intent = Intent(this@ScheduleMessageActivity, ContactsActivity::class.java)
-                intent.putExtra("spinnerValue", spinner.selectedItem.toString())
-                startActivity(intent)
-                finish()
+                readContacts()
             } else {
                 ActivityCompat.requestPermissions(this@ScheduleMessageActivity, arrayOf(Manifest.permission.READ_CONTACTS), PERMISSION_REQUEST_READ_CONTACTS)
             }
+        }
+
+        if (spinnerValue == "" || spinnerValue == "SMS") {
+            spinner.setSelection(0)
+        } else {
+            spinner.setSelection(1)
         }
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -240,6 +238,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
                         Toast.makeText(this@ScheduleMessageActivity,
                             "You will see all contacts now if you press on the image above!",
                             Toast.LENGTH_LONG).show()
+                        spinnerValue = "SMS"
                         btnSMS.visibility = View.VISIBLE
                         btnWhatsApp.visibility = View.GONE
                     }
@@ -247,6 +246,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
                         Toast.makeText(this@ScheduleMessageActivity,
                             "You will see only contacts that have WhatsApp now if you press on the image above!",
                             Toast.LENGTH_LONG).show()
+                        spinnerValue = "WhatsApp"
                         btnSMS.visibility = View.GONE
                         btnWhatsApp.visibility = View.VISIBLE
                     }
@@ -301,6 +301,20 @@ class ScheduleMessageActivity : AppCompatActivity() {
                 receiverNumber, editTxtMessage.text.toString().trim(), editTxtDate.text.toString(),
                 editTxtTime.text.toString(), resources.getString(R.string.status_upcoming), resources.getString(R.string.type_whats_app), calendarAlarm.timeInMillis)
         }
+    }
+
+    private fun readContacts() {
+        progressBar.visibility = View.VISIBLE
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            imgViewContacts.visibility = View.INVISIBLE
+            btnSMS.focusable = View.NOT_FOCUSABLE
+            btnWhatsApp.focusable = View.NOT_FOCUSABLE
+        }
+
+        val intent = Intent(this@ScheduleMessageActivity, ContactsActivity::class.java)
+        intent.putExtra("spinnerValue", spinner.selectedItem.toString())
+        startActivity(intent)
+        finish()
     }
 
     private fun validateInputs() : Boolean{
@@ -399,7 +413,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
         when (requestCode){
             PERMISSION_REQUEST_SEND_SMS -> {
                 if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-//                    scheduleMessage()
+                    scheduleSMSMessage()
                 } else {
                     Toast.makeText(this@ScheduleMessageActivity, "Give us the permission to send your messages!", Toast.LENGTH_LONG).show()
                 }
@@ -407,8 +421,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
 
             PERMISSION_REQUEST_READ_CONTACTS -> {
                 if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    startActivity(Intent(this@ScheduleMessageActivity, ContactsActivity::class.java))
-                    finish()
+                    readContacts()
                 } else {
                     Toast.makeText(this@ScheduleMessageActivity, "Give us the permission to read your contacts!", Toast.LENGTH_LONG).show()
                 }

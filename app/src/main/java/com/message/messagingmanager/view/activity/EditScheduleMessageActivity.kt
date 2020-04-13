@@ -196,19 +196,7 @@ class EditScheduleMessageActivity : AppCompatActivity() {
             // make EditContactsActivity to work without error
             val permissionCheck: Int = ContextCompat.checkSelfPermission(this@EditScheduleMessageActivity, Manifest.permission.READ_CONTACTS)
             if (permissionCheck == PackageManager.PERMISSION_GRANTED){
-                val intent = Intent(this@EditScheduleMessageActivity, ContactsEditActivity::class.java)
-                intent.putExtra("SmsId", smsId)
-                intent.putExtra("SmsReceiverName", txtViewPersonName.text)
-                intent.putExtra("SmsReceiverNumber", editTxtReceiverNumber.text.toString().trim())
-                intent.putExtra("SmsMsg", editTxtMessage.text.toString().trim())
-                intent.putExtra("SmsDate", editTxtDate.text.toString().trim())
-                intent.putExtra("SmsTime", editTxtTime.text.toString().trim())
-                intent.putExtra("SmsStatus", smsStatus)
-                intent.putExtra("SmsType", smsType)
-                intent.putExtra("UserID", userID)
-                intent.putExtra("calendar", calendar)
-                startActivity(intent)
-                finish()
+                readContacts()
             } else {
                 ActivityCompat.requestPermissions(this@EditScheduleMessageActivity, arrayOf(Manifest.permission.READ_CONTACTS), PERMISSION_REQUEST_READ_CONTACTS)
             }
@@ -283,6 +271,22 @@ class EditScheduleMessageActivity : AppCompatActivity() {
         }
     }
 
+    private fun readContacts() {
+        val intent = Intent(this@EditScheduleMessageActivity, ContactsEditActivity::class.java)
+        intent.putExtra("SmsId", smsId)
+        intent.putExtra("SmsReceiverName", txtViewPersonName.text)
+        intent.putExtra("SmsReceiverNumber", editTxtReceiverNumber.text.toString().trim())
+        intent.putExtra("SmsMsg", editTxtMessage.text.toString().trim())
+        intent.putExtra("SmsDate", editTxtDate.text.toString().trim())
+        intent.putExtra("SmsTime", editTxtTime.text.toString().trim())
+        intent.putExtra("SmsStatus", smsStatus)
+        intent.putExtra("SmsType", smsType)
+        intent.putExtra("UserID", userID)
+        intent.putExtra("calendar", calendar)
+        startActivity(intent)
+        finish()
+    }
+
     private fun validateInputs() : Boolean{
         val phoneNum: String = editTxtReceiverNumber.text.toString().trim()
         val smsMessage: String = editTxtMessage.text.toString().trim()
@@ -306,16 +310,6 @@ class EditScheduleMessageActivity : AppCompatActivity() {
             valid = false
         } else if (editTxtTime.text.toString().trim().isEmpty()){
             Toast.makeText(this@EditScheduleMessageActivity, "Enter a valid Time!", Toast.LENGTH_SHORT).show()
-            valid = false
-        } else if (year1 == 0 && hours1 != 0){
-            Toast.makeText(this@EditScheduleMessageActivity, "Please, Enter a valid Date!", Toast.LENGTH_LONG).show()
-            editTxtDate.setText("")
-            editTxtTime.setText("")
-            valid = false
-        } else if (year1 != 0 && hours1 == 0 && min1 == 0){
-            Toast.makeText(this@EditScheduleMessageActivity, "Please, Enter a valid Time!", Toast.LENGTH_LONG).show()
-            editTxtTime.setText("")
-            editTxtDate.setText("")
             valid = false
         }
 
@@ -405,7 +399,7 @@ class EditScheduleMessageActivity : AppCompatActivity() {
         when (requestCode){
             PERMISSION_REQUEST_SEND_SMS -> {
                 if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-//                    scheduleMessage()
+                    editScheduleSMSMessage()
                 } else {
                     Toast.makeText(this@EditScheduleMessageActivity, "Give us the permission to send your messages!", Toast.LENGTH_LONG).show()
                 }
@@ -413,8 +407,7 @@ class EditScheduleMessageActivity : AppCompatActivity() {
 
             PERMISSION_REQUEST_READ_CONTACTS -> {
                 if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    startActivity(Intent(this@EditScheduleMessageActivity, ContactsActivity::class.java))
-                    finish()
+                    readContacts()
                 } else {
                     Toast.makeText(this@EditScheduleMessageActivity, "Give us the permission to read your contacts!", Toast.LENGTH_LONG).show()
                 }

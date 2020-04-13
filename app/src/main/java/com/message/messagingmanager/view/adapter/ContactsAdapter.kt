@@ -13,7 +13,7 @@ import com.message.messagingmanager.view.activity.ContactsActivity
 import com.message.messagingmanager.view.activity.ScheduleMessageActivity
 import java.util.ArrayList
 
-class ContactsAdapter(private val contactsList: ArrayList<Contacts>, private var contactsActivity : ContactsActivity): RecyclerView.Adapter<ContactsAdapter.DataViewHolder>() {
+class ContactsAdapter(private val contactsList: ArrayList<Contacts>, private var contactsActivity : ContactsActivity, private var spinnerValue: String): RecyclerView.Adapter<ContactsAdapter.DataViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row_person,parent,false)
@@ -32,6 +32,7 @@ class ContactsAdapter(private val contactsList: ArrayList<Contacts>, private var
             val intent = Intent(contactsActivity, ScheduleMessageActivity::class.java)
             intent.putExtra("SmsReceiverName", contact.getName())
             intent.putExtra("SmsReceiverNumber", contact.getPhone())
+            intent.putExtra("spinnerValue", spinnerValue)
             contactsActivity.startActivity(intent)
             contactsActivity.finish()
         }

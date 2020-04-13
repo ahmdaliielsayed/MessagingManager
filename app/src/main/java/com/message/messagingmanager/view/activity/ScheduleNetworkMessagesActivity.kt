@@ -530,7 +530,7 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
         when (requestCode) {
             PERMISSION_REQUEST_SEND_SMS -> {
                 if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
+                    scheduleSMSMessage()
                 } else {
                     Toast.makeText(
                         this@ScheduleNetworkMessagesActivity,
@@ -542,7 +542,15 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
 
             PERMISSION_REQUEST_READ_CONTACTS -> {
                 if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-
+                    val permissionCheck: Int = ContextCompat.checkSelfPermission(this@ScheduleNetworkMessagesActivity, Manifest.permission.SEND_SMS)
+                    if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                        scheduleSMSMessage()
+                    } else {
+                        ActivityCompat.requestPermissions(
+                            this@ScheduleNetworkMessagesActivity, arrayOf(Manifest.permission.SEND_SMS),
+                            this.PERMISSION_REQUEST_SEND_SMS
+                        )
+                    }
                 } else {
                     Toast.makeText(this@ScheduleNetworkMessagesActivity, "Give us the permission to read your contacts!", Toast.LENGTH_LONG).show()
                 }

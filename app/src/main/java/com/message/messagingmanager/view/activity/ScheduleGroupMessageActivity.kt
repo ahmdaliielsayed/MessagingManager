@@ -484,7 +484,7 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
         when (requestCode) {
             PERMISSION_REQUEST_SEND_SMS -> {
                 if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    scheduleMessage()
+                    scheduleSMSMessage()
                 } else {
                     Toast.makeText(
                         this@ScheduleGroupMessageActivity,
