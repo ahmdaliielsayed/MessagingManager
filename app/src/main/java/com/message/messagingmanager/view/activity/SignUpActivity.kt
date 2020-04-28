@@ -66,6 +66,14 @@ class SignUpActivity : AppCompatActivity() {
                     .setPositiveButton(R.string.ok) { _, _ -> }
                     .show()
                 return@setOnClickListener
+            } else if (!checkBoxPrivacy.isChecked) {
+                AlertDialog.Builder(this@SignUpActivity)
+                    .setTitle(R.string.warning)
+                    .setMessage(R.string.warningMsg)
+                    .setIcon(R.drawable.warning)
+                    .setPositiveButton(R.string.ok) { _, _ -> }
+                    .show()
+                return@setOnClickListener
             } else if (!isNetworkConnected()) {
                 AlertDialog.Builder(this@SignUpActivity)
                     .setTitle(R.string.error)
@@ -84,6 +92,14 @@ class SignUpActivity : AppCompatActivity() {
             startActivity(Intent(this@SignUpActivity, SignInActivity::class.java))
             finish()
         }
+
+        txtViewPrivacyPolicy.setOnClickListener {
+            startActivity(Intent(this@SignUpActivity, PrivacyPolicyActivity::class.java))
+        }
+
+        txtViewTermsAndConditions.setOnClickListener {
+            startActivity(Intent(this@SignUpActivity, TermsAndConditionsActivity::class.java))
+        }
     }
 
     @Suppress("DEPRECATION")
@@ -100,6 +116,21 @@ class SignUpActivity : AppCompatActivity() {
             .setTitle(R.string.verifyAccount)
             .setMessage(msg)
             .setIcon(R.drawable.ic_check_circle_green_24dp)
+            .setPositiveButton(R.string.ok) { _, _ ->
+                val intent = Intent(this@SignUpActivity, SignInActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                startActivity(intent)
+            }
+            .show()
+    }
+
+    fun setMsgAlert(msg: Int, error: Int) {
+        progressBar.visibility = View.GONE
+        AlertDialog.Builder(this@SignUpActivity)
+            .setTitle(R.string.verifyAccount)
+            .setMessage(msg)
+            .setIcon(R.drawable.cancel)
             .setPositiveButton(R.string.ok) { _, _ ->
                 val intent = Intent(this@SignUpActivity, SignInActivity::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

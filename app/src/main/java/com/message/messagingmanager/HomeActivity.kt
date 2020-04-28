@@ -1,14 +1,12 @@
 package com.message.messagingmanager
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -19,12 +17,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.message.messagingmanager.ui.groups.GroupsFragment
 import com.message.messagingmanager.ui.history.HistoryFragment
 import com.message.messagingmanager.ui.upcoming.UpcomingFragment
-import com.message.messagingmanager.view.activity.NetworksActivity
-import com.message.messagingmanager.view.activity.SignInActivity
+import com.message.messagingmanager.view.activity.*
 import kotlinx.android.synthetic.main.app_bar.*
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import android.os.PowerManager
-import com.message.messagingmanager.view.activity.TipsActivity
 
 @SuppressLint("Registered")
 class HomeActivity : AppCompatActivity() {
@@ -69,7 +63,7 @@ class HomeActivity : AppCompatActivity() {
             R.id.item_emailUs -> {
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.data = Uri.parse("email")
-                val s = arrayOf("fekragdida500@gmail.com")
+                val s = arrayOf("ahmdaliielsayed@gmail.com")
                 intent.putExtra(Intent.EXTRA_EMAIL, s)
                 intent.type = "message/rfc822"
                 val chooser = Intent.createChooser(intent, "Launch Gmail")
@@ -82,6 +76,12 @@ class HomeActivity : AppCompatActivity() {
 //            }
             R.id.item_SIM -> {
                 startActivity(Intent(this@HomeActivity, NetworksActivity::class.java))
+            }
+            R.id.item_privacyPolicy -> {
+                startActivity(Intent(this@HomeActivity, PrivacyPolicyActivity::class.java))
+            }
+            R.id.item_termsAndConditions -> {
+                startActivity(Intent(this@HomeActivity, TermsAndConditionsActivity::class.java))
             }
             R.id.item_logout -> {
                 FirebaseAuth.getInstance().signOut()

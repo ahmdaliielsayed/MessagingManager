@@ -16,6 +16,10 @@ class SignUpViewModel(private var signUpActivity: SignUpActivity) : ViewModel() 
         signUpActivity.setMsgAlert(msg)
     }
 
+    fun setMsgAlert(msg: Int, error: Int) {
+        signUpActivity.setMsgAlert(msg, error)
+    }
+
     fun setMsgAlert(msg: String) {
         signUpActivity.setMsgAlert(msg)
     }

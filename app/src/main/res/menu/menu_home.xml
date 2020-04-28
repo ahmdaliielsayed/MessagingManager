@@ -32,13 +32,6 @@
                 app:showAsAction="never" />
 
 <!--            <item-->
-<!--                android:id="@+id/item_callUs"-->
-<!--                android:title="@string/itemCallUs"-->
-<!--                android:orderInCategory="100"-->
-<!--                android:icon="@drawable/ic_contact_phone_baby_blue_24dp"-->
-<!--                app:showAsAction="never" />-->
-
-<!--            <item-->
 <!--                android:id="@+id/item_rateUS"-->
 <!--                android:title="@string/itemRateUs"-->
 <!--                android:orderInCategory="100"-->
@@ -65,6 +58,20 @@
 <!--                android:orderInCategory="100"-->
 <!--                android:icon="@drawable/ic_settings_baby_blue_24dp"-->
 <!--                app:showAsAction="never" />-->
+
+            <item
+                android:id="@+id/item_privacyPolicy"
+                android:title="@string/itemPrivacyPolicy"
+                android:orderInCategory="100"
+                android:icon="@drawable/ic_lock_outline_baby_blue_24dp"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/item_termsAndConditions"
+                android:title="@string/itemTermsAndConditions"
+                android:orderInCategory="100"
+                android:icon="@drawable/ic_warning_baby_blue_24dp"
+                app:showAsAction="never" />
 
             <item
                 android:id="@+id/item_logout"

@@ -6,7 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.ContactsEditActivity">
 
-    <include layout="@layout/app_bar" />
+    <include
+        layout="@layout/app_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

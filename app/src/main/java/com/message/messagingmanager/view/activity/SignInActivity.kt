@@ -3,18 +3,18 @@ package com.message.messagingmanager.view.activity
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.message.messagingmanager.R
 import com.message.messagingmanager.viewmodel.SignInViewModel
 import kotlinx.android.synthetic.main.activity_sign_in.*
-import kotlinx.android.synthetic.main.activity_sign_in.progressBar
 import kotlinx.android.synthetic.main.app_bar.*
+
 
 class SignInActivity : AppCompatActivity() {
 

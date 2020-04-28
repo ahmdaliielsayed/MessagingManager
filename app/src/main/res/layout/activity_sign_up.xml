@@ -6,11 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.SignUpActivity">
 
-    <include layout="@layout/app_bar" />
+    <include
+        layout="@layout/app_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -79,24 +87,84 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:layout_marginBottom="32dp"
                 android:text="@string/txtViewAlreadyRegistered"
                 android:textAlignment="viewStart"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/btnSignUp"
                 app:layout_constraintStart_toStartOf="@+id/btnSignUp"
                 app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
+
+            <CheckBox
+                android:id="@+id/checkBoxPrivacy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/checkBoxRegisterPolicy"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/txtViewAlreadyRegistered"
+                app:layout_constraintStart_toStartOf="@+id/txtViewAlreadyRegistered"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewAlreadyRegistered" />
+
+            <TextView
+                android:id="@+id/txtViewPrivacyPolicy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/privacyPolicy"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/checkBoxPrivacy"
+                app:layout_constraintStart_toStartOf="@+id/checkBoxPrivacy"
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxPrivacy" />
+
+            <TextView
+                android:id="@+id/txtViewAnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/and"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/txtViewMessageScheduler"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewPrivacyPolicy" />
+
+            <TextView
+                android:id="@+id/txtViewTermsAndConditions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/termsAndConditions"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/txtViewAnd"
+                app:layout_constraintTop_toTopOf="@+id/txtViewAnd" />
+
+            <TextView
+                android:id="@+id/txtViewMessageScheduler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/ofMessageScheduler"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/checkBoxPrivacy"
+                app:layout_constraintStart_toStartOf="@+id/checkBoxPrivacy"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewTermsAndConditions" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.SignInActivity">
 
-    <include layout="@layout/app_bar" />
+    <include
+        layout="@layout/app_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -72,68 +76,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtViewForgetPassword" />
 
             <TextView
-                android:id="@+id/txtViewOptionalSignIn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="@string/txtViewSignInWith"
-                android:textAlignment="viewStart"
-                android:textColor="#000"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/btnSignIn"
-                app:layout_constraintStart_toStartOf="@+id/btnSignIn"
-                app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
-
-            <ImageView
-                android:id="@+id/ivTwitter"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/twitter"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/btnSignIn"
-                app:layout_constraintTop_toBottomOf="@+id/txtViewOptionalSignIn"
-                app:layout_constraintVertical_bias="0.0"
-                tools:ignore="ContentDescription" />
-
-            <ImageView
-                android:id="@+id/ivLinkedIn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/linked_in"
-                app:layout_constraintBottom_toBottomOf="@+id/ivTwitter"
-                app:layout_constraintStart_toEndOf="@+id/ivTwitter"
-                app:layout_constraintTop_toTopOf="@+id/ivTwitter"
-                tools:ignore="ContentDescription" />
-
-            <ImageView
-                android:id="@+id/ivFacebook"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/facebook"
-                app:layout_constraintBottom_toBottomOf="@+id/ivLinkedIn"
-                app:layout_constraintStart_toEndOf="@+id/ivLinkedIn"
-                app:layout_constraintTop_toTopOf="@+id/ivLinkedIn"
-                tools:ignore="ContentDescription" />
-
-            <ImageView
-                android:id="@+id/ivGooglePlus"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/google_plus"
-                app:layout_constraintBottom_toBottomOf="@+id/ivFacebook"
-                app:layout_constraintEnd_toEndOf="@+id/btnSignIn"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/ivFacebook"
-                app:layout_constraintTop_toTopOf="@+id/ivFacebook"
-                tools:ignore="ContentDescription" />
-
-            <TextView
                 android:id="@+id/txtViewDonNotHaveAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -146,7 +88,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/btnSignIn"
                 app:layout_constraintStart_toStartOf="@+id/btnSignIn"
-                app:layout_constraintTop_toBottomOf="@+id/ivLinkedIn" />
+                app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
 
             <ProgressBar
                 android:id="@+id/progressBar"

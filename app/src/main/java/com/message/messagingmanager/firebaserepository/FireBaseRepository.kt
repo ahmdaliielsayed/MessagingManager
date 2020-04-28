@@ -65,7 +65,7 @@ class FireBaseRepository {
                                 }
                             }
                         }
-                    task.exception is FirebaseAuthUserCollisionException -> signUpViewModel.setMsgAlert(R.string.authenticationFailed)
+                    task.exception is FirebaseAuthUserCollisionException -> signUpViewModel.setMsgAlert(R.string.authenticationFailed, 1)
                     else -> signUpViewModel.setMsgAlert(R.string.commentError)
                 }
             }
