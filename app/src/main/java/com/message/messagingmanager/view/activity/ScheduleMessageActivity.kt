@@ -43,6 +43,9 @@ class ScheduleMessageActivity : AppCompatActivity() {
     private val PERMISSION_REQUEST_SEND_SMS = 1
     private val PERMISSION_REQUEST_READ_CONTACTS = 2
 
+    private var counterReadContacts = 0
+    private var counterSendSMS = 0
+
     private var calender: DatePickerDialog.OnDateSetListener? = null
     private var timePickerDialog: TimePickerDialog? = null
 
@@ -415,7 +418,17 @@ class ScheduleMessageActivity : AppCompatActivity() {
                 if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     scheduleSMSMessage()
                 } else {
-                    Toast.makeText(this@ScheduleMessageActivity, R.string.sendMessagePermission, Toast.LENGTH_LONG).show()
+                    if (counterSendSMS < 2) {
+                        Toast.makeText(this@ScheduleMessageActivity, R.string.sendMessagePermission, Toast.LENGTH_LONG).show()
+                        counterSendSMS++
+                    } else {
+                        AlertDialog.Builder(this@ScheduleMessageActivity)
+                            .setTitle(R.string.permissionRequired)
+                            .setMessage(R.string.sendSMSExplanation)
+                            .setIcon(R.drawable.warning)
+                            .setPositiveButton(R.string.ok) { _, _ -> }
+                            .show()
+                    }
                 }
             }
 
@@ -423,7 +436,17 @@ class ScheduleMessageActivity : AppCompatActivity() {
                 if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     readContacts()
                 } else {
-                    Toast.makeText(this@ScheduleMessageActivity, R.string.readContactsPermission, Toast.LENGTH_LONG).show()
+                    if (counterReadContacts < 2) {
+                        Toast.makeText(this@ScheduleMessageActivity, R.string.readContactsPermission, Toast.LENGTH_LONG).show()
+                        counterReadContacts++
+                    } else {
+                        AlertDialog.Builder(this@ScheduleMessageActivity)
+                            .setTitle(R.string.permissionRequired)
+                            .setMessage(R.string.readContactsExplanation)
+                            .setIcon(R.drawable.warning)
+                            .setPositiveButton(R.string.ok) { _, _ -> }
+                            .show()
+                    }
                 }
             }
         }

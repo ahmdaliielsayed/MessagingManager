@@ -42,11 +42,15 @@ import java.util.*
 
 class ScheduleNetworkMessagesActivity : AppCompatActivity() {
 
+    private var userId: String = FirebaseAuth.getInstance().currentUser!!.uid
     private var databaseReferenceMsg: DatabaseReference =
-        FirebaseDatabase.getInstance().getReference("Messages")
+        FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Messages")
 
     private val PERMISSION_REQUEST_SEND_SMS = 1
     private val PERMISSION_REQUEST_READ_CONTACTS = 2
+
+    private var counterReadContacts = 0
+    private var counterSendSMS = 0
 
     private var calender: DatePickerDialog.OnDateSetListener? = null
     private var timePickerDialog: TimePickerDialog? = null
@@ -66,13 +70,13 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
     private var simName: String = ""
     private var simPrefix: String = ""
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule_network_messages)
 
-        toolbar.title = "Schedule Network Messages"
+        toolbar.setTitle(R.string.scheduleNetworkMessages)
         setSupportActionBar(toolbar)
 
         simName = intent.getStringExtra("SIMName")
@@ -85,10 +89,7 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
             val year = cal.get(Calendar.YEAR)
             val month = cal.get(Calendar.MONTH)
             val day = cal.get(Calendar.DAY_OF_MONTH)
-            val dialog = DatePickerDialog(
-                this@ScheduleNetworkMessagesActivity,
-                calender, year, month, day
-            )
+            val dialog = DatePickerDialog(this@ScheduleNetworkMessagesActivity, calender, year, month, day)
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.WHITE))
             dialog.show()
         }
@@ -118,10 +119,7 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
                 } catch (e: ParseException) {
                     e.printStackTrace()
                 }
-                myDateCheck!!.before(date) -> Toast.makeText(
-                    this@ScheduleNetworkMessagesActivity,
-                    "Please, Enter a valid Date!", Toast.LENGTH_LONG
-                ).show()
+                myDateCheck!!.before(date) -> Toast.makeText(this@ScheduleNetworkMessagesActivity, R.string.enterValidDate, Toast.LENGTH_LONG).show()
                 else -> {
                     editTxtDate.setText(startDate)
                     editTxtTime.setText("")
@@ -158,10 +156,7 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
                     myRealCalender.set(Calendar.MINUTE, minutes)
 
                     if (myRealCalender.time.before(myCalInstance.time)) {
-                        Toast.makeText(
-                            this@ScheduleNetworkMessagesActivity,
-                            "Please, Enter a valid Time!", Toast.LENGTH_LONG
-                        ).show()
+                        Toast.makeText(this@ScheduleNetworkMessagesActivity, R.string.enterValidTime, Toast.LENGTH_LONG).show()
                     } else {
                         hours1 = hourOfDay
                         min1 = minutes
@@ -195,10 +190,7 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
                 if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                     scheduleSMSMessage()
                 } else {
-                    ActivityCompat.requestPermissions(
-                        this@ScheduleNetworkMessagesActivity, arrayOf(Manifest.permission.SEND_SMS),
-                        this.PERMISSION_REQUEST_SEND_SMS
-                    )
+                    ActivityCompat.requestPermissions(this@ScheduleNetworkMessagesActivity, arrayOf(Manifest.permission.SEND_SMS), this.PERMISSION_REQUEST_SEND_SMS)
                 }
             } else {
                 ActivityCompat.requestPermissions(this@ScheduleNetworkMessagesActivity, arrayOf(Manifest.permission.READ_CONTACTS), PERMISSION_REQUEST_READ_CONTACTS)
@@ -213,10 +205,10 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
                     scheduleWhatsAppMessage()
                 } else {
                     AlertDialog.Builder(this@ScheduleNetworkMessagesActivity)
-                        .setTitle("Enable Accessibility")
-                        .setMessage("When clicking on WhatsApp Button …\n○ More downloaded services\n○ WhatsappAccessibilityService\n○ enable Accessibility")
+                        .setTitle(R.string.enableAccessibility)
+                        .setMessage(R.string.accessibilitySteps)
                         .setIcon(R.drawable.ic_check_circle_green_24dp)
-                        .setPositiveButton("Ok") { _, _ ->
+                        .setPositiveButton(R.string.ok) { _, _ ->
                             startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
                         }
                         .show()
@@ -231,9 +223,7 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
         var accessibilityEnabled = 0
         val service = context.packageName + "/" + clazz.canonicalName
         try {
-            accessibilityEnabled = Settings.Secure.getInt(context.applicationContext.contentResolver,
-                Settings.Secure.ACCESSIBILITY_ENABLED
-            )
+            accessibilityEnabled = Settings.Secure.getInt(context.applicationContext.contentResolver, Settings.Secure.ACCESSIBILITY_ENABLED)
         } catch (ignored: Settings.SettingNotFoundException) {
 
         }
@@ -241,9 +231,7 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
         val colonSplitter = TextUtils.SimpleStringSplitter(':')
 
         if (accessibilityEnabled == 1) {
-            val settingValue = Settings.Secure.getString(context.applicationContext.contentResolver,
-                Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
-            )
+            val settingValue = Settings.Secure.getString(context.applicationContext.contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
 
             if (settingValue != null) {
                 colonSplitter.setString(settingValue)
@@ -423,22 +411,14 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
         var valid = true
 
         if (smsMessage.isEmpty() || smsMessage.isBlank()) {
-            editTxtMessage.error = "Message mustn't be empty!"
+            editTxtMessage.error = getText(R.string.messageRequired)
             editTxtMessage.requestFocus()
             valid = false
         } else if (editTxtDate.text.toString().trim().isEmpty()) {
-            Toast.makeText(
-                this@ScheduleNetworkMessagesActivity,
-                "Enter a valid Date!",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(this@ScheduleNetworkMessagesActivity, R.string.enterValidDate, Toast.LENGTH_SHORT).show()
             valid = false
         } else if (editTxtTime.text.toString().trim().isEmpty()) {
-            Toast.makeText(
-                this@ScheduleNetworkMessagesActivity,
-                "Enter a valid Time!",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(this@ScheduleNetworkMessagesActivity, R.string.enterValidTime, Toast.LENGTH_SHORT).show()
             valid = false
         }
 
@@ -473,10 +453,7 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar, pendingIntent)
         }
 
-        Toast.makeText(
-            this@ScheduleNetworkMessagesActivity,
-            "Message scheduled successfully!", Toast.LENGTH_SHORT
-        ).show()
+        Toast.makeText(this@ScheduleNetworkMessagesActivity, R.string.messageSchedule, Toast.LENGTH_SHORT).show()
         finish()
     }
 
@@ -507,13 +484,7 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
         intent.putExtra("UserID", currentUser)
         intent.putExtra("calendar", calendar)
 
-        val pendingIntent: PendingIntent =
-            PendingIntent.getBroadcast(
-                this@ScheduleNetworkMessagesActivity,
-                smsId.hashCode(),
-                intent,
-                0
-            )
+        val pendingIntent: PendingIntent = PendingIntent.getBroadcast(this@ScheduleNetworkMessagesActivity, smsId.hashCode(), intent, 0)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar, pendingIntent)
@@ -521,18 +492,11 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar, pendingIntent)
         }
 
-        Toast.makeText(
-            this@ScheduleNetworkMessagesActivity,
-            "Message scheduled successfully!", Toast.LENGTH_SHORT
-        ).show()
+        Toast.makeText(this@ScheduleNetworkMessagesActivity, R.string.messageSchedule, Toast.LENGTH_SHORT).show()
         finish()
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         when (requestCode) {
@@ -540,11 +504,17 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
                 if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     scheduleSMSMessage()
                 } else {
-                    Toast.makeText(
-                        this@ScheduleNetworkMessagesActivity,
-                        "Give us the permission to send your messages!",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    if (counterSendSMS < 2) {
+                        Toast.makeText(this@ScheduleNetworkMessagesActivity, R.string.sendMessagePermission, Toast.LENGTH_LONG).show()
+                        counterSendSMS++
+                    } else {
+                        AlertDialog.Builder(this@ScheduleNetworkMessagesActivity)
+                            .setTitle(R.string.permissionRequired)
+                            .setMessage(R.string.sendSMSExplanation)
+                            .setIcon(R.drawable.warning)
+                            .setPositiveButton(R.string.ok) { _, _ -> }
+                            .show()
+                    }
                 }
             }
 
@@ -554,13 +524,20 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
                     if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                         scheduleSMSMessage()
                     } else {
-                        ActivityCompat.requestPermissions(
-                            this@ScheduleNetworkMessagesActivity, arrayOf(Manifest.permission.SEND_SMS),
-                            this.PERMISSION_REQUEST_SEND_SMS
-                        )
+                        ActivityCompat.requestPermissions(this@ScheduleNetworkMessagesActivity, arrayOf(Manifest.permission.SEND_SMS), this.PERMISSION_REQUEST_SEND_SMS)
                     }
                 } else {
-                    Toast.makeText(this@ScheduleNetworkMessagesActivity, "Give us the permission to read your contacts!", Toast.LENGTH_LONG).show()
+                    if (counterReadContacts < 2) {
+                        Toast.makeText(this@ScheduleNetworkMessagesActivity, R.string.readContactsPermission, Toast.LENGTH_LONG).show()
+                        counterReadContacts++
+                    } else {
+                        AlertDialog.Builder(this@ScheduleNetworkMessagesActivity)
+                            .setTitle(R.string.permissionRequired)
+                            .setMessage(R.string.readContactsExplanation)
+                            .setIcon(R.drawable.warning)
+                            .setPositiveButton(R.string.ok) { _, _ -> }
+                            .show()
+                    }
                 }
             }
         }

@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.message.messagingmanager.HomeActivity
 import com.message.messagingmanager.R
@@ -23,7 +24,8 @@ class ContactsGroupAdapter(
 
     private var groupContactList: ArrayList<Contacts> = ArrayList()
     private var deleteGroupContactList: ArrayList<Contact> = ArrayList()
-    private var databaseReferenceContact: DatabaseReference = FirebaseDatabase.getInstance().getReference("Contacts")
+    private var userId: String = FirebaseAuth.getInstance().currentUser!!.uid
+    private var databaseReferenceContact: DatabaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Groups").child(groupId).child("Contacts")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row_select_person, parent, false)

@@ -22,7 +22,9 @@ class SelectSIMActivity : AppCompatActivity() {
     private var simsAdapter: SelectSIMAdapter? = null
     private var simsArrayList: ArrayList<SIM> = ArrayList()
 
-    private var databaseSIMs: DatabaseReference = FirebaseDatabase.getInstance().getReference("SIMs")
+
+    private var userId: String = FirebaseAuth.getInstance().currentUser!!.uid
+    private var databaseSIMs = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("SIMs")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

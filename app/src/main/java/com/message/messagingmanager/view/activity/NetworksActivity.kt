@@ -24,6 +24,8 @@ class NetworksActivity : AppCompatActivity() {
     private var simsAdapter: SIMAdapter? = null
     private var simsArrayList: ArrayList<SIM>? = null
 
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var userId: String
     private lateinit var databaseSIMs: DatabaseReference
 
     private lateinit var networksViewModel: NetworksViewModel
@@ -38,7 +40,9 @@ class NetworksActivity : AppCompatActivity() {
         networksViewModel = ViewModelProviders.of(this, NetworksViewModelFactory(this@NetworksActivity))
             .get(NetworksViewModel::class.java)
 
-        databaseSIMs = FirebaseDatabase.getInstance().getReference("SIMs")
+        mAuth = FirebaseAuth.getInstance()
+        userId = mAuth.currentUser!!.uid
+        databaseSIMs = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("SIMs")
         databaseSIMs.keepSynced(true)
 
         btnAddPlus.setOnClickListener {

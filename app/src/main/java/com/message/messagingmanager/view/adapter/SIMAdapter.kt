@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.message.messagingmanager.R
 import com.message.messagingmanager.model.SIM
@@ -21,7 +22,8 @@ class SIMAdapter(internal var context: Context) :
 
     private var dataModelList = ArrayList<SIM>()
 
-    private var databaseSIM = FirebaseDatabase.getInstance().getReference("SIMs")
+    private var userId: String = FirebaseAuth.getInstance().currentUser!!.uid
+    private var databaseSIM = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("SIMs")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.row_sim, parent, false)

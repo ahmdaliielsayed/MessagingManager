@@ -18,6 +18,7 @@ class FireBaseRepository {
     private lateinit var scheduleMessageViewModel: ScheduleMessageViewModel
     private lateinit var editScheduleMessageViewModel: EditScheduleMessageViewModel
     private var mAuth: FirebaseAuth
+    private lateinit var userId: String
     private lateinit var databaseReferenceMsg: DatabaseReference
     private lateinit var createGroupViewModel: CreateGroupViewModel
     private lateinit var databaseReferenceGroup: DatabaseReference
@@ -91,7 +92,8 @@ class FireBaseRepository {
     constructor(scheduleMessageViewModel: ScheduleMessageViewModel) {
         this.scheduleMessageViewModel = scheduleMessageViewModel
         mAuth = FirebaseAuth.getInstance()
-        databaseReferenceMsg = FirebaseDatabase.getInstance().getReference("Messages")
+        userId = mAuth.currentUser!!.uid
+        databaseReferenceMsg = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Messages")
     }
     fun scheduleMessageRepository(personName: String, receiverNumber: String, SMSMessage: String, date: String, time: String, status: String, type: String, calendar: Long) {
 
@@ -125,7 +127,8 @@ class FireBaseRepository {
     constructor(createGroupViewModel: CreateGroupViewModel) {
         this.createGroupViewModel = createGroupViewModel
         mAuth = FirebaseAuth.getInstance()
-        databaseReferenceGroup = FirebaseDatabase.getInstance().getReference("Groups")
+        userId = mAuth.currentUser!!.uid
+        databaseReferenceGroup = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Groups")
     }
     fun createGroupRepository(name: String) {
 
@@ -141,7 +144,8 @@ class FireBaseRepository {
     constructor(editScheduleMessageViewModel: EditScheduleMessageViewModel) {
         this.editScheduleMessageViewModel = editScheduleMessageViewModel
         mAuth = FirebaseAuth.getInstance()
-        databaseReferenceMsg = FirebaseDatabase.getInstance().getReference("Messages")
+        userId = mAuth.currentUser!!.uid
+        databaseReferenceMsg = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Messages")
     }
     fun editScheduleMessageRepository(smsId: String, personName: String, receiverNumber: String, SMSMessage: String, date: String, time: String, status: String, type: String, calendar: Long) {
 
@@ -171,7 +175,8 @@ class FireBaseRepository {
     constructor(networksViewModel: NetworksViewModel) {
         this.networksViewModel = networksViewModel
         mAuth = FirebaseAuth.getInstance()
-        databaseReferenceSIM = FirebaseDatabase.getInstance().getReference("SIMs")
+        userId = mAuth.currentUser!!.uid
+        databaseReferenceSIM = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("SIMs")
     }
     fun addSIMRepository(SIMName: String, SIMPrefix: String) {
 

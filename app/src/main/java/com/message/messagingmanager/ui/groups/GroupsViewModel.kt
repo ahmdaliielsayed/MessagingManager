@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -28,8 +29,8 @@ class GroupsViewModel(internal var context: Activity) :
 
     private var dataModelList = ArrayList<Group>()
 
-    private var databaseGroup = FirebaseDatabase.getInstance().getReference("Groups")
-    internal var databaseContacts = FirebaseDatabase.getInstance().getReference("Contacts")
+    private var userId: String = FirebaseAuth.getInstance().currentUser!!.uid
+    private var databaseGroup = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Groups")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
         val itemView =
@@ -63,6 +64,8 @@ class GroupsViewModel(internal var context: Activity) :
             builder.setMessage(R.string.deleteGroup)
             builder.setPositiveButton(R.string.yes) { _, _ ->
                 databaseGroup.child(group.getGroupId()).removeValue()
+
+                val databaseContacts = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Groups").child(group.getGroupId()).child("Contacts")
 
                 // delete related contacts
                 databaseContacts.addValueEventListener(object : ValueEventListener {

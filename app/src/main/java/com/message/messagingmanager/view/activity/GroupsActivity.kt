@@ -21,7 +21,9 @@ import kotlinx.android.synthetic.main.app_bar.*
 class GroupsActivity : AppCompatActivity() {
 
     private var arrGroups: ArrayList<Group> = ArrayList()
-    private var databaseReferenceGroups: DatabaseReference = FirebaseDatabase.getInstance().getReference("Groups")
+
+    private var userId: String = FirebaseAuth.getInstance().currentUser!!.uid
+    private var databaseReferenceGroups: DatabaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Groups")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -42,8 +42,6 @@ class AlertReceiver: BroadcastReceiver() {
 
         context!!.startService(Intent(context.applicationContext, WhatsappAccessibilityService::class.java))
 
-        databaseReferenceMsg = FirebaseDatabase.getInstance().getReference("Messages")
-
         sentPendingIntent = PendingIntent.getBroadcast(context, 0, Intent(context!!.resources.getString(R.string.msg_sent)), 0)
         deliveredPendingIntent = PendingIntent.getBroadcast(context, 0, Intent(context.resources.getString(R.string.msg_delivered)), 0)
 
@@ -57,6 +55,8 @@ class AlertReceiver: BroadcastReceiver() {
         smsType = intent.extras?.getString("SmsType")!!
         userID = intent.extras?.getString("UserID")!!
         calendar = intent.extras!!.getLong("calendar")
+
+        databaseReferenceMsg = FirebaseDatabase.getInstance().reference.child("Users").child(userID).child("Messages")
 
         if (smsType == "SMS") {
             val smsManager: SmsManager = SmsManager.getDefault()

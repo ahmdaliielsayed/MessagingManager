@@ -78,6 +78,12 @@
     <string name="allContacts">سترى جميع جهات الاتصال الآن إذا ضغطت على الصورة أعلاه</string>
     <string name="whatsAppContacts">سترى فقط جهات الاتصال التي لديها WhatsApp الآن إذا ضغطت على الصورة أعلاه!</string>
     <string name="validPhoneNumber">أدخل رقم هاتف صالح!\مثل: 0106 320 8399\مثل: +201063208399\nأو اختر من جهات الاتصال الخاصة بك بالضغط على الصورة في أعلى هذه الشاشة!</string>
+    <string name="permissionRequired">إذنكـ مطلوب!</string>
+    <string name="readContactsExplanation"><b>قراءة جهات الإتصال</b>\nمن أجل تحديد المستلمين من قائمة جهات الإتصال الخاصة بكـ</string>
+    <string name="sendSMSExplanation"><b>إرسال الرسائل القصيرة</b>\nمن أجل إرسال الرسائل المجدولة الخاصة بكـ</string>
+
+    <!-- activity schedule network messages -->
+    <string name="scheduleNetworkMessages">جدولة رسائل الشبكة</string>
 
     <!-- activity sign in -->
     <string name="editTxtPassword">كلمه المرور</string>
@@ -329,8 +335,4 @@
     <string name="tcTextView56">12. القانون والاختصاص</string>
     <string name="tcTextView57">يقر المستخدم أيضًا أنه يُسمح قانونًا باستخدام الخدمة ، ويتحمل المسؤولية الكاملة عن اختيار الخدمة واستخدامها. تعتبر هذه الاتفاقية لاغية حيث يحظرها القانون ، ويتم إبطال الحق في الوصول إلى الخدمة في مثل هذه الولايات القضائية.</string>
     <string name="tcTextView58">حتى إذا تم إنهاء هذه الاتفاقية ، فسوف تستمر هذه الشروط والأحكام سارية</string>
-
-    <!-- facebook login -->
-    <string name="facebook_app_id">225123118820108</string>
-    <string name="fb_login_protocol_scheme">fb225123118820108</string>
 </resources>

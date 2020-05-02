@@ -39,10 +39,12 @@ import java.util.*
 class ScheduleGroupMessageActivity : AppCompatActivity() {
 
     private var arrContacts: ArrayList<Contact> = ArrayList()
-    private var databaseReferenceContacts: DatabaseReference =
-        FirebaseDatabase.getInstance().getReference("Contacts")
+
+    private var userId: String = FirebaseAuth.getInstance().currentUser!!.uid
+
+    private lateinit var databaseReferenceContacts: DatabaseReference
     private var databaseReferenceMsg: DatabaseReference =
-        FirebaseDatabase.getInstance().getReference("Messages")
+        FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Messages")
 
     private val PERMISSION_REQUEST_SEND_SMS = 1
 
@@ -71,6 +73,8 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
         groupID = intent.getStringExtra("groupID")
 
         progressBar.visibility = View.VISIBLE
+        databaseReferenceContacts = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Groups").child(groupID).child("Contacts")
+        databaseReferenceContacts.keepSynced(true)
         databaseReferenceContacts.addValueEventListener(object : ValueEventListener {
             @SuppressLint("WrongConstant")
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -98,8 +102,6 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule_group_message)
-
-        databaseReferenceContacts.keepSynced(true)
 
         groupName = intent.getStringExtra("groupName")
         txtViewGroupName.text = groupName

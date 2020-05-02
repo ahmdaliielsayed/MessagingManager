@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.message.messagingmanager.R
 import com.message.messagingmanager.model.Contact
@@ -17,6 +18,7 @@ class ContactsDialogueActivity : AppCompatActivity() {
     private var contactsAdapter: ContactsDialogueAdapter? = null
     private lateinit var contactsArrayList: ArrayList<Contact>
 
+    private lateinit var userId: String
     private lateinit var databaseReferenceContacts: DatabaseReference
 
     private var groupID: String? = null
@@ -34,8 +36,8 @@ class ContactsDialogueActivity : AppCompatActivity() {
     private fun initComponents() {
         groupID = intent.getStringExtra("groupID")
         groupName = intent.getStringExtra("groupName")
-
-        databaseReferenceContacts = FirebaseDatabase.getInstance().getReference("Contacts")
+        userId = FirebaseAuth.getInstance().currentUser!!.uid
+        databaseReferenceContacts = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Groups").child(groupID.toString()).child("Contacts")
 
         txtViewGroupName.text = groupName
         contactsArrayList = ArrayList()
@@ -78,7 +80,7 @@ class ContactsDialogueActivity : AppCompatActivity() {
 
         val manager = LinearLayoutManager(this)
         recyclerView.layoutManager = manager
-        contactsAdapter = ContactsDialogueAdapter(this)
+        contactsAdapter = ContactsDialogueAdapter(this, groupID.toString())
         recyclerView.adapter = contactsAdapter
         setDataSource()
 

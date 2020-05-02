@@ -26,6 +26,8 @@ class UpcomingFragment() : Fragment() {
     private var recyclerView: RecyclerView? = null
 
     private lateinit var databaseReferenceMsg: DatabaseReference
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var userId: String
 
     internal lateinit var upcomingMsgList: ArrayList<Message>
 
@@ -41,7 +43,9 @@ class UpcomingFragment() : Fragment() {
         view = inflater.inflate(R.layout.fragment_upcoming, container, false)
         recyclerView = view.findViewById(R.id.recyclerUpcoming)
 
-        databaseReferenceMsg = FirebaseDatabase.getInstance().getReference("Messages")
+        mAuth = FirebaseAuth.getInstance()
+        userId = mAuth.currentUser!!.uid
+        databaseReferenceMsg = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Messages")
         databaseReferenceMsg.keepSynced(true)
         upcomingMsgList = ArrayList()
 

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
@@ -22,6 +23,8 @@ class CreateGroupActivity : AppCompatActivity() {
     private lateinit var createGroupViewModel: CreateGroupViewModel
 
     private val PERMISSION_REQUEST_READ_CONTACTS = 2
+
+    private var counterReadContacts = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +64,17 @@ class CreateGroupActivity : AppCompatActivity() {
                     progressBar.visibility = View.VISIBLE
                     createGroupViewModel.createGroupViewModel(editTxtGroupName.text.toString())
                 } else {
-                    Toast.makeText(this@CreateGroupActivity, R.string.readContactsPermission, Toast.LENGTH_LONG).show()
+                    if (counterReadContacts < 2) {
+                        Toast.makeText(this@CreateGroupActivity, R.string.readContactsPermission, Toast.LENGTH_LONG).show()
+                        counterReadContacts++
+                    } else {
+                        AlertDialog.Builder(this@CreateGroupActivity)
+                            .setTitle(R.string.permissionRequired)
+                            .setMessage(R.string.readContactsExplanation)
+                            .setIcon(R.drawable.warning)
+                            .setPositiveButton(R.string.ok) { _, _ -> }
+                            .show()
+                    }
                 }
             }
         }

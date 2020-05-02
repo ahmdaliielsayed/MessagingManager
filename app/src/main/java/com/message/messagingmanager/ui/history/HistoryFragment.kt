@@ -21,6 +21,8 @@ class HistoryFragment() : Fragment() {
     private var recyclerView: RecyclerView? = null
 
     private lateinit var databaseReferenceMsg: DatabaseReference
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var userId: String
 
     internal lateinit var historyMsgList: ArrayList<Message>
     internal lateinit var view: View
@@ -34,7 +36,9 @@ class HistoryFragment() : Fragment() {
         view = inflater.inflate(R.layout.fragment_history, container, false)
         recyclerView = view.findViewById(R.id.recyclerHistory)
 
-        databaseReferenceMsg = FirebaseDatabase.getInstance().getReference("Messages")
+        mAuth = FirebaseAuth.getInstance()
+        userId = mAuth.currentUser!!.uid
+        databaseReferenceMsg = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Messages")
         historyMsgList = ArrayList()
 
         return view

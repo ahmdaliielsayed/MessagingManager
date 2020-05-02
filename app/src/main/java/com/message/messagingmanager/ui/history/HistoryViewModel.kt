@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.message.messagingmanager.R
 import com.message.messagingmanager.model.Message
@@ -23,7 +24,8 @@ class HistoryViewModel(internal var context: Context) :
 
     private var dataModelList = ArrayList<Message>()
 
-    private var databaseMsg = FirebaseDatabase.getInstance().getReference("Messages")
+    private var userId: String = FirebaseAuth.getInstance().currentUser!!.uid
+    private var databaseMsg = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Messages")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
         val itemView =

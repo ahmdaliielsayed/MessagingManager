@@ -24,6 +24,8 @@ class GroupsFragment() : Fragment() {
     private var recyclerView: RecyclerView? = null
 
     private lateinit var databaseReferenceGroup: DatabaseReference
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var userId: String
 
     internal lateinit var groupsList: ArrayList<Group>
 
@@ -38,7 +40,9 @@ class GroupsFragment() : Fragment() {
         view = inflater.inflate(R.layout.fragment_groups, container, false)
         recyclerView = view.findViewById(R.id.recyclerGroup)
 
-        databaseReferenceGroup = FirebaseDatabase.getInstance().getReference("Groups")
+        mAuth = FirebaseAuth.getInstance()
+        userId = mAuth.currentUser!!.uid
+        databaseReferenceGroup = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Groups")
         databaseReferenceGroup.keepSynced(true)
         groupsList = ArrayList()
 

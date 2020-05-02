@@ -11,17 +11,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.message.messagingmanager.R
 import com.message.messagingmanager.model.Contact
 import java.util.ArrayList
 
-class ContactsDialogueAdapter(internal var context: Context) :
+class ContactsDialogueAdapter(internal var context: Context, internal var groupID: String) :
     RecyclerView.Adapter<ContactsDialogueAdapter.DataViewHolder>() {
 
     private var dataModelList = ArrayList<Contact>()
 
-    private var databaseReferenceContacts = FirebaseDatabase.getInstance().getReference("Contacts")
+    private var userId: String = FirebaseAuth.getInstance().currentUser!!.uid
+    private var databaseReferenceContacts = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Groups").child(groupID).child("Contacts")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.row_contact_dialogue, parent, false)
