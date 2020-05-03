@@ -42,6 +42,8 @@ import java.util.*
 class ScheduleGroupMessageActivity : AppCompatActivity() {
 
     private var arrContacts: ArrayList<Contact> = ArrayList()
+    private var arrAllContacts: ArrayList<Contacts> = ArrayList()
+    private var arrScheduleWhatsContacts: ArrayList<Contacts> = ArrayList()
 
     private var userId: String = FirebaseAuth.getInstance().currentUser!!.uid
 
@@ -69,8 +71,6 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
     private var groupID: String = ""
     private var groupName: String = ""
 
-//    private var arrWhatsContacts: ArrayList<Contacts> = ArrayList()
-
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     override fun onStart() {
         super.onStart()
@@ -85,12 +85,14 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 arrContacts.clear()
+                arrAllContacts.clear()
 
                 for (msgSnapshot in dataSnapshot.children) {
                     val contact = msgSnapshot.getValue(Contact::class.java)
 
                     if (contact!!.getGroupId() == groupID) {
                         arrContacts.add(contact)
+                        arrAllContacts.add(Contacts(contact.getContactName(), contact.getContactNumber()))
                     }
                 }
             }
@@ -327,18 +329,88 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
         }
     }
 
+    private var cursorWhatsApp: Cursor? = null
+    private var arrWhatsContacts: ArrayList<Contacts> = ArrayList()
     private fun scheduleWhatsAppMessage() {
 
         if (validateInputs()) {
             progressBar.visibility = View.VISIBLE
+
+            // read contacts that match prefix
+            cursorWhatsApp = contentResolver.query(
+                ContactsContract.RawContacts.CONTENT_URI,
+                arrayOf(ContactsContract.RawContacts._ID, ContactsContract.RawContacts.CONTACT_ID),
+                ContactsContract.RawContacts.ACCOUNT_TYPE + "= ?",
+                arrayOf("com.whatsapp"),
+                ContactsContract.Contacts.DISPLAY_NAME + " ASC")
+
+            if (cursorWhatsApp != null) {
+                if (cursorWhatsApp!!.count > 0) {
+                    if (cursorWhatsApp!!.moveToFirst()) {
+                        do {
+                            //whatsappContactId for get Number,Name,Id ect... from  ContactsContract.CommonDataKinds.Phone
+                            val whatsappContactId =
+                                cursorWhatsApp!!.getString(cursorWhatsApp!!.getColumnIndex(ContactsContract.RawContacts.CONTACT_ID))
+
+                            if (whatsappContactId != null) {
+                                //Get Data from ContactsContract.CommonDataKinds.Phone of Specific CONTACT_ID
+                                val whatsAppContactCursor = contentResolver.query(
+                                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                                    arrayOf(
+                                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
+                                        ContactsContract.CommonDataKinds.Phone.NUMBER,
+                                        ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME
+                                    ),
+                                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
+                                    arrayOf(whatsappContactId), null
+                                )
+
+                                if (whatsAppContactCursor != null) {
+                                    whatsAppContactCursor.moveToFirst()
+                                    val id = whatsAppContactCursor.getString(
+                                        whatsAppContactCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID)
+                                    )
+                                    val name = whatsAppContactCursor.getString(
+                                        whatsAppContactCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
+                                    )
+                                    val number = whatsAppContactCursor.getString(
+                                        whatsAppContactCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                                    )
+
+                                    whatsAppContactCursor.close()
+
+                                    //Add Number to ArrayList
+                                    if (number.startsWith("+")) {
+                                        val contact = Contacts(name, number)
+                                        arrWhatsContacts.add(contact)
+                                    } else {
+                                        val contact = Contacts(name, "+2$number")
+                                        arrWhatsContacts.add(contact)
+                                    }
+                                }
+                            }
+                        } while (cursorWhatsApp!!.moveToNext())
+                        cursorWhatsApp!!.close()
+
+                        for (i in arrAllContacts.indices) {
+                            for (j in arrWhatsContacts.indices) {
+                                if (arrWhatsContacts[j].getPhone() == arrAllContacts[i].getPhone()) {
+                                    arrScheduleWhatsContacts.add(arrAllContacts[i])
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             var calenderValue = calendarAlarm.timeInMillis
 
-            for (item in arrContacts.indices) {
+            for (item in arrScheduleWhatsContacts.indices) {
                 val smsId: String = databaseReferenceMsg.push().key.toString()
                 val message = Message(
                     smsId,
-                    arrContacts[item].getContactName(),
-                    arrContacts[item].getContactNumber(),
+                    arrScheduleWhatsContacts[item].getName(),
+                    arrScheduleWhatsContacts[item].getPhone(),
                     editTxtMessage.text.toString().trim(),
                     editTxtDate.text.toString().trim(),
                     editTxtTime.text.toString().trim(),
@@ -351,8 +423,8 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
 
                 setWhatsAppMessageAlarm(
                     smsId,
-                    arrContacts[item].getContactName(),
-                    arrContacts[item].getContactNumber(),
+                    arrScheduleWhatsContacts[item].getName(),
+                    arrScheduleWhatsContacts[item].getPhone(),
                     editTxtMessage.text.toString().trim(),
                     editTxtDate.text.toString().trim(),
                     editTxtTime.text.toString().trim(),
