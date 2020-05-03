@@ -10,11 +10,13 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.provider.Settings
 import android.text.TextUtils
 import android.view.View
@@ -28,6 +30,7 @@ import com.message.messagingmanager.HomeActivity
 import com.message.messagingmanager.R
 import com.message.messagingmanager.WhatsappAccessibilityService
 import com.message.messagingmanager.model.Contact
+import com.message.messagingmanager.model.Contacts
 import com.message.messagingmanager.model.Message
 import com.message.messagingmanager.view.receiver.AlertReceiver
 import kotlinx.android.synthetic.main.activity_schedule_group_message.*
@@ -65,6 +68,8 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
 
     private var groupID: String = ""
     private var groupName: String = ""
+
+//    private var arrWhatsContacts: ArrayList<Contacts> = ArrayList()
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     override fun onStart() {
