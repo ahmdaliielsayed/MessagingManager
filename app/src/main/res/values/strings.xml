@@ -24,6 +24,8 @@
 
     <!-- activity contacts -->
     <string name="selectReceiver">Select Receiver</string>
+    <string name="searchName">Search by name…</string>
+    <string name="searchGroup">Group name…</string>
 
     <!-- activity contacts dialogue -->
     <string name="txtViewGroupName">Group Name</string>
@@ -153,6 +155,9 @@
     <!-- menu upcoming msg person -->
     <string name="itemEdit">Edit</string>
     <string name="itemDelete">Delete</string>
+
+    <!-- menu search -->
+    <string name="itemSearch">Search</string>
 
     <!-- activity networks -->
     <string name="SIMName">Network(SIM) Name</string>

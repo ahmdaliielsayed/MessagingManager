@@ -24,6 +24,8 @@
 
     <!-- activity contacts -->
     <string name="selectReceiver">اختر المُسْتَقْبِل</string>
+    <string name="searchName">البحث بالاسم…</string>
+    <string name="searchGroup">اسم المجموعة…</string>
 
     <!-- activity contacts dialogue -->
     <string name="txtViewGroupName">اسم المجموعة</string>
@@ -153,6 +155,9 @@
     <!-- menu upcoming msg person -->
     <string name="itemEdit">تعديل</string>
     <string name="itemDelete">حذف</string>
+
+    <!-- menu search -->
+    <string name="itemSearch">بحث</string>
 
     <!-- activity networks -->
     <string name="SIMName">اسم الشبكة (SIM)</string>

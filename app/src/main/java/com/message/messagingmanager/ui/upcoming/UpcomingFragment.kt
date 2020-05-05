@@ -82,8 +82,6 @@ class UpcomingFragment() : Fragment() {
                             upcomingMsgList.add(upcomingMsg)
                         }
                     }
-
-//                    setAdapter()
                 }
 
                 if (upcomingMsgList.size <= 0) {

@@ -2,21 +2,23 @@ package com.message.messagingmanager.view.activity
 
 import android.annotation.SuppressLint
 import android.database.Cursor
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.SearchView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.message.messagingmanager.R
 import com.message.messagingmanager.model.Contacts
 import com.message.messagingmanager.view.adapter.ContactsAdapter
 import kotlinx.android.synthetic.main.activity_contacts.*
 import kotlinx.android.synthetic.main.app_bar.*
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashSet
-import androidx.fragment.app.FragmentActivity
 
 
 class ContactsActivity : AppCompatActivity() {
@@ -28,6 +30,8 @@ class ContactsActivity : AppCompatActivity() {
 
     private var spinnerValue: String = ""
     lateinit var adapter: ContactsAdapter
+
+    private var textVal: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -128,5 +132,52 @@ class ContactsActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         progressBar.visibility = View.GONE
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_search, menu)
+
+        val searchItem: MenuItem = menu!!.findItem(R.id.item_search)
+        val searchView: SearchView = searchItem.actionView as SearchView
+
+        // to remove search icon from keyboard because we just on locale recyclerview not online recyclerview
+        searchView.imeOptions = EditorInfo.IME_ACTION_DONE
+
+        // to set search text
+        searchView.queryHint = getText(R.string.searchName)
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter.filter(newText)
+                if (newText != null) {
+                    textVal = newText
+                }
+                return true
+            }
+        })
+
+        searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener{
+            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+                adapter.filter.filter(textVal)
+                // change color
+                val id = searchView.context.resources.getIdentifier("android:id/search_src_text", null, null)
+                val editText = searchView.findViewById<View>(id) as EditText
+                editText.setHintTextColor(Color.WHITE)
+//                editText.setText("")
+//                adapter.filter.filter("")
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+                adapter.filter.filter("")
+                return true
+            }
+
+        })
+        return true
     }
 }

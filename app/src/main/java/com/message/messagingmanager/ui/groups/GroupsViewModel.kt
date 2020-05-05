@@ -8,9 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -20,12 +18,17 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.message.messagingmanager.R
 import com.message.messagingmanager.model.Contact
+import com.message.messagingmanager.model.Contacts
 import com.message.messagingmanager.model.Group
 import com.message.messagingmanager.view.activity.ContactsDialogueActivity
 import com.message.messagingmanager.view.activity.ContactsGroupActivity
+import java.util.*
+import kotlin.collections.ArrayList
 
-class GroupsViewModel(internal var context: Activity) :
-    RecyclerView.Adapter<GroupsViewModel.DataViewHolder>() {
+class GroupsViewModel(internal var context: Activity, private val groupsList: ArrayList<Group>) :
+    RecyclerView.Adapter<GroupsViewModel.DataViewHolder>(), Filterable {
+
+    private var searchGroupsList: ArrayList<Group> = ArrayList(groupsList)
 
     private var dataModelList = ArrayList<Group>()
 
@@ -109,6 +112,37 @@ class GroupsViewModel(internal var context: Activity) :
     fun setDataToAdapter(dataModelList: ArrayList<Group>) {
         this.dataModelList = dataModelList
         notifyDataSetChanged()
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val filteredSearchContactsList: java.util.ArrayList<Group> =
+                    java.util.ArrayList()
+
+                if (constraint == null || constraint.isEmpty()) {
+                    filteredSearchContactsList.addAll(searchGroupsList)
+                } else {
+                    val filterPattern: String = constraint.toString().toLowerCase(Locale.getDefault())
+                        .trim()
+                    for (item in searchGroupsList) {
+                        if (item.getGroupName().toLowerCase(Locale.getDefault()).contains(filterPattern)) {
+                            filteredSearchContactsList.add(item)
+                        }
+                    }
+                }
+
+                val filterResult = FilterResults()
+                filterResult.values = filteredSearchContactsList
+                return filterResult
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                groupsList.clear()
+                groupsList.addAll(results!!.values as Collection<Group>)
+                notifyDataSetChanged()
+            }
+        }
     }
 
     inner class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
