@@ -24,6 +24,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.InterstitialAd
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.message.messagingmanager.HomeActivity
@@ -52,6 +56,10 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
         FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Messages")
 
     private val PERMISSION_REQUEST_SEND_SMS = 1
+    private val PERMISSION_REQUEST_READ_CONTACTS = 2
+
+    private var counterReadContacts = 0
+    private var counterSendSMS = 0
 
     private var calender: DatePickerDialog.OnDateSetListener? = null
     private var timePickerDialog: TimePickerDialog? = null
@@ -70,6 +78,9 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
 
     private var groupID: String = ""
     private var groupName: String = ""
+
+    private lateinit var adView: AdView
+    private lateinit var mInterstitialAd: InterstitialAd
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     override fun onStart() {
@@ -110,6 +121,9 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule_group_message)
 
+        makeAd()
+        prepareInterstitialAd()
+
         groupName = intent.getStringExtra("groupName")
         txtViewGroupName.text = groupName
 
@@ -122,10 +136,7 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
             val year = cal.get(Calendar.YEAR)
             val month = cal.get(Calendar.MONTH)
             val day = cal.get(Calendar.DAY_OF_MONTH)
-            val dialog = DatePickerDialog(
-                this@ScheduleGroupMessageActivity,
-                calender, year, month, day
-            )
+            val dialog = DatePickerDialog(this@ScheduleGroupMessageActivity, calender, year, month, day)
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.WHITE))
             dialog.show()
         }
@@ -155,9 +166,7 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
                 } catch (e: ParseException) {
                     e.printStackTrace()
                 }
-                myDateCheck!!.before(date) -> Toast.makeText(
-                    this@ScheduleGroupMessageActivity, R.string.enterValidDate, Toast.LENGTH_LONG
-                ).show()
+                myDateCheck!!.before(date) -> Toast.makeText(this@ScheduleGroupMessageActivity, R.string.enterValidDate, Toast.LENGTH_LONG).show()
                 else -> {
                     editTxtDate.setText(startDate)
                     editTxtTime.setText("")
@@ -194,9 +203,7 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
                     myRealCalender.set(Calendar.MINUTE, minutes)
 
                     if (myRealCalender.time.before(myCalInstance.time)) {
-                        Toast.makeText(
-                            this@ScheduleGroupMessageActivity, R.string.enterValidTime, Toast.LENGTH_LONG
-                        ).show()
+                        Toast.makeText(this@ScheduleGroupMessageActivity, R.string.enterValidTime, Toast.LENGTH_LONG).show()
                     } else {
                         hours1 = hourOfDay
                         min1 = minutes
@@ -223,32 +230,42 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
         }
 
         btnSMS.setOnClickListener {
-            val permissionCheck: Int = ContextCompat.checkSelfPermission(
-                this@ScheduleGroupMessageActivity,
-                Manifest.permission.SEND_SMS
-            )
+            val permissionCheck: Int = ContextCompat.checkSelfPermission(this@ScheduleGroupMessageActivity, Manifest.permission.SEND_SMS)
             if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                // 4. Check if the ad has loaded
+                // 5. Display ad
+                if (mInterstitialAd.isLoaded) {
+                    mInterstitialAd.show()
+                }
                 scheduleSMSMessage()
             } else {
-                ActivityCompat.requestPermissions(
-                    this@ScheduleGroupMessageActivity, arrayOf(Manifest.permission.SEND_SMS),
-                    this.PERMISSION_REQUEST_SEND_SMS
-                )
+                ActivityCompat.requestPermissions(this@ScheduleGroupMessageActivity, arrayOf(Manifest.permission.SEND_SMS), this.PERMISSION_REQUEST_SEND_SMS)
             }
         }
 
         btnWhatsApp.setOnClickListener {
-            if (isAccessibilityOn(this@ScheduleGroupMessageActivity, WhatsappAccessibilityService::class.java)) {
-                scheduleWhatsAppMessage()
-            } else {
-                AlertDialog.Builder(this@ScheduleGroupMessageActivity)
-                    .setTitle(R.string.enableAccessibility)
-                    .setMessage(R.string.accessibilitySteps)
-                    .setIcon(R.drawable.ic_check_circle_green_24dp)
-                    .setPositiveButton(R.string.ok) { _, _ ->
-                        startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+            val permissionCheck: Int = ContextCompat.checkSelfPermission(this@ScheduleGroupMessageActivity, Manifest.permission.READ_CONTACTS)
+
+            if (permissionCheck == PackageManager.PERMISSION_GRANTED){
+                if (isAccessibilityOn(this@ScheduleGroupMessageActivity, WhatsappAccessibilityService::class.java)) {
+                    // 4. Check if the ad has loaded
+                    // 5. Display ad
+                    if (mInterstitialAd.isLoaded) {
+                        mInterstitialAd.show()
                     }
-                    .show()
+                    scheduleWhatsAppMessage()
+                } else {
+                    AlertDialog.Builder(this@ScheduleGroupMessageActivity)
+                        .setTitle(R.string.enableAccessibility)
+                        .setMessage(R.string.accessibilitySteps)
+                        .setIcon(R.drawable.ic_check_circle_green_24dp)
+                        .setPositiveButton(R.string.ok) { _, _ ->
+                            startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                        }
+                        .show()
+                }
+            } else {
+                ActivityCompat.requestPermissions(this@ScheduleGroupMessageActivity, arrayOf(Manifest.permission.READ_CONTACTS), PERMISSION_REQUEST_READ_CONTACTS)
             }
         }
     }
@@ -257,9 +274,7 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
         var accessibilityEnabled = 0
         val service = context.packageName + "/" + clazz.canonicalName
         try {
-            accessibilityEnabled = Settings.Secure.getInt(context.applicationContext.contentResolver,
-                Settings.Secure.ACCESSIBILITY_ENABLED
-            )
+            accessibilityEnabled = Settings.Secure.getInt(context.applicationContext.contentResolver, Settings.Secure.ACCESSIBILITY_ENABLED)
         } catch (ignored: Settings.SettingNotFoundException) {
 
         }
@@ -267,9 +282,7 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
         val colonSplitter = TextUtils.SimpleStringSplitter(':')
 
         if (accessibilityEnabled == 1) {
-            val settingValue = Settings.Secure.getString(context.applicationContext.contentResolver,
-                Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
-            )
+            val settingValue = Settings.Secure.getString(context.applicationContext.contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
 
             if (settingValue != null) {
                 colonSplitter.setString(settingValue)
@@ -294,32 +307,16 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
 
             for (item in arrContacts.indices) {
                 val smsId: String = databaseReferenceMsg.push().key.toString()
-                val message = Message(
-                    smsId,
-                    arrContacts[item].getContactName(),
-                    arrContacts[item].getContactNumber(),
-                    editTxtMessage.text.toString().trim(),
-                    editTxtDate.text.toString().trim(),
-                    editTxtTime.text.toString().trim(),
-                    resources.getString(R.string.status_upcoming),
-                    resources.getString(R.string.type_sms),
-                    FirebaseAuth.getInstance().currentUser!!.uid,
-                    calenderValue
-                )
+                val message = Message(smsId, arrContacts[item].getContactName(),
+                    arrContacts[item].getContactNumber(), editTxtMessage.text.toString().trim(),
+                    editTxtDate.text.toString().trim(), editTxtTime.text.toString().trim(),
+                    resources.getString(R.string.status_upcoming), resources.getString(R.string.type_sms), FirebaseAuth.getInstance().currentUser!!.uid, calenderValue)
                 databaseReferenceMsg.child(smsId).setValue(message)
 
-                setSMSAlarm(
-                    smsId,
-                    arrContacts[item].getContactName(),
-                    arrContacts[item].getContactNumber(),
-                    editTxtMessage.text.toString().trim(),
-                    editTxtDate.text.toString().trim(),
-                    editTxtTime.text.toString().trim(),
-                    resources.getString(R.string.status_upcoming),
-                    resources.getString(R.string.type_sms),
-                    FirebaseAuth.getInstance().currentUser!!.uid,
-                    calenderValue
-                )
+                setSMSAlarm(smsId, arrContacts[item].getContactName(),
+                    arrContacts[item].getContactNumber(), editTxtMessage.text.toString().trim(),
+                    editTxtDate.text.toString().trim(), editTxtTime.text.toString().trim(),
+                    resources.getString(R.string.status_upcoming), resources.getString(R.string.type_sms), FirebaseAuth.getInstance().currentUser!!.uid, calenderValue)
 
                 calenderValue += 10000
             }
@@ -407,32 +404,16 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
 
             for (item in arrScheduleWhatsContacts.indices) {
                 val smsId: String = databaseReferenceMsg.push().key.toString()
-                val message = Message(
-                    smsId,
-                    arrScheduleWhatsContacts[item].getName(),
-                    arrScheduleWhatsContacts[item].getPhone(),
-                    editTxtMessage.text.toString().trim(),
-                    editTxtDate.text.toString().trim(),
-                    editTxtTime.text.toString().trim(),
-                    resources.getString(R.string.status_upcoming),
-                    resources.getString(R.string.type_whats_app),
-                    FirebaseAuth.getInstance().currentUser!!.uid,
-                    calenderValue
-                )
+                val message = Message(smsId, arrScheduleWhatsContacts[item].getName(),
+                    arrScheduleWhatsContacts[item].getPhone(), editTxtMessage.text.toString().trim(),
+                    editTxtDate.text.toString().trim(), editTxtTime.text.toString().trim(),
+                    resources.getString(R.string.status_upcoming), resources.getString(R.string.type_whats_app), FirebaseAuth.getInstance().currentUser!!.uid, calenderValue)
                 databaseReferenceMsg.child(smsId).setValue(message)
 
-                setWhatsAppMessageAlarm(
-                    smsId,
-                    arrScheduleWhatsContacts[item].getName(),
-                    arrScheduleWhatsContacts[item].getPhone(),
-                    editTxtMessage.text.toString().trim(),
-                    editTxtDate.text.toString().trim(),
-                    editTxtTime.text.toString().trim(),
-                    resources.getString(R.string.status_upcoming),
-                    resources.getString(R.string.type_whats_app),
-                    FirebaseAuth.getInstance().currentUser!!.uid,
-                    calenderValue
-                )
+                setWhatsAppMessageAlarm(smsId, arrScheduleWhatsContacts[item].getName(),
+                    arrScheduleWhatsContacts[item].getPhone(), editTxtMessage.text.toString().trim(),
+                    editTxtDate.text.toString().trim(), editTxtTime.text.toString().trim(),
+                    resources.getString(R.string.status_upcoming), resources.getString(R.string.type_whats_app), FirebaseAuth.getInstance().currentUser!!.uid, calenderValue)
 
                 calenderValue += 10000
             }
@@ -483,12 +464,7 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
         intent.putExtra("calendar", calendar)
 
         val pendingIntent: PendingIntent =
-            PendingIntent.getBroadcast(
-                this@ScheduleGroupMessageActivity,
-                smsId.hashCode(),
-                intent,
-                0
-            )
+            PendingIntent.getBroadcast(this@ScheduleGroupMessageActivity, smsId.hashCode(), intent, 0)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar, pendingIntent)
@@ -528,12 +504,7 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
         intent.putExtra("calendar", calendar)
 
         val pendingIntent: PendingIntent =
-            PendingIntent.getBroadcast(
-                this@ScheduleGroupMessageActivity,
-                smsId.hashCode(),
-                intent,
-                0
-            )
+            PendingIntent.getBroadcast(this@ScheduleGroupMessageActivity, smsId.hashCode(), intent, 0)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar, pendingIntent)
@@ -545,11 +516,7 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
         finish()
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         when (requestCode) {
@@ -557,9 +524,163 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
                 if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     scheduleSMSMessage()
                 } else {
-                    Toast.makeText(this@ScheduleGroupMessageActivity, R.string.sendMessagePermission, Toast.LENGTH_LONG).show()
+                    if (counterSendSMS < 2) {
+                        Toast.makeText(this@ScheduleGroupMessageActivity, R.string.sendMessagePermission, Toast.LENGTH_LONG).show()
+                        counterSendSMS++
+                    } else {
+                        alertDialog(R.string.permissionRequired, R.string.sendSMSExplanation, R.drawable.warning, R.string.ok)
+                    }
+                }
+            }
+
+            PERMISSION_REQUEST_READ_CONTACTS -> {
+                if (grantResults.size >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    scheduleWhatsAppMessage()
+                } else {
+                    if (counterReadContacts < 2) {
+                        Toast.makeText(this@ScheduleGroupMessageActivity, R.string.readContactsPermission, Toast.LENGTH_LONG).show()
+                        counterReadContacts++
+                    } else {
+                        alertDialog(R.string.permissionRequired, R.string.readContactsExplanation, R.drawable.warning, R.string.ok)
+                    }
                 }
             }
         }
+    }
+
+    private fun alertDialog(title: Int, message: Int, icon: Int, positiveButton: Int) {
+        AlertDialog.Builder(this@ScheduleGroupMessageActivity)
+            .setTitle(title)
+            .setMessage(message)
+            .setIcon(icon)
+            .setPositiveButton(positiveButton) { _, _ -> }
+            .show()
+    }
+
+    private fun makeAd() {
+        // 1. Place an AdView
+        adView = findViewById(R.id.adView)
+        adView.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+
+                // executed when an ad has finished loading.
+                // If you want to delay adding the AdView to your activity or fragment until you're sure an ad will be loaded,
+                // for example, you can do so here.
+
+                // بتتنده كل مرة بيحصل update لـ الإعلاان و بيحصل update كل شوية
+//                Toast.makeText(this@ScheduleMessageActivity, "ده لماا الإعلاان بيحمل", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onAdFailedToLoad(errorCode: Int) {
+                // Code to be executed when an ad request fails.
+//                Toast.makeText(this@ScheduleMessageActivity, "onAdFailedToLoad(int errorCode): $errorCode\nده لماا الإعلاان مبيحملش", Toast.LENGTH_SHORT).show()
+//                when (errorCode) {
+//                    AdRequest.ERROR_CODE_INTERNAL_ERROR -> Toast.makeText(this@ScheduleMessageActivity, "Something happened internally; for instance, an invalid response was received from the ad server.", Toast.LENGTH_SHORT).show()
+//                    AdRequest.ERROR_CODE_INVALID_REQUEST -> Toast.makeText(this@ScheduleMessageActivity, "The ad request was invalid; for instance, the ad unit ID was incorrect.", Toast.LENGTH_SHORT).show()
+//                    AdRequest.ERROR_CODE_NETWORK_ERROR -> Toast.makeText(this@ScheduleMessageActivity, "The ad request was unsuccessful due to network connectivity.", Toast.LENGTH_SHORT).show()
+//                    AdRequest.ERROR_CODE_NO_FILL -> Toast.makeText(this@ScheduleMessageActivity, "The ad request was successful, but no ad was returned due to lack of ad inventory.", Toast.LENGTH_SHORT).show()
+//                    AdRequest.ERROR_CODE_APP_ID_MISSING -> Toast.makeText(this@ScheduleMessageActivity, "APP_ID_MISSING", Toast.LENGTH_SHORT).show()
+//                }
+            }
+
+            override fun onAdOpened() {
+                // Code to be executed when an ad opens an overlay that covers the screen.
+                // This method is invoked when the user taps on an ad.
+//                Toast.makeText(this@ScheduleMessageActivity, "لماا بيفتح الإعلاان", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+                // مش بيوصلهاا !!!
+//                Toast.makeText(BannerActivity.this, "onAdClicked()", Toast.LENGTH_SHORT).show();
+            }
+
+            override fun onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+
+                // This method is invoked after onAdOpened(),
+                // when a user click opens another app (such as the Google Play), backgrounding the current app.
+//                Toast.makeText(this@ScheduleMessageActivity, "لماا بيفتح الإعلاان أخرج من الأبلكيشن", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onAdClosed() {
+                // Code to be executed when the user is about to return to the app after tapping on an ad.
+
+                // When a user returns to the app after viewing an ad's destination URL, this method is invoked.
+                // Your app can use it to resume suspended activities or perform any other work necessary to make itself ready for interaction.
+//                Toast.makeText(this@ScheduleMessageActivity, "لماا أضغط ع الإعلاان و يفتح و أخرج من الإعلاان و أرجع لـ الـ application ده اللي هيحصل", Toast.LENGTH_SHORT).show()
+                alertDialog(R.string.welcomeBack, R.string.missYou, R.drawable.fire, R.string.ok)
+            }
+        }
+        // 2. Build a request
+        val adRequest = AdRequest.Builder().build()
+        // 3.Load an ad
+        adView.loadAd(adRequest)
+    }
+
+    private fun prepareInterstitialAd() {
+        // 1. Create InterstitialAd object
+
+        // 1. Create InterstitialAd object
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = getText(R.string.interstitialAdId).toString()
+        mInterstitialAd.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+
+                // executed when an ad has finished loading.
+                // If you want to delay adding the AdView to your activity or fragment until you're sure an ad will be loaded,
+                // for example, you can do so here.
+
+//                Toast.makeText(this@ScheduleMessageActivity, "ده لماا الإعلاان بيحمل", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onAdFailedToLoad(errorCode: Int) {
+                // Code to be executed when an ad request fails.
+//                Toast.makeText(this@ScheduleMessageActivity, "onAdFailedToLoad(int errorCode): $errorCode\nده لماا الإعلاان مبيحملش", Toast.LENGTH_SHORT).show()
+//                when (errorCode) {
+//                    AdRequest.ERROR_CODE_INTERNAL_ERROR -> Toast.makeText(this@ScheduleMessageActivity, "Something happened internally; for instance, an invalid response was received from the ad server.", Toast.LENGTH_SHORT).show()
+//                    AdRequest.ERROR_CODE_INVALID_REQUEST -> Toast.makeText(this@ScheduleMessageActivity, "The ad request was invalid; for instance, the ad unit ID was incorrect.", Toast.LENGTH_SHORT).show()
+//                    AdRequest.ERROR_CODE_NETWORK_ERROR -> Toast.makeText(this@ScheduleMessageActivity, "The ad request was unsuccessful due to network connectivity.", Toast.LENGTH_SHORT).show()
+//                    AdRequest.ERROR_CODE_NO_FILL -> Toast.makeText(this@ScheduleMessageActivity, "The ad request was successful, but no ad was returned due to lack of ad inventory.", Toast.LENGTH_SHORT).show()
+//                    AdRequest.ERROR_CODE_APP_ID_MISSING -> Toast.makeText(this@ScheduleMessageActivity, "APP_ID_MISSING", Toast.LENGTH_SHORT).show()
+//                }
+            }
+
+            override fun onAdOpened() {
+                // Code to be executed when the ad is displayed.
+
+                // This method is invoked when the user taps on an ad.
+//                Toast.makeText(this@ScheduleMessageActivity, "لماا بيفتح الإعلاان", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+                // مش بيوصلهاا !!!
+            }
+
+            override fun onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+
+                // This method is invoked after onAdOpened(),
+                // when a user click opens another app (such as the Google Play), backgrounding the current app.
+//                Toast.makeText(this@ScheduleMessageActivity, "لماا بيفتح الإعلاان أخرج من الأبلكيشن", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onAdClosed() {
+                // Code to be executed when the interstitial ad is closed.
+
+                // When a user returns to the app after viewing an ad's destination URL, this method is invoked.
+                // Your app can use it to resume suspended activities or perform any other work necessary to make itself ready for interaction.
+                Toast.makeText(this@ScheduleGroupMessageActivity, getText(R.string.welcomeBack).toString(), Toast.LENGTH_SHORT).show()
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(AdRequest.Builder().build())
+            }
+        }
+        // 2. Request an ad
+        // 2. Request an ad
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
+        // 3. Wait until the right moment
     }
 }

@@ -1,200 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.activity.TipsActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <include
+        layout="@layout/app_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <include
-            layout="@layout/app_bar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imgViewWarning"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textViewWarning"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textViewWarning"
-            app:srcCompat="@drawable/warning"
-            tools:ignore="ContentDescription" />
+            <ImageView
+                android:id="@+id/imgViewWarning"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewWarning"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewWarning"
+                app:srcCompat="@drawable/warning"
+                tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/textViewWarning"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="72dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/txtViewWarning"
-            android:textAlignment="viewStart"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imgViewWarning"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textViewWarning"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="72dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/txtViewWarning"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imgViewWarning"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textViewXiaomi"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/txtViewXiaomi"
-            android:textAlignment="viewStart"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/imgViewWarning"
-            app:layout_constraintTop_toBottomOf="@+id/textViewWarning" />
+            <TextView
+                android:id="@+id/textViewXiaomi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/txtViewXiaomi"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/imgViewWarning"
+                app:layout_constraintTop_toBottomOf="@+id/textViewWarning" />
 
-        <TextView
-            android:id="@+id/textViewAutoStart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/textViewAutoStart"
-            android:textAlignment="viewStart"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/textViewXiaomi"
-            app:layout_constraintTop_toBottomOf="@+id/textViewXiaomi" />
+            <TextView
+                android:id="@+id/textViewAutoStart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/textViewAutoStart"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/textViewXiaomi"
+                app:layout_constraintTop_toBottomOf="@+id/textViewXiaomi" />
 
-        <TextView
-            android:id="@+id/textViewStepAutoStart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/textViewStepAutoStart"
-            android:textAlignment="viewStart"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/textViewWarning"
-            app:layout_constraintStart_toStartOf="@+id/textViewAutoStart"
-            app:layout_constraintTop_toBottomOf="@+id/textViewAutoStart" />
+            <TextView
+                android:id="@+id/textViewStepAutoStart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/textViewStepAutoStart"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/textViewWarning"
+                app:layout_constraintStart_toStartOf="@+id/textViewAutoStart"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAutoStart" />
 
-        <TextView
-            android:id="@+id/textViewBatterySaver"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/textViewBatterySaver"
-            android:textAlignment="viewStart"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/textViewStepAutoStart"
-            app:layout_constraintTop_toBottomOf="@+id/textViewStepAutoStart" />
+            <TextView
+                android:id="@+id/textViewBatterySaver"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/textViewBatterySaver"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/textViewStepAutoStart"
+                app:layout_constraintTop_toBottomOf="@+id/textViewStepAutoStart" />
 
-        <TextView
-            android:id="@+id/textViewStepBatterySaver"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/textViewStepBatterySaver"
-            android:textAlignment="viewStart"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/textViewWarning"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/textViewAutoStart"
-            app:layout_constraintTop_toBottomOf="@+id/textViewBatterySaver" />
+            <TextView
+                android:id="@+id/textViewStepBatterySaver"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/textViewStepBatterySaver"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/textViewWarning"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/textViewAutoStart"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBatterySaver" />
 
-        <TextView
-            android:id="@+id/textViewBatteryOptimization"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/textViewBatteryOptimization"
-            android:textAlignment="viewStart"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/textViewStepAutoStart"
-            app:layout_constraintTop_toBottomOf="@+id/textViewStepBatterySaver" />
+            <TextView
+                android:id="@+id/textViewBatteryOptimization"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/textViewBatteryOptimization"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/textViewStepAutoStart"
+                app:layout_constraintTop_toBottomOf="@+id/textViewStepBatterySaver" />
 
-        <TextView
-            android:id="@+id/textViewBatteryOptimizationText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/textViewBatteryOptimizationText"
-            android:textAlignment="viewStart"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/textViewWarning"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textViewAutoStart"
-            app:layout_constraintTop_toBottomOf="@+id/textViewBatteryOptimization" />
+            <TextView
+                android:id="@+id/textViewBatteryOptimizationText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/textViewBatteryOptimizationText"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/textViewWarning"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textViewAutoStart"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBatteryOptimization" />
 
-        <Button
-            android:id="@+id/btnDoItNow"
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/btn_style"
-            android:text="@string/btnDoItNow"
-            android:textAlignment="viewStart"
-            android:textColor="#fff"
-            app:layout_constraintEnd_toEndOf="@+id/textViewBatteryOptimizationText"
-            app:layout_constraintStart_toStartOf="@+id/textViewBatteryOptimizationText"
-            app:layout_constraintTop_toBottomOf="@+id/textViewBatteryOptimizationText" />
+            <Button
+                android:id="@+id/btnDoItNow"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/btn_style"
+                android:text="@string/btnDoItNow"
+                android:textAlignment="viewStart"
+                android:textColor="#fff"
+                app:layout_constraintEnd_toEndOf="@+id/textViewBatteryOptimizationText"
+                app:layout_constraintStart_toStartOf="@+id/textViewBatteryOptimizationText"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBatteryOptimizationText" />
 
-        <TextView
-            android:id="@+id/textViewRecommendations"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/txtViewXiaomi"
-            android:textAlignment="viewStart"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/textViewBatteryOptimizationText"
-            app:layout_constraintTop_toBottomOf="@+id/btnDoItNow" />
+            <TextView
+                android:id="@+id/textViewRecommendations"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/txtViewXiaomi"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/textViewBatteryOptimizationText"
+                app:layout_constraintTop_toBottomOf="@+id/btnDoItNow" />
 
-        <TextView
-            android:id="@+id/textViewRecommendationsOne"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/textViewRecommendationsOne"
-            android:textAlignment="viewStart"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/textViewBatteryOptimizationText"
-            app:layout_constraintStart_toStartOf="@+id/textViewBatteryOptimizationText"
-            app:layout_constraintTop_toBottomOf="@+id/textViewRecommendations" />
+            <TextView
+                android:id="@+id/textViewRecommendationsOne"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/textViewRecommendationsOne"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/textViewBatteryOptimizationText"
+                app:layout_constraintStart_toStartOf="@+id/textViewBatteryOptimizationText"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRecommendations" />
 
-        <TextView
-            android:id="@+id/textViewRecommendationsTwo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/textViewRecommendationsTwo"
-            android:textAlignment="viewStart"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/textViewRecommendationsOne"
-            app:layout_constraintStart_toStartOf="@+id/textViewRecommendationsOne"
-            app:layout_constraintTop_toBottomOf="@+id/textViewRecommendationsOne" />
+            <TextView
+                android:id="@+id/textViewRecommendationsTwo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/textViewRecommendationsTwo"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/textViewRecommendationsOne"
+                app:layout_constraintStart_toStartOf="@+id/textViewRecommendationsOne"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRecommendationsOne" />
 
-        <TextView
-            android:id="@+id/textViewRecommendationsThree"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/textViewRecommendationsThree"
-            android:textAlignment="viewStart"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textViewRecommendationsTwo"
-            app:layout_constraintStart_toStartOf="@+id/textViewRecommendationsTwo"
-            app:layout_constraintTop_toBottomOf="@+id/textViewRecommendationsTwo" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+            <TextView
+                android:id="@+id/textViewRecommendationsThree"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/textViewRecommendationsThree"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textViewRecommendationsTwo"
+                app:layout_constraintStart_toStartOf="@+id/textViewRecommendationsTwo"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRecommendationsTwo" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:adSize="SMART_BANNER"
+        app:adUnitId="@string/adViewId"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

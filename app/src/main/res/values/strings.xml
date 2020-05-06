@@ -83,6 +83,8 @@
     <string name="permissionRequired">Your permission is required!</string>
     <string name="readContactsExplanation"><b>Read contacts</b>\nTo select recipients from your contact list</string>
     <string name="sendSMSExplanation"><b>Send SMS</b>\nIn order to send your scheduled messages</string>
+    <string name="welcomeBack">Welcome Back!</string>
+    <string name="missYou">We missed you so much 🤗</string>
 
     <!-- activity schedule network messages -->
     <string name="scheduleNetworkMessages">Schedule Network Messages</string>
@@ -170,6 +172,7 @@
     <string name="prefixRequired">Prefix of Network(SIM) required!</string>
     <string name="prefixRestriction">Prefix of Network(SIM) should starts with sign (+)!</string>
     <string name="prefixError">Prefix of Network(SIM) should be at least 2 digits!\nbased on your country, type the prefix of the network!</string>
+    <string name="prefixExist">This prefix already exists!\nYou can\'t add a pre-existing prefix</string>
 
     <!-- activity schedule group message -->
     <string name="scheduleMessages">Schedule Messages</string>
@@ -195,6 +198,7 @@
     <string name="textViewRecommendationsTwo">* If your device includes some Battery Saver or Cleanup apps(for example: Cleanmaster, CM Suite, CCleaner, Battery Doctor, Greenify, and Amplify) make sure that Message Scheduler is added to whitelist.</string>
     <string name="textViewRecommendationsThree">* Enable Alert mode on App Settings > Advanced is strongly recommended.</string>
     <string name="tips">Tips</string>
+    <string name="oldVersion">Sorry, you have an old Android version!</string>
 
     <!-- activity groups -->
     <string name="txtViewNoItemAddGroup">No Groups!\nClick Here to add Group</string>
@@ -340,4 +344,9 @@
     <string name="tcTextView56">12. LAW AND JURISDICTION</string>
     <string name="tcTextView57">User also certifies that it is legally permitted to use the Service, and takes full responsibility for the selection and use of the Service. This Agreement is void where prohibited by law, and the right to access the Service is revoked in such jurisdictions.</string>
     <string name="tcTextView58">Even if this Agreement is terminated, this terms and conditions will continue to apply</string>
+
+    <!-- ads -->
+    <string name="adMobAppId">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="adViewId">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="interstitialAdId">ca-app-pub-3940256099942544/1033173712</string>
 </resources>
