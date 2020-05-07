@@ -83,7 +83,7 @@ class NetworksActivity : AppCompatActivity() {
                     }
 
                     for (item in simsArrayList!!.indices) {
-                        if ((simsArrayList!![item] as SIM).getSimPrefix() == editTxtAddPrefix.text.toString().trim()) {
+                        if (simsArrayList!![item] is SIM && (simsArrayList!![item] as SIM).getSimPrefix() == editTxtAddPrefix.text.toString().trim()) {
                             AlertDialog.Builder(this@NetworksActivity)
                                 .setTitle(R.string.error)
                                 .setMessage(R.string.prefixExist)
