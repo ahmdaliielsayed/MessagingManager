@@ -86,6 +86,11 @@
     <string name="sendSMSExplanation"><b>Send SMS</b>\nIn order to send your scheduled messages</string>
     <string name="welcomeBack">Welcome Back!</string>
     <string name="missYou">We missed you so much 🤗</string>
+    <string name="warningMsgWhatsApp"><b>Warning: choose a time</b>\nPlease do not schedule two or more WhatsApp messages at the same time to avoid transmission failure\n\n<b>Mandatory requirement: unlock screen</b>\nPlease cancel the screen lock until the process of sending WhatsApp messages succeeds, as when the screen is off, we regret not sending the message correctly, and this is an external condition outside our control. We offer this unconventional solution after extensive research and development, as a solution that uses the possibility of Android access to activate the possibility of automating WhatsApp. Without it, the service in sending WhatsApp messages will be unhelpful, and the sending process will fail at that time. We promise to provide you with the right solution when technically available. Thank you for your understanding\n\n<b>Mandatory Requirement: Optimization of battery use improvement</b>\nOn some Android devices, improved battery usage cancels the accessibility service automatically after an idle period, causing the failure to send scheduled WhatsApp messages. To prevent this from happening, please uninstall Battery Scheduler Optimization from your device\'s settings.</string>
+    <string name="optimizeBattery"><b>Battery optimization adjustment</b></string>
+    <string name="batteryOptimizationSettings">Battery optimization settings</string>
+    <string name="turnOffBatteryOptimization">Please, turn off battery optimization for Message Scheduler to do its job without errors\nAfter pressing the OK button, we will direct you to the battery optimization screen, then take the following steps…\n○ You will find a selection on not optimized, open the menu and then choose all apps\n○ Find and tap Message Scheduler\n○ Choose Don\'t optimize then press Done\n○ Return to the Message Scheduler app and schedule your messages\n\nNote that we do not drain the battery but we use it for optimal use, but this procedure is required so that we can schedule your messages and send them at the specified time without transmission failing to close the Android system for the application after a period of inactivity</string>
+    <string name="perfectMsg">Message Scheduler will run perfectly!\nGreat Work!</string>
 
     <!-- activity schedule network messages -->
     <string name="scheduleNetworkMessages">Schedule Network Messages</string>
@@ -347,7 +352,7 @@
     <string name="tcTextView58">Even if this Agreement is terminated, this terms and conditions will continue to apply</string>
 
     <!-- ads -->
-    <string name="adMobAppId">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="adViewId">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="interstitialAdId">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="adMobAppId" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="adViewId" translatable="false">ca-app-pub-3940256099942544/6300978111</string> <!-- ca-app-pub-3940256099942544/6300978111 -->
+    <string name="interstitialAdId" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
 </resources>

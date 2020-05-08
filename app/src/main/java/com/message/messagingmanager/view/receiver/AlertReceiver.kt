@@ -14,9 +14,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.message.messagingmanager.WhatsappAccessibilityService
 import com.message.messagingmanager.model.Message
-import com.message.messagingmanager.ui.upcoming.UpcomingViewModel
 import java.lang.Exception
-import java.net.URLEncoder
 
 class AlertReceiver: BroadcastReceiver() {
 

@@ -14,8 +14,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="56dp">
+        android:layout_height="0dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -145,26 +149,27 @@
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/btn_style"
                 android:text="@string/btnSMS"
                 android:textColor="#fff"
                 app:layout_constraintEnd_toEndOf="@+id/editTxtTime"
                 app:layout_constraintStart_toStartOf="@+id/editTxtTime"
-                app:layout_constraintTop_toBottomOf="@+id/editTxtTime" />
+                app:layout_constraintTop_toBottomOf="@+id/constraint" />
 
             <Button
                 android:id="@+id/btnWhatsApp"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/btn_style"
                 android:text="@string/btnWhatsApp"
                 android:textColor="#fff"
                 app:layout_constraintEnd_toEndOf="@+id/editTxtTime"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/editTxtTime"
-                app:layout_constraintTop_toBottomOf="@+id/editTxtTime" />
+                app:layout_constraintTop_toBottomOf="@+id/constraint" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -187,7 +192,7 @@
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="96dp"
+                android:layout_marginTop="72dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/btn_style"
                 android:text="@string/txtViewAdvancedOption"
@@ -195,7 +200,50 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/editTxtTime"
                 app:layout_constraintStart_toStartOf="@+id/editTxtTime"
-                app:layout_constraintTop_toBottomOf="@+id/editTxtTime" />
+                app:layout_constraintTop_toBottomOf="@+id/constraint" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/backgroundGray"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/editTxtTime"
+                app:layout_constraintStart_toStartOf="@+id/editTxtTime"
+                app:layout_constraintTop_toBottomOf="@+id/editTxtTime">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/warningMsgWhatsApp"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtViewOptimizeBattery"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/optimizeBattery"
+                    android:textColor="@color/appColor"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/textView"
+                    app:layout_constraintStart_toStartOf="@+id/textView"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

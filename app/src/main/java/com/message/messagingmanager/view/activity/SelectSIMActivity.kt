@@ -17,7 +17,6 @@ import com.google.firebase.database.*
 import com.message.messagingmanager.R
 import com.message.messagingmanager.model.SIM
 import com.message.messagingmanager.view.adapter.SelectSIMAdapter
-import kotlinx.android.synthetic.main.activity_networks.*
 import kotlinx.android.synthetic.main.activity_networks.recyclerView
 import kotlinx.android.synthetic.main.activity_select_sim.*
 import kotlinx.android.synthetic.main.app_bar.*

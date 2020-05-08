@@ -142,7 +142,7 @@ class ContactsGroupAdapter(
 
         // 1. Create InterstitialAd object
         mInterstitialAd = InterstitialAd(contactsGroupActivity)
-        mInterstitialAd.adUnitId = contactsGroupActivity.getText(R.string.interstitialAdId).toString()
+        mInterstitialAd.adUnitId = contactsGroupActivity.getString(R.string.interstitialAdId)
         mInterstitialAd.adListener = object : AdListener() {
             override fun onAdLoaded() {
                 // Code to be executed when an ad finishes loading.
@@ -191,7 +191,7 @@ class ContactsGroupAdapter(
 
                 // When a user returns to the app after viewing an ad's destination URL, this method is invoked.
                 // Your app can use it to resume suspended activities or perform any other work necessary to make itself ready for interaction.
-                Toast.makeText(contactsGroupActivity, contactsGroupActivity.getText(R.string.welcomeBack).toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(contactsGroupActivity, contactsGroupActivity.getString(R.string.welcomeBack), Toast.LENGTH_SHORT).show()
                 // Load the next interstitial.
                 mInterstitialAd.loadAd(AdRequest.Builder().build())
             }

@@ -3,11 +3,11 @@ package com.message.messagingmanager.view.activity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PowerManager
+import android.provider.Settings
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.ads.AdListener
@@ -45,14 +45,23 @@ class TipsActivity : AppCompatActivity() {
                 val packageName = packageName
                 val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
                 if (!pm.isIgnoringBatteryOptimizations(packageName)) {
-                    val intent = Intent()
-                    intent.action = android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    intent.data = Uri.parse("package:$packageName")
-                    startActivity(intent)
+                    AlertDialog.Builder(this@TipsActivity)
+                        .setTitle(R.string.batteryOptimizationSettings)
+                        .setMessage(R.string.turnOffBatteryOptimization)
+                        .setIcon(R.drawable.ic_check_circle_green_24dp)
+                        .setPositiveButton(R.string.ok) { _, _ ->
+                            val intent = Intent()
+                            intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
+//                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                            intent.data = Uri.parse("package:$packageName")
+                            startActivity(intent)
+                        }
+                        .show()
+                } else {
+                    Toast.makeText(this@TipsActivity, getString(R.string.perfectMsg), Toast.LENGTH_LONG).show()
                 }
             } else {
-                Toast.makeText(this, getText(R.string.oldVersion).toString(), Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.oldVersion), Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -129,7 +138,7 @@ class TipsActivity : AppCompatActivity() {
 
         // 1. Create InterstitialAd object
         mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = getText(R.string.interstitialAdId).toString()
+        mInterstitialAd.adUnitId = getString(R.string.interstitialAdId)
         mInterstitialAd.adListener = object : AdListener() {
             override fun onAdLoaded() {
                 // Code to be executed when an ad finishes loading.
@@ -178,7 +187,7 @@ class TipsActivity : AppCompatActivity() {
 
                 // When a user returns to the app after viewing an ad's destination URL, this method is invoked.
                 // Your app can use it to resume suspended activities or perform any other work necessary to make itself ready for interaction.
-                Toast.makeText(this@TipsActivity, getText(R.string.welcomeBack).toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@TipsActivity, getString(R.string.welcomeBack), Toast.LENGTH_SHORT).show()
                 // Load the next interstitial.
                 mInterstitialAd.loadAd(AdRequest.Builder().build())
             }

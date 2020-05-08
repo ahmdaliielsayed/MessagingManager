@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.accessibility.AccessibilityNodeInfo
 import android.view.accessibility.AccessibilityEvent
-import androidx.annotation.RequiresApi
 
 class WhatsappAccessibilityService : AccessibilityService() {
 

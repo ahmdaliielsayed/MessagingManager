@@ -22,7 +22,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.message.messagingmanager.R
 import com.message.messagingmanager.model.Contact
-import com.message.messagingmanager.model.Contacts
 import com.message.messagingmanager.model.Group
 import com.message.messagingmanager.view.activity.ContactsDialogueActivity
 import com.message.messagingmanager.view.activity.ContactsGroupActivity
@@ -307,7 +306,7 @@ class GroupsViewModel(internal var context: Activity, private val groupsList: Ar
 
         // 1. Create InterstitialAd object
         mInterstitialAd = InterstitialAd(context)
-        mInterstitialAd.adUnitId = context.getText(R.string.interstitialAdId).toString()
+        mInterstitialAd.adUnitId = context.getString(R.string.interstitialAdId)
         mInterstitialAd.adListener = object : AdListener() {
             override fun onAdLoaded() {
                 // Code to be executed when an ad finishes loading.
@@ -356,7 +355,7 @@ class GroupsViewModel(internal var context: Activity, private val groupsList: Ar
 
                 // When a user returns to the app after viewing an ad's destination URL, this method is invoked.
                 // Your app can use it to resume suspended activities or perform any other work necessary to make itself ready for interaction.
-                Toast.makeText(context, context.getText(R.string.welcomeBack).toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.welcomeBack), Toast.LENGTH_SHORT).show()
                 // Load the next interstitial.
                 mInterstitialAd.loadAd(AdRequest.Builder().build())
             }

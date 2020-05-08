@@ -14,6 +14,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import android.provider.Settings
 import android.text.TextUtils
 import android.util.Patterns
@@ -265,12 +266,14 @@ class ScheduleMessageActivity : AppCompatActivity() {
                         spinnerValue = "SMS"
                         btnSMS.visibility = View.VISIBLE
                         btnWhatsApp.visibility = View.GONE
+                        constraint.visibility = View.GONE
                     }
                     1 -> {
                         Toast.makeText(this@ScheduleMessageActivity, R.string.whatsAppContacts, Toast.LENGTH_LONG).show()
                         spinnerValue = "WhatsApp"
                         btnSMS.visibility = View.GONE
                         btnWhatsApp.visibility = View.VISIBLE
+                        constraint.visibility = View.VISIBLE
                     }
                 }
             }
@@ -289,12 +292,81 @@ class ScheduleMessageActivity : AppCompatActivity() {
             startActivity(Intent(this@ScheduleMessageActivity, SelectSIMActivity::class.java))
             finish()
         }
+
+        txtViewOptimizeBattery.setOnClickListener {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                // 4. Check if the ad has loaded
+//                // 5. Display ad
+//                if (mInterstitialAd.isLoaded) {
+//                    mInterstitialAd.show()
+//                }
+//
+//                val packageName = packageName
+//                val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
+//                if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+//                    val intent = Intent()
+//                    intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+//                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                    intent.data = Uri.parse("package:$packageName")
+//                    startActivity(intent)
+//                }
+//            } else {
+//                Toast.makeText(this, getText(R.string.oldVersion).toString(), Toast.LENGTH_LONG).show()
+//            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val packageName = packageName
+                val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
+                if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                    AlertDialog.Builder(this@ScheduleMessageActivity)
+                        .setTitle(R.string.batteryOptimizationSettings)
+                        .setMessage(R.string.turnOffBatteryOptimization)
+                        .setIcon(R.drawable.ic_check_circle_green_24dp)
+                        .setPositiveButton(R.string.ok) { _, _ ->
+                            val intent = Intent()
+                            intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
+//                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                            intent.data = Uri.parse("package:$packageName")
+                            startActivity(intent)
+                        }
+                        .show()
+                } else {
+                    Toast.makeText(this@ScheduleMessageActivity, getString(R.string.perfectMsg), Toast.LENGTH_LONG).show()
+                }
+            } else {
+                Toast.makeText(this, getString(R.string.oldVersion), Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun scheduleSMSMessage(){
 
         val receiverNumber: String
         if (validateInputs()){
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val packageName = packageName
+                val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
+                if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                    AlertDialog.Builder(this@ScheduleMessageActivity)
+                        .setTitle(R.string.batteryOptimizationSettings)
+                        .setMessage(R.string.turnOffBatteryOptimization)
+                        .setIcon(R.drawable.ic_check_circle_green_24dp)
+                        .setPositiveButton(R.string.ok) { _, _ ->
+                            val intent = Intent()
+                            intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
+//                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                            intent.data = Uri.parse("package:$packageName")
+                            startActivity(intent)
+                        }
+                        .show()
+                    return
+                } else {
+                    Toast.makeText(this@ScheduleMessageActivity, getString(R.string.perfectMsg), Toast.LENGTH_LONG).show()
+                }
+            } else {
+                Toast.makeText(this, getString(R.string.oldVersion), Toast.LENGTH_LONG).show()
+            }
 
             receiverNumber = if (editTxtReceiverNumber.text.toString().trim().length == 11) {
                 "+2" + editTxtReceiverNumber.text.toString()
@@ -315,6 +387,30 @@ class ScheduleMessageActivity : AppCompatActivity() {
 
         val receiverNumber: String
         if (validateInputs()){
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val packageName = packageName
+                val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
+                if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                    AlertDialog.Builder(this@ScheduleMessageActivity)
+                        .setTitle(R.string.batteryOptimizationSettings)
+                        .setMessage(R.string.turnOffBatteryOptimization)
+                        .setIcon(R.drawable.ic_check_circle_green_24dp)
+                        .setPositiveButton(R.string.ok) { _, _ ->
+                            val intent = Intent()
+                            intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
+//                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                            intent.data = Uri.parse("package:$packageName")
+                            startActivity(intent)
+                        }
+                        .show()
+                    return
+                } else {
+                    Toast.makeText(this@ScheduleMessageActivity, getString(R.string.perfectMsg), Toast.LENGTH_LONG).show()
+                }
+            } else {
+                Toast.makeText(this, getString(R.string.oldVersion), Toast.LENGTH_LONG).show()
+            }
 
             receiverNumber = if (editTxtReceiverNumber.text.toString().trim().length == 11) {
                 "+2" + editTxtReceiverNumber.text.toString()
@@ -395,7 +491,11 @@ class ScheduleMessageActivity : AppCompatActivity() {
             PendingIntent.getBroadcast(this@ScheduleMessageActivity, smsId.hashCode(), intent, 0)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendarAlarm.timeInMillis, pendingIntent)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarAlarm.timeInMillis, pendingIntent)
+            } else {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendarAlarm.timeInMillis, pendingIntent)
+            }
         } else {
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendarAlarm.timeInMillis, pendingIntent)
         }
@@ -425,7 +525,11 @@ class ScheduleMessageActivity : AppCompatActivity() {
             PendingIntent.getBroadcast(this@ScheduleMessageActivity, smsId.hashCode(), intent, 0)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendarAlarm.timeInMillis, pendingIntent)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarAlarm.timeInMillis, pendingIntent)
+            } else {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendarAlarm.timeInMillis, pendingIntent)
+            }
         } else {
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendarAlarm.timeInMillis, pendingIntent)
         }
@@ -571,7 +675,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
 
         // 1. Create InterstitialAd object
         mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = getText(R.string.interstitialAdId).toString()
+        mInterstitialAd.adUnitId = getString(R.string.interstitialAdId)
         mInterstitialAd.adListener = object : AdListener() {
             override fun onAdLoaded() {
                 // Code to be executed when an ad finishes loading.
@@ -620,7 +724,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
 
                 // When a user returns to the app after viewing an ad's destination URL, this method is invoked.
                 // Your app can use it to resume suspended activities or perform any other work necessary to make itself ready for interaction.
-                Toast.makeText(this@ScheduleMessageActivity, getText(R.string.welcomeBack).toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ScheduleMessageActivity, getString(R.string.welcomeBack), Toast.LENGTH_SHORT).show()
                 // Load the next interstitial.
                 mInterstitialAd.loadAd(AdRequest.Builder().build())
             }

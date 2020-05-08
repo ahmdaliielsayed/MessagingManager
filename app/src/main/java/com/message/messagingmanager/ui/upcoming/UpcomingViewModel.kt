@@ -74,142 +74,148 @@ class UpcomingViewModel(internal var context: Activity) :
 //                    // put all code below in this scope حط الكود اللي تحت القوس ده هناا
 //                }
 
-                val msg = upcomingMsgList!![position] as Message
+                if (upcomingMsgList!![position] is Message) {
+                    val msg = upcomingMsgList!![position] as Message
 
-                holder.getTxtViewDateUpcomingPerson()!!.text = msg.getSmsDate()
-                holder.getTxtViewTimeUpcomingPerson()!!.text = msg.getSmsTime()
-                holder.getTxtViewStatusUpcomingPerson()!!.text = msg.getSmsStatus()
-                holder.getTxtViewUpcomingPersonName()!!.text = msg.getSmsReceiverName()
-                holder.getTxtViewUpcomingPhoneNumber()!!.text = msg.getSmsReceiverNumber()
-                holder.getTxtViewUpcomingMessage()!!.text = msg.getSmsMsg()
+                    holder.getTxtViewDateUpcomingPerson()!!.text = msg.getSmsDate()
+                    holder.getTxtViewTimeUpcomingPerson()!!.text = msg.getSmsTime()
+                    holder.getTxtViewStatusUpcomingPerson()!!.text = msg.getSmsStatus()
+                    holder.getTxtViewUpcomingPersonName()!!.text = msg.getSmsReceiverName()
+                    holder.getTxtViewUpcomingPhoneNumber()!!.text = msg.getSmsReceiverNumber()
+                    holder.getTxtViewUpcomingMessage()!!.text = msg.getSmsMsg()
 
-                if (msg.getSmsType() == "SMS"){
-                    holder.getImgViewMsgType()!!.setImageResource(R.drawable.sms)
-                } else {
-                    holder.getImgViewMsgType()!!.setImageResource(R.drawable.whatsapp)
-                }
-
-                holder.getImageViewExpandCard()!!.setOnClickListener { view ->
-                    if (holder.getConstraintLayoutDetails()!!.visibility == View.VISIBLE) {
-                        holder.getConstraintLayoutDetails()!!.visibility = View.GONE
+                    if (msg.getSmsType() == "SMS"){
+                        holder.getImgViewMsgType()!!.setImageResource(R.drawable.sms)
                     } else {
-                        holder.getConstraintLayoutDetails()!!.visibility = View.VISIBLE
-
-                        val animation = AnimationUtils.loadAnimation(view.context, R.anim.open_card)
-                        animation.duration = 500
-                        holder.getConstraintLayoutDetails()!!.animation = animation
-                        holder.getConstraintLayoutDetails()!!.animate()
-                        animation.start()
+                        holder.getImgViewMsgType()!!.setImageResource(R.drawable.whatsapp)
                     }
-                }
 
-                holder.getImageButtonPopUp()!!.setOnClickListener {
-                    val popupMenu = PopupMenu(context, holder.getImageButtonPopUp())
-                    popupMenu.menuInflater.inflate(R.menu.menu_upcoming_msg_person, popupMenu.menu)
-                    popupMenu.setOnMenuItemClickListener { menuItem ->
-                        when (menuItem.itemId) {
-                            R.id.item_edit -> {
-                                val intent = Intent(context, EditScheduleMessageActivity::class.java)
-                                intent.putExtra("SmsId", msg.getSmsId())
-                                intent.putExtra("SmsReceiverName", msg.getSmsReceiverName())
-                                intent.putExtra("SmsReceiverNumber", msg.getSmsReceiverNumber())
-                                intent.putExtra("SmsMsg", msg.getSmsMsg())
-                                intent.putExtra("SmsDate", msg.getSmsDate())
-                                intent.putExtra("SmsTime", msg.getSmsTime())
-                                intent.putExtra("SmsStatus", msg.getSmsStatus())
-                                intent.putExtra("SmsType", msg.getSmsType())
-                                intent.putExtra("UserID", msg.getUserID())
-                                intent.putExtra("calendar", msg.getSmsCalender())
-                                context.startActivity(intent)
-                            }
-                            R.id.item_delete -> {
-                                val builder = AlertDialog.Builder(context)
-                                builder.setMessage(R.string.deleteMsg)
-                                builder.setPositiveButton(R.string.yes) { _, _ ->
+                    holder.getImageViewExpandCard()!!.setOnClickListener { view ->
+                        if (holder.getConstraintLayoutDetails()!!.visibility == View.VISIBLE) {
+                            holder.getConstraintLayoutDetails()!!.visibility = View.GONE
+                        } else {
+                            holder.getConstraintLayoutDetails()!!.visibility = View.VISIBLE
+
+                            val animation = AnimationUtils.loadAnimation(view.context, R.anim.open_card)
+                            animation.duration = 500
+                            holder.getConstraintLayoutDetails()!!.animation = animation
+                            holder.getConstraintLayoutDetails()!!.animate()
+                            animation.start()
+                        }
+                    }
+
+                    holder.getImageButtonPopUp()!!.setOnClickListener {
+                        val popupMenu = PopupMenu(context, holder.getImageButtonPopUp())
+                        popupMenu.menuInflater.inflate(R.menu.menu_upcoming_msg_person, popupMenu.menu)
+                        popupMenu.setOnMenuItemClickListener { menuItem ->
+                            when (menuItem.itemId) {
+                                R.id.item_edit -> {
+                                    val intent = Intent(context, EditScheduleMessageActivity::class.java)
+                                    intent.putExtra("SmsId", msg.getSmsId())
+                                    intent.putExtra("SmsReceiverName", msg.getSmsReceiverName())
+                                    intent.putExtra("SmsReceiverNumber", msg.getSmsReceiverNumber())
+                                    intent.putExtra("SmsMsg", msg.getSmsMsg())
+                                    intent.putExtra("SmsDate", msg.getSmsDate())
+                                    intent.putExtra("SmsTime", msg.getSmsTime())
+                                    intent.putExtra("SmsStatus", msg.getSmsStatus())
+                                    intent.putExtra("SmsType", msg.getSmsType())
+                                    intent.putExtra("UserID", msg.getUserID())
+                                    intent.putExtra("calendar", msg.getSmsCalender())
+                                    context.startActivity(intent)
+                                }
+                                R.id.item_delete -> {
+                                    val builder = AlertDialog.Builder(context)
+                                    builder.setMessage(R.string.deleteMsg)
+                                    builder.setPositiveButton(R.string.yes) { _, _ ->
+                                        // 4. Check if the ad has loaded
+                                        // 5. Display ad
+                                        if (mInterstitialAd.isLoaded) {
+                                            mInterstitialAd.show()
+                                        }
+                                        databaseMsg.child(msg.getSmsId()).removeValue()
+
+                                        val alarmManager =
+                                            context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+                                        val iDelete = Intent(context, AlertReceiver::class.java)
+                                        iDelete.putExtra("SmsId", msg.getSmsId())
+                                        iDelete.putExtra("SmsReceiverName", msg.getSmsReceiverName())
+                                        iDelete.putExtra("SmsReceiverNumber", msg.getSmsReceiverNumber())
+                                        iDelete.putExtra("SmsMsg", msg.getSmsMsg())
+                                        iDelete.putExtra("SmsDate", msg.getSmsDate())
+                                        iDelete.putExtra("SmsTime", msg.getSmsTime())
+                                        iDelete.putExtra("SmsStatus", msg.getSmsStatus())
+                                        iDelete.putExtra("SmsType", msg.getSmsType())
+                                        iDelete.putExtra("UserID", msg.getUserID())
+                                        iDelete.putExtra("calendar", msg.getSmsCalender())
+
+                                        val pendingIntent = PendingIntent.getBroadcast(context,
+                                            msg.getSmsId().hashCode(), iDelete,
+                                            PendingIntent.FLAG_UPDATE_CURRENT)
+                                        alarmManager.cancel(pendingIntent)
+
+                                        Toast.makeText(context, R.string.confirmMsgDeletion,
+                                            Toast.LENGTH_SHORT).show()
+
+                                        upcomingMsgList!!.remove(msg)
+                                        setDataToAdapter(upcomingMsgList!!)
+                                    }
+                                    builder.setNegativeButton(R.string.no) { dialogInterface, _ -> dialogInterface.cancel() }
+
+                                    val alertDialog = builder.create()
+                                    if (Build.VERSION.SDK_INT >= 26) {
+                                        alertDialog.window!!.setType(WindowManager.LayoutParams.TYPE_APPLICATION_PANEL)
+                                    } else {
+                                        alertDialog.window!!.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT)
+                                    }
+                                    alertDialog.setCanceledOnTouchOutside(false)
+                                    alertDialog.show()
+                                }
+
+                                R.id.item_send -> {
                                     // 4. Check if the ad has loaded
                                     // 5. Display ad
                                     if (mInterstitialAd.isLoaded) {
                                         mInterstitialAd.show()
                                     }
-                                    databaseMsg.child(msg.getSmsId()).removeValue()
-
                                     val alarmManager =
                                         context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-                                    val iDelete = Intent(context, AlertReceiver::class.java)
-                                    iDelete.putExtra("SmsId", msg.getSmsId())
-                                    iDelete.putExtra("SmsReceiverName", msg.getSmsReceiverName())
-                                    iDelete.putExtra("SmsReceiverNumber", msg.getSmsReceiverNumber())
-                                    iDelete.putExtra("SmsMsg", msg.getSmsMsg())
-                                    iDelete.putExtra("SmsDate", msg.getSmsDate())
-                                    iDelete.putExtra("SmsTime", msg.getSmsTime())
-                                    iDelete.putExtra("SmsStatus", msg.getSmsStatus())
-                                    iDelete.putExtra("SmsType", msg.getSmsType())
-                                    iDelete.putExtra("UserID", msg.getUserID())
-                                    iDelete.putExtra("calendar", msg.getSmsCalender())
+                                    val iDone = Intent(context, AlertReceiver::class.java)
+                                    iDone.putExtra("SmsId", msg.getSmsId())
+                                    iDone.putExtra("SmsReceiverName", msg.getSmsReceiverName())
+                                    iDone.putExtra("SmsReceiverNumber", msg.getSmsReceiverNumber())
+                                    iDone.putExtra("SmsMsg", msg.getSmsMsg())
+                                    iDone.putExtra("SmsDate", msg.getSmsDate())
+                                    iDone.putExtra("SmsTime", msg.getSmsTime())
+                                    iDone.putExtra("SmsStatus", msg.getSmsStatus())
+                                    iDone.putExtra("SmsType", msg.getSmsType())
+                                    iDone.putExtra("UserID", msg.getUserID())
+                                    iDone.putExtra("calendar", msg.getSmsCalender())
 
-                                    val pendingIntent = PendingIntent.getBroadcast(context,
-                                        msg.getSmsId().hashCode(), iDelete,
-                                        PendingIntent.FLAG_UPDATE_CURRENT)
-                                    alarmManager.cancel(pendingIntent)
+                                    val pendingIntent: PendingIntent = PendingIntent.getBroadcast(context,
+                                        msg.getSmsId().hashCode(), iDone, PendingIntent.FLAG_UPDATE_CURRENT)
 
-                                    Toast.makeText(context, R.string.confirmMsgDeletion,
-                                        Toast.LENGTH_SHORT).show()
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, Calendar.getInstance().time.time, pendingIntent)
+                                        } else {
+                                            alarmManager.setExact(AlarmManager.RTC_WAKEUP, Calendar.getInstance().time.time, pendingIntent)
+                                        }
+                                    } else {
+                                        alarmManager.set(AlarmManager.RTC_WAKEUP, Calendar.getInstance().time.time, pendingIntent)
+                                    }
+
+                                    Toast.makeText(context, R.string.sendMsgNow, Toast.LENGTH_SHORT).show()
 
                                     upcomingMsgList!!.remove(msg)
                                     setDataToAdapter(upcomingMsgList!!)
                                 }
-                                builder.setNegativeButton(R.string.no) { dialogInterface, _ -> dialogInterface.cancel() }
-
-                                val alertDialog = builder.create()
-                                if (Build.VERSION.SDK_INT >= 26) {
-                                    alertDialog.window!!.setType(WindowManager.LayoutParams.TYPE_APPLICATION_PANEL)
-                                } else {
-                                    alertDialog.window!!.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT)
-                                }
-                                alertDialog.setCanceledOnTouchOutside(false)
-                                alertDialog.show()
                             }
-
-                            R.id.item_send -> {
-                                // 4. Check if the ad has loaded
-                                // 5. Display ad
-                                if (mInterstitialAd.isLoaded) {
-                                    mInterstitialAd.show()
-                                }
-                                val alarmManager =
-                                    context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-                                val iDone = Intent(context, AlertReceiver::class.java)
-                                iDone.putExtra("SmsId", msg.getSmsId())
-                                iDone.putExtra("SmsReceiverName", msg.getSmsReceiverName())
-                                iDone.putExtra("SmsReceiverNumber", msg.getSmsReceiverNumber())
-                                iDone.putExtra("SmsMsg", msg.getSmsMsg())
-                                iDone.putExtra("SmsDate", msg.getSmsDate())
-                                iDone.putExtra("SmsTime", msg.getSmsTime())
-                                iDone.putExtra("SmsStatus", msg.getSmsStatus())
-                                iDone.putExtra("SmsType", msg.getSmsType())
-                                iDone.putExtra("UserID", msg.getUserID())
-                                iDone.putExtra("calendar", msg.getSmsCalender())
-
-                                val pendingIntent: PendingIntent = PendingIntent.getBroadcast(context,
-                                    msg.getSmsId().hashCode(), iDone, PendingIntent.FLAG_UPDATE_CURRENT)
-
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, Calendar.getInstance().time.time, pendingIntent)
-                                } else {
-                                    alarmManager.set(AlarmManager.RTC_WAKEUP, Calendar.getInstance().time.time, pendingIntent)
-                                }
-
-                                Toast.makeText(context, R.string.sendMsgNow, Toast.LENGTH_SHORT).show()
-
-                                upcomingMsgList!!.remove(msg)
-                                setDataToAdapter(upcomingMsgList!!)
-                            }
+                            true
                         }
-                        true
+                        popupMenu.show()
                     }
-                    popupMenu.show()
                 }
             }
             else -> {
@@ -331,7 +337,7 @@ class UpcomingViewModel(internal var context: Activity) :
 
         // 1. Create InterstitialAd object
         mInterstitialAd = InterstitialAd(context)
-        mInterstitialAd.adUnitId = context.getText(R.string.interstitialAdId).toString()
+        mInterstitialAd.adUnitId = context.getString(R.string.interstitialAdId)
         mInterstitialAd.adListener = object : AdListener() {
             override fun onAdLoaded() {
                 // Code to be executed when an ad finishes loading.
@@ -380,7 +386,7 @@ class UpcomingViewModel(internal var context: Activity) :
 
                 // When a user returns to the app after viewing an ad's destination URL, this method is invoked.
                 // Your app can use it to resume suspended activities or perform any other work necessary to make itself ready for interaction.
-                Toast.makeText(context, context.getText(R.string.welcomeBack).toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.welcomeBack), Toast.LENGTH_SHORT).show()
                 // Load the next interstitial.
                 mInterstitialAd.loadAd(AdRequest.Builder().build())
             }

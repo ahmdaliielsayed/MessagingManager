@@ -19,7 +19,7 @@ class SplashActivity : AppCompatActivity() {
 
         // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
         // Call this method only once and as early as possible, ideally at app launch. (I think at splash screen)
-        MobileAds.initialize(this, getText(R.string.adMobAppId).toString())
+        MobileAds.initialize(this, getString(R.string.adMobAppId))
 
         val firebaseAuth = FirebaseAuth.getInstance()
         val firebaseUser = firebaseAuth.currentUser

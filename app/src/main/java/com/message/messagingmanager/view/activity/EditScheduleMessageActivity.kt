@@ -364,9 +364,17 @@ class EditScheduleMessageActivity : AppCompatActivity() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (calendarAlarm == null){
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar, pendingIntent)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar, pendingIntent)
+                } else {
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar, pendingIntent)
+                }
             } else {
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendarAlarm!!.timeInMillis, pendingIntent)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarAlarm!!.timeInMillis, pendingIntent)
+                } else {
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendarAlarm!!.timeInMillis, pendingIntent)
+                }
             }
         } else {
             if (calendarAlarm == null){
@@ -402,9 +410,17 @@ class EditScheduleMessageActivity : AppCompatActivity() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (calendarAlarm == null){
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar, pendingIntent)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar, pendingIntent)
+                } else {
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar, pendingIntent)
+                }
             } else {
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendarAlarm!!.timeInMillis, pendingIntent)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendarAlarm!!.timeInMillis, pendingIntent)
+                } else {
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendarAlarm!!.timeInMillis, pendingIntent)
+                }
             }
         } else {
             if (calendarAlarm == null){
@@ -541,7 +557,7 @@ class EditScheduleMessageActivity : AppCompatActivity() {
 
         // 1. Create InterstitialAd object
         mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = getText(R.string.interstitialAdId).toString()
+        mInterstitialAd.adUnitId = getString(R.string.interstitialAdId)
         mInterstitialAd.adListener = object : AdListener() {
             override fun onAdLoaded() {
                 // Code to be executed when an ad finishes loading.
@@ -590,7 +606,7 @@ class EditScheduleMessageActivity : AppCompatActivity() {
 
                 // When a user returns to the app after viewing an ad's destination URL, this method is invoked.
                 // Your app can use it to resume suspended activities or perform any other work necessary to make itself ready for interaction.
-                Toast.makeText(this@EditScheduleMessageActivity, getText(R.string.welcomeBack).toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@EditScheduleMessageActivity, getString(R.string.welcomeBack), Toast.LENGTH_SHORT).show()
                 // Load the next interstitial.
                 mInterstitialAd.loadAd(AdRequest.Builder().build())
             }

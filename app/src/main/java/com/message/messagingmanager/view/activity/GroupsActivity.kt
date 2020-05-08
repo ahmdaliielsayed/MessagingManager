@@ -18,7 +18,6 @@ import com.google.firebase.database.*
 import com.message.messagingmanager.R
 import com.message.messagingmanager.model.Group
 import com.message.messagingmanager.view.adapter.GroupsAdapter
-import kotlinx.android.synthetic.main.activity_contacts.*
 import kotlinx.android.synthetic.main.activity_contacts.progressBar
 import kotlinx.android.synthetic.main.activity_contacts.recyclerView
 import kotlinx.android.synthetic.main.activity_groups.*
