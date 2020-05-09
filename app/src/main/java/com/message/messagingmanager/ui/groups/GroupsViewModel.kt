@@ -76,83 +76,85 @@ class GroupsViewModel(internal var context: Activity, private val groupsList: Ar
 
         when(getItemViewType(position)) {
             ROW_ITEM_VIEW_TYPE -> {
-                holder as DataViewHolder
-
 //                if (position == 0) {
 //                    holder.getConstraintLayoutHide()!!.visibility = View.GONE
 //                } else {
 //                    // put all code below in this scope حط الكود اللي تحت القوس ده هناا
 //                }
 
-                val group = dataModelList[position] as Group
+                if (dataModelList[position] is Group) {
+                    holder as DataViewHolder
 
-                holder.getTxtViewGroupName()!!.text = group.getGroupName()
+                    val group = dataModelList[position] as Group
 
-                holder.getConstraintLayout()!!.setOnClickListener {
-                    val openNoteDialogue = Intent(context, ContactsDialogueActivity::class.java)
-                    openNoteDialogue.putExtra("groupID", group.getGroupId())
-                    openNoteDialogue.putExtra("groupName", group.getGroupName())
-                    context.startActivity(openNoteDialogue)
-                }
+                    holder.getTxtViewGroupName()!!.text = group.getGroupName()
 
-                holder.getImgViewAddToGroup()!!.setOnClickListener {
-                    // 4. Check if the ad has loaded
-                    // 5. Display ad
-                    if (mInterstitialAd.isLoaded) {
-                        mInterstitialAd.show()
+                    holder.getConstraintLayout()!!.setOnClickListener {
+                        val openNoteDialogue = Intent(context, ContactsDialogueActivity::class.java)
+                        openNoteDialogue.putExtra("groupID", group.getGroupId())
+                        openNoteDialogue.putExtra("groupName", group.getGroupName())
+                        context.startActivity(openNoteDialogue)
                     }
 
-                    val intent = Intent(context, ContactsGroupActivity::class.java)
-                    intent.putExtra("groupId", group.getGroupId())
-                    context.startActivity(intent)
-                }
-
-                holder.getImgViewDeleteGroup()!!.setOnClickListener {
-                    val builder = AlertDialog.Builder(context)
-                    builder.setMessage(R.string.deleteGroup)
-                    builder.setPositiveButton(R.string.yes) { _, _ ->
+                    holder.getImgViewAddToGroup()!!.setOnClickListener {
                         // 4. Check if the ad has loaded
                         // 5. Display ad
                         if (mInterstitialAd.isLoaded) {
                             mInterstitialAd.show()
                         }
 
-                        databaseGroup.child(group.getGroupId()).removeValue()
+                        val intent = Intent(context, ContactsGroupActivity::class.java)
+                        intent.putExtra("groupId", group.getGroupId())
+                        context.startActivity(intent)
+                    }
 
-                        val databaseContacts = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Groups").child(group.getGroupId()).child("Contacts")
+                    holder.getImgViewDeleteGroup()!!.setOnClickListener {
+                        val builder = AlertDialog.Builder(context)
+                        builder.setMessage(R.string.deleteGroup)
+                        builder.setPositiveButton(R.string.yes) { _, _ ->
+                            // 4. Check if the ad has loaded
+                            // 5. Display ad
+                            if (mInterstitialAd.isLoaded) {
+                                mInterstitialAd.show()
+                            }
 
-                        // delete related contacts
-                        databaseContacts.addValueEventListener(object : ValueEventListener {
-                            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                for (noteSnapshot in dataSnapshot.children) {
-                                    val contacts = noteSnapshot.getValue(Contact::class.java)
+                            databaseGroup.child(group.getGroupId()).removeValue()
 
-                                    if (contacts!!.getGroupId() == group.getGroupId()) {
-                                        databaseContacts.child(contacts.getContactId()).removeValue()
+                            val databaseContacts = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Groups").child(group.getGroupId()).child("Contacts")
+
+                            // delete related contacts
+                            databaseContacts.addValueEventListener(object : ValueEventListener {
+                                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                    for (noteSnapshot in dataSnapshot.children) {
+                                        val contacts = noteSnapshot.getValue(Contact::class.java)
+
+                                        if (contacts!!.getGroupId() == group.getGroupId()) {
+                                            databaseContacts.child(contacts.getContactId()).removeValue()
+                                        }
                                     }
                                 }
-                            }
 
-                            override fun onCancelled(databaseError: DatabaseError) {
+                                override fun onCancelled(databaseError: DatabaseError) {
 
-                            }
-                        })
+                                }
+                            })
 
-                        Toast.makeText(context, R.string.confirmGroupDeletion, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, R.string.confirmGroupDeletion, Toast.LENGTH_SHORT).show()
 
-                        dataModelList.remove(group)
-                        setDataToAdapter(dataModelList)
+                            dataModelList.remove(group)
+                            setDataToAdapter(dataModelList)
+                        }
+                        builder.setNegativeButton(R.string.no) { dialogInterface, _ -> dialogInterface.cancel() }
+
+                        val alertDialog = builder.create()
+                        if (Build.VERSION.SDK_INT >= 26) {
+                            alertDialog.window!!.setType(WindowManager.LayoutParams.TYPE_APPLICATION_PANEL)
+                        } else {
+                            alertDialog.window!!.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT)
+                        }
+                        alertDialog.setCanceledOnTouchOutside(false)
+                        alertDialog.show()
                     }
-                    builder.setNegativeButton(R.string.no) { dialogInterface, _ -> dialogInterface.cancel() }
-
-                    val alertDialog = builder.create()
-                    if (Build.VERSION.SDK_INT >= 26) {
-                        alertDialog.window!!.setType(WindowManager.LayoutParams.TYPE_APPLICATION_PANEL)
-                    } else {
-                        alertDialog.window!!.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT)
-                    }
-                    alertDialog.setCanceledOnTouchOutside(false)
-                    alertDialog.show()
                 }
             }
             else -> {

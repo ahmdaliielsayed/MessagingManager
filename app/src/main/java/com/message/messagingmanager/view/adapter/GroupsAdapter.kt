@@ -40,23 +40,25 @@ class GroupsAdapter(private val groupsList: ArrayList<Any>, private var groupsAc
 
         when(getItemViewType(position)) {
             ROW_ITEM_VIEW_TYPE -> {
-                holder as DataViewHolder
-
 //                if (position == 0) {
 //                    holder.getConstraintLayoutHide()!!.visibility = View.GONE
 //                } else {
 //                    // put all code below in this scope حط الكود اللي تحت القوس ده هناا
 //                }
 
-                val group = groupsList[position] as Group
+                if (groupsList[position] is Group) {
+                    holder as DataViewHolder
 
-                holder.getTxtViewGroupName()!!.text = group.getGroupName()
+                    val group = groupsList[position] as Group
 
-                holder.getConstraintLayout()!!.setOnClickListener {
-                    val openNoteDialogue = Intent(groupsActivity, ScheduleGroupMessageActivity::class.java)
-                    openNoteDialogue.putExtra("groupID", group.getGroupId())
-                    openNoteDialogue.putExtra("groupName", group.getGroupName())
-                    groupsActivity.startActivity(openNoteDialogue)
+                    holder.getTxtViewGroupName()!!.text = group.getGroupName()
+
+                    holder.getConstraintLayout()!!.setOnClickListener {
+                        val openNoteDialogue = Intent(groupsActivity, ScheduleGroupMessageActivity::class.java)
+                        openNoteDialogue.putExtra("groupID", group.getGroupId())
+                        openNoteDialogue.putExtra("groupName", group.getGroupName())
+                        groupsActivity.startActivity(openNoteDialogue)
+                    }
                 }
             }
             else -> {

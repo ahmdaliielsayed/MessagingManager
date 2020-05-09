@@ -224,11 +224,11 @@ class ScheduleMessageActivity : AppCompatActivity() {
                         }
                         .show()
                 } else {
-                    // 4. Check if the ad has loaded
-                    // 5. Display ad
-                    if (mInterstitialAd.isLoaded) {
-                        mInterstitialAd.show()
-                    }
+//                    // 4. Check if the ad has loaded
+//                    // 5. Display ad
+//                    if (mInterstitialAd.isLoaded) {
+//                        mInterstitialAd.show()
+//                    }
                     scheduleWhatsAppMessage()
                 }
             } else {

@@ -42,24 +42,26 @@ class SelectSIMAdapter(internal var context: Context) : RecyclerView.Adapter<Rec
 
         when(getItemViewType(position)) {
             ROW_ITEM_VIEW_TYPE -> {
-                holder as DataViewHolder
-
 //                if (position == 0) {
 //                    holder.getConstraintLayoutHide()!!.visibility = View.GONE
 //                } else {
 //                    // put all code below in this scope حط الكود اللي تحت القوس ده هناا
 //                }
 
-                val sim = dataModelList[position] as SIM
+                if (dataModelList[position] is SIM) {
+                    holder as DataViewHolder
 
-                holder.getTxtViewSIMName()!!.text = sim.getSimName()
-                holder.getTxtViewPrefix()!!.text = sim.getSimPrefix()
+                    val sim = dataModelList[position] as SIM
 
-                holder.getConstraintLayout()!!.setOnClickListener {
-                    val intent = Intent(context, ScheduleNetworkMessagesActivity::class.java)
-                    intent.putExtra("SIMName", holder.getTxtViewSIMName()!!.text)
-                    intent.putExtra("SIMPrefix", holder.getTxtViewPrefix()!!.text)
-                    context.startActivity(intent)
+                    holder.getTxtViewSIMName()!!.text = sim.getSimName()
+                    holder.getTxtViewPrefix()!!.text = sim.getSimPrefix()
+
+                    holder.getConstraintLayout()!!.setOnClickListener {
+                        val intent = Intent(context, ScheduleNetworkMessagesActivity::class.java)
+                        intent.putExtra("SIMName", holder.getTxtViewSIMName()!!.text)
+                        intent.putExtra("SIMPrefix", holder.getTxtViewPrefix()!!.text)
+                        context.startActivity(intent)
+                    }
                 }
             }
             else -> {

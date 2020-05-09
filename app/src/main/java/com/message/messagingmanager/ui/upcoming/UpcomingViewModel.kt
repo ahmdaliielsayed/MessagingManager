@@ -66,8 +66,6 @@ class UpcomingViewModel(internal var context: Activity) :
 
         when(getItemViewType(position)) {
             ROW_ITEM_VIEW_TYPE -> {
-                holder as DataViewHolder
-
 //                if (position == 0) {
 //                    holder.getConstraintLayoutHide()!!.visibility = View.GONE
 //                } else {
@@ -75,6 +73,8 @@ class UpcomingViewModel(internal var context: Activity) :
 //                }
 
                 if (upcomingMsgList!![position] is Message) {
+                    holder as DataViewHolder
+
                     val msg = upcomingMsgList!![position] as Message
 
                     holder.getTxtViewDateUpcomingPerson()!!.text = msg.getSmsDate()

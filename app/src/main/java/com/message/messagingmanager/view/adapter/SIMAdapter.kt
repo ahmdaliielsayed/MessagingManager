@@ -57,42 +57,44 @@ class SIMAdapter(internal var context: Context) :
 
         when(getItemViewType(position)) {
             ROW_ITEM_VIEW_TYPE -> {
-                holder as DataViewHolder
-
 //                if (position == 0) {
 //                    holder.getConstraintLayoutHide()!!.visibility = View.GONE
 //                } else {
 //                    // put all code below in this scope حط الكود اللي تحت القوس ده هناا
 //                }
 
-                val sim = dataModelList[position] as SIM
+                if (dataModelList[position] is SIM) {
+                    holder as DataViewHolder
 
-                holder.getTxtViewSIMName()!!.text = sim.getSimName()
-                holder.getTxtViewPrefix()!!.text = sim.getSimPrefix()
+                    val sim = dataModelList[position] as SIM
 
-                holder.getIvDelete()!!.setOnClickListener {
-                    val builder = AlertDialog.Builder(context)
-                    builder.setMessage(R.string.deleteSIM)
-                    builder.setPositiveButton(R.string.yes) { _, _ ->
-                        // 4. Check if the ad has loaded
-                        // 5. Display ad
-                        if (mInterstitialAd.isLoaded) {
-                            mInterstitialAd.show()
+                    holder.getTxtViewSIMName()!!.text = sim.getSimName()
+                    holder.getTxtViewPrefix()!!.text = sim.getSimPrefix()
+
+                    holder.getIvDelete()!!.setOnClickListener {
+                        val builder = AlertDialog.Builder(context)
+                        builder.setMessage(R.string.deleteSIM)
+                        builder.setPositiveButton(R.string.yes) { _, _ ->
+                            // 4. Check if the ad has loaded
+                            // 5. Display ad
+                            if (mInterstitialAd.isLoaded) {
+                                mInterstitialAd.show()
+                            }
+
+                            databaseSIM.child(sim.getSimId()).removeValue()
+                            Toast.makeText(context, R.string.simDeleted, Toast.LENGTH_SHORT).show()
                         }
+                        builder.setNegativeButton(R.string.no) { dialogInterface, _ -> dialogInterface.cancel() }
 
-                        databaseSIM.child(sim.getSimId()).removeValue()
-                        Toast.makeText(context, R.string.simDeleted, Toast.LENGTH_SHORT).show()
+                        val alertDialog = builder.create()
+                        if (Build.VERSION.SDK_INT >= 26) {
+                            alertDialog.window!!.setType(WindowManager.LayoutParams.TYPE_APPLICATION_PANEL)
+                        } else {
+                            alertDialog.window!!.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT)
+                        }
+                        alertDialog.setCanceledOnTouchOutside(false)
+                        alertDialog.show()
                     }
-                    builder.setNegativeButton(R.string.no) { dialogInterface, _ -> dialogInterface.cancel() }
-
-                    val alertDialog = builder.create()
-                    if (Build.VERSION.SDK_INT >= 26) {
-                        alertDialog.window!!.setType(WindowManager.LayoutParams.TYPE_APPLICATION_PANEL)
-                    } else {
-                        alertDialog.window!!.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT)
-                    }
-                    alertDialog.setCanceledOnTouchOutside(false)
-                    alertDialog.show()
                 }
             }
             else -> {

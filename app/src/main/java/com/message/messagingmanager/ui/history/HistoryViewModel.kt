@@ -61,70 +61,72 @@ class HistoryViewModel(internal var context: Context) :
 
         when(getItemViewType(position)) {
             ROW_ITEM_VIEW_TYPE -> {
-                holder as DataViewHolder
-
 //                if (position == 0) {
 //                    holder.getConstraintLayoutHide()!!.visibility = View.GONE
 //                } else {
 //                    // put all code below in this scope حط الكود اللي تحت القوس ده هناا
 //                }
 
-                val msg = historyMsgList!![position] as Message
+                if (historyMsgList!![position] is Message) {
+                    holder as DataViewHolder
 
-                holder.getTxtViewDateHistoryPerson()!!.text = msg.getSmsDate()
-                holder.getTxtViewTimeHistoryPerson()!!.text = msg.getSmsTime()
-                holder.getTxtViewStatusHistoryPerson()!!.text = msg.getSmsStatus()
-                holder.getTxtViewHistoryPersonName()!!.text = msg.getSmsReceiverName()
-                holder.getTxtViewHistoryPhoneNumber()!!.text = msg.getSmsReceiverNumber()
-                holder.getTxtViewHistoryMessage()!!.text = msg.getSmsMsg()
+                    val msg = historyMsgList!![position] as Message
 
-                if (msg.getSmsType() == "SMS"){
-                    holder.getImgViewMsgType()!!.setImageResource(R.drawable.sms)
-                } else {
-                    holder.getImgViewMsgType()!!.setImageResource(R.drawable.whatsapp)
-                }
+                    holder.getTxtViewDateHistoryPerson()!!.text = msg.getSmsDate()
+                    holder.getTxtViewTimeHistoryPerson()!!.text = msg.getSmsTime()
+                    holder.getTxtViewStatusHistoryPerson()!!.text = msg.getSmsStatus()
+                    holder.getTxtViewHistoryPersonName()!!.text = msg.getSmsReceiverName()
+                    holder.getTxtViewHistoryPhoneNumber()!!.text = msg.getSmsReceiverNumber()
+                    holder.getTxtViewHistoryMessage()!!.text = msg.getSmsMsg()
 
-                holder.getConstraintLayout()!!.setOnClickListener { view ->
-                    if (holder.getConstraintLayoutDetails()!!.visibility == View.VISIBLE) {
-                        holder.getConstraintLayoutDetails()!!.visibility = View.GONE
+                    if (msg.getSmsType() == "SMS"){
+                        holder.getImgViewMsgType()!!.setImageResource(R.drawable.sms)
                     } else {
-                        holder.getConstraintLayoutDetails()!!.visibility = View.VISIBLE
-
-                        val animation = AnimationUtils.loadAnimation(view.context, R.anim.open_card)
-                        animation.duration = 500
-                        holder.getConstraintLayoutDetails()!!.animation = animation
-                        holder.getConstraintLayoutDetails()!!.animate()
-                        animation.start()
+                        holder.getImgViewMsgType()!!.setImageResource(R.drawable.whatsapp)
                     }
-                }
 
-                holder.getImageButtonPopUp()!!.setOnClickListener {
-                    val builder = AlertDialog.Builder(context)
-                    builder.setMessage(R.string.deleteMsg)
-                    builder.setPositiveButton(R.string.yes) { _, _ ->
-                        // 4. Check if the ad has loaded
-                        // 5. Display ad
-                        if (mInterstitialAd.isLoaded) {
-                            mInterstitialAd.show()
+                    holder.getConstraintLayout()!!.setOnClickListener { view ->
+                        if (holder.getConstraintLayoutDetails()!!.visibility == View.VISIBLE) {
+                            holder.getConstraintLayoutDetails()!!.visibility = View.GONE
+                        } else {
+                            holder.getConstraintLayoutDetails()!!.visibility = View.VISIBLE
+
+                            val animation = AnimationUtils.loadAnimation(view.context, R.anim.open_card)
+                            animation.duration = 500
+                            holder.getConstraintLayoutDetails()!!.animation = animation
+                            holder.getConstraintLayoutDetails()!!.animate()
+                            animation.start()
                         }
-
-                        databaseMsg.child(msg.getSmsId()).removeValue()
-
-                        Toast.makeText(context, R.string.confirmMsgDeletion, Toast.LENGTH_SHORT).show()
-
-                        historyMsgList!!.remove(msg)
-                        setDataToAdapter(historyMsgList!!)
                     }
-                    builder.setNegativeButton(R.string.no) { dialogInterface, _ -> dialogInterface.cancel() }
 
-                    val alertDialog = builder.create()
-                    if (Build.VERSION.SDK_INT >= 26) {
-                        alertDialog.window!!.setType(WindowManager.LayoutParams.TYPE_APPLICATION_PANEL)
-                    } else {
-                        alertDialog.window!!.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT)
+                    holder.getImageButtonPopUp()!!.setOnClickListener {
+                        val builder = AlertDialog.Builder(context)
+                        builder.setMessage(R.string.deleteMsg)
+                        builder.setPositiveButton(R.string.yes) { _, _ ->
+                            // 4. Check if the ad has loaded
+                            // 5. Display ad
+                            if (mInterstitialAd.isLoaded) {
+                                mInterstitialAd.show()
+                            }
+
+                            databaseMsg.child(msg.getSmsId()).removeValue()
+
+                            Toast.makeText(context, R.string.confirmMsgDeletion, Toast.LENGTH_SHORT).show()
+
+                            historyMsgList!!.remove(msg)
+                            setDataToAdapter(historyMsgList!!)
+                        }
+                        builder.setNegativeButton(R.string.no) { dialogInterface, _ -> dialogInterface.cancel() }
+
+                        val alertDialog = builder.create()
+                        if (Build.VERSION.SDK_INT >= 26) {
+                            alertDialog.window!!.setType(WindowManager.LayoutParams.TYPE_APPLICATION_PANEL)
+                        } else {
+                            alertDialog.window!!.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT)
+                        }
+                        alertDialog.setCanceledOnTouchOutside(false)
+                        alertDialog.show()
                     }
-                    alertDialog.setCanceledOnTouchOutside(false)
-                    alertDialog.show()
                 }
             }
             else -> {
