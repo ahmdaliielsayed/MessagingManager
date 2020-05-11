@@ -352,7 +352,7 @@
     <string name="tcTextView58">Even if this Agreement is terminated, this terms and conditions will continue to apply</string>
 
     <!-- ads -->
-    <string name="adMobAppId" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="adViewId" translatable="false">ca-app-pub-3940256099942544/6300978111</string> <!-- ca-app-pub-3940256099942544/6300978111 -->
-    <string name="interstitialAdId" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="adMobAppId" translatable="false">ca-app-pub-4171202920109669~5398976502</string>
+    <string name="adViewId" translatable="false">ca-app-pub-4171202920109669/1327676037</string> <!-- ca-app-pub-3940256099942544/6300978111 -->
+    <string name="interstitialAdId" translatable="false">ca-app-pub-4171202920109669/2142257770</string>
 </resources>
