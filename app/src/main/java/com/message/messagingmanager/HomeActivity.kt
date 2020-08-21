@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Telephony
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +29,28 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+//        if (Telephony.Sms.getDefaultSmsPackage(this) != packageName) {
+//            // App is not default.
+//            // Show the "not currently set as the default SMS app" interface
+//            //val viewGroup: View = findViewById(R.id.not_default_app)
+//            //viewGroup.setVisibility(View.VISIBLE)
+//
+//            // Set up a button that allows the user to change the default SMS app
+//            val intent = Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT)
+//            intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, packageName)
+//            startActivity(intent)
+//
+////            val setSmsAppIntent = Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT)
+////            setSmsAppIntent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, packageName)
+////            startActivityForResult(setSmsAppIntent, 5)
+//        } else {
+//            // App is the default.
+//            // Hide the "not currently set as the default SMS app" interface
+//            //val viewGroup: View = findViewById(R.id.not_default_app)
+//            //viewGroup.setVisibility(View.GONE)
+//        }
+
         UpcomingFragment.activiy = this
         HistoryFragment.activiy = this
         GroupsFragment.activiy = this

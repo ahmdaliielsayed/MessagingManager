@@ -24,7 +24,7 @@ import java.util.ArrayList
 class SIMAdapter(internal var context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var dataModelList = ArrayList<Any>()
+    private var dataModelList:ArrayList<Any>? = ArrayList()
 
     private var userId: String = FirebaseAuth.getInstance().currentUser!!.uid
     private var databaseSIM = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("SIMs")
@@ -63,10 +63,10 @@ class SIMAdapter(internal var context: Context) :
 //                    // put all code below in this scope حط الكود اللي تحت القوس ده هناا
 //                }
 
-                if (dataModelList[position] is SIM) {
+                if (dataModelList!![position] is SIM) {
                     holder as DataViewHolder
 
-                    val sim = dataModelList[position] as SIM
+                    val sim = dataModelList!![position] as SIM
 
                     holder.getTxtViewSIMName()!!.text = sim.getSimName()
                     holder.getTxtViewPrefix()!!.text = sim.getSimPrefix()
@@ -99,7 +99,7 @@ class SIMAdapter(internal var context: Context) :
             }
             else -> {
                 holder as AdViewHolder
-                val adView = dataModelList[position] as AdView
+                val adView = dataModelList!![position] as AdView
                 val adCardView = holder.itemView as ViewGroup
                 // The AdViewHolder recycled by the RecyclerView may be a different
                 // instance than the one used previously for this position. Clear the
@@ -190,7 +190,7 @@ class SIMAdapter(internal var context: Context) :
     }
 
     override fun getItemCount(): Int {
-        return if (dataModelList.size > 0) dataModelList.size else 0
+        return if (dataModelList == null) 0 else dataModelList!!.size
     }
 
     override fun getItemViewType(position: Int): Int {

@@ -31,7 +31,7 @@ import kotlin.collections.ArrayList
 class UpcomingViewModel(internal var context: Activity) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private  var upcomingMsgList:ArrayList<Any>? = ArrayList()
+    private var upcomingMsgList:ArrayList<Any>? = ArrayList()
 
     private var userId: String = FirebaseAuth.getInstance().currentUser!!.uid
     private var databaseMsg = FirebaseDatabase.getInstance().reference.child("Users").child(userId).child("Messages")

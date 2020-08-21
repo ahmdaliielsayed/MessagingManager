@@ -60,9 +60,9 @@ class SelectSIMActivity : AppCompatActivity() {
                     if (sim!!.getUserId() == FirebaseAuth.getInstance().currentUser!!.uid) {
                         simsArrayList.add(sim)
                     }
-
-                    setAdapter()
                 }
+
+                setAdapter()
 
                 if (simsArrayList.size <= 0) {
                     findViewById<LinearLayout>(R.id.linearLayoutFragmentUpcoming).visibility = View.VISIBLE
