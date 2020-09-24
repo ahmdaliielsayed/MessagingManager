@@ -148,6 +148,7 @@
 
     <!-- menu home -->
     <string name="itemMenuHome">Menu Home</string>
+    <string name="itemConversations">محادثات</string>
     <string name="itemTips">نصائح</string>
     <string name="itemHelp">مساعدة</string>
     <string name="itemEmailUs">ارسل لنا عبر البريد الإلكتروني</string>
@@ -350,4 +351,10 @@
     <string name="tcTextView56">12. القانون والاختصاص</string>
     <string name="tcTextView57">يقر المستخدم أيضًا أنه يُسمح قانونًا باستخدام الخدمة ، ويتحمل المسؤولية الكاملة عن اختيار الخدمة واستخدامها. تعتبر هذه الاتفاقية لاغية حيث يحظرها القانون ، ويتم إبطال الحق في الوصول إلى الخدمة في مثل هذه الولايات القضائية.</string>
     <string name="tcTextView58">حتى إذا تم إنهاء هذه الاتفاقية ، فسوف تستمر هذه الشروط والأحكام سارية</string>
+
+    <!-- activity messages -->
+    <string name="messages">الرسائل</string>
+    <string name="readSmsPermission">امنحنا الإذن لقراءة الرسائل الخاصة بكـ!</string>
+    <string name="readSmsExplanation"><b>قراءة الرسائل</b>\nمن أجل قراءة الرسائل من الموبايل الخاص بكـ</string>
+    <string name="defaultSmsApp"><b>تطبيق الرسائل الافتراضي</b>\n من أجل قراءة الرسائل من الموبايل الخاص بكـ و جعل برنامج Message Scheduler هو البرنامج الإفتراضي للرسائل!</string>
 </resources>

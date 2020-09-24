@@ -11,18 +11,18 @@
 
         <menu>
             <item
+                android:id="@+id/item_conversations"
+                android:title="@string/itemConversations"
+                android:orderInCategory="100"
+                android:icon="@drawable/ic_baseline_forum_baby_blue_24"
+                app:showAsAction="never" />
+
+            <item
                 android:id="@+id/item_tips"
                 android:title="@string/itemTips"
                 android:orderInCategory="100"
                 android:icon="@drawable/ic_lightbulb_outline_baby_blue_24dp"
                 app:showAsAction="never" />
-
-<!--            <item-->
-<!--                android:id="@+id/item_help"-->
-<!--                android:title="@string/itemHelp"-->
-<!--                android:orderInCategory="100"-->
-<!--                android:icon="@drawable/ic_help_baby_blue_24dp"-->
-<!--                app:showAsAction="never" />-->
 
             <item
                 android:id="@+id/item_emailUs"

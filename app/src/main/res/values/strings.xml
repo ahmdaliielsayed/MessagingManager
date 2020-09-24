@@ -148,6 +148,7 @@
 
     <!-- menu home -->
     <string name="itemMenuHome">Menu Home</string>
+    <string name="itemConversations">Conversations</string>
     <string name="itemTips">Tips</string>
     <string name="itemHelp">Help</string>
     <string name="itemEmailUs">Email Us</string>
@@ -355,4 +356,10 @@
     <string name="adMobAppId" translatable="false">ca-app-pub-4171202920109669~5398976502</string>
     <string name="adViewId" translatable="false">ca-app-pub-4171202920109669/1327676037</string> <!-- ca-app-pub-3940256099942544/6300978111 -->
     <string name="interstitialAdId" translatable="false">ca-app-pub-4171202920109669/2142257770</string>
+
+    <!-- activity messages -->
+    <string name="messages">Messages</string>
+    <string name="readSmsPermission">Give us the permission to read your Sms!</string>
+    <string name="readSmsExplanation"><b>Read Sms</b>\nTo read Sms from your phone</string>
+    <string name="defaultSmsApp"><b>Default Sms App</b>\nTo read Sms from your phone and using Message Scheduler as your default app for sms!</string>
 </resources>
