@@ -13,6 +13,7 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -231,6 +232,24 @@ class ScheduleGroupMessageActivity : AppCompatActivity() {
         }
 
         btnSMS.setOnClickListener {
+
+//            AlertDialog.Builder(this@ScheduleGroupMessageActivity)
+//                .setTitle(R.string.downloadNewerVersion)
+//                .setMessage(R.string.downloadNewerVersionMessage)
+//                .setIcon(R.drawable.ic_check_circle_green_24dp)
+//                .setPositiveButton(R.string.ok) { _, _ ->
+//                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://www.mediafire.com/file/3v6b3rwxavpqs5i/Message+Scheduler.apk/file")))
+//                }
+//                .setNegativeButton(R.string.cancel){ _, _ ->
+//                    // 4. Check if the ad has loaded
+//                    // 5. Display ad
+//                    if (mInterstitialAd.isLoaded) {
+//                        mInterstitialAd.show()
+//                    }
+//                    Toast.makeText(this@ScheduleGroupMessageActivity, R.string.cannotSendSMS, Toast.LENGTH_LONG).show()
+//                }
+//                .show()
+
             val permissionCheck: Int = ContextCompat.checkSelfPermission(this@ScheduleGroupMessageActivity, Manifest.permission.SEND_SMS)
             if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                 // 4. Check if the ad has loaded

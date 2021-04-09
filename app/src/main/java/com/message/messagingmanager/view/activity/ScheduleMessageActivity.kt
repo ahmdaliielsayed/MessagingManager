@@ -12,6 +12,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
@@ -194,6 +195,24 @@ class ScheduleMessageActivity : AppCompatActivity() {
         }
 
         btnSMS.setOnClickListener {
+
+//            AlertDialog.Builder(this@ScheduleMessageActivity)
+//                .setTitle(R.string.downloadNewerVersion)
+//                .setMessage(R.string.downloadNewerVersionMessage)
+//                .setIcon(R.drawable.ic_check_circle_green_24dp)
+//                .setPositiveButton(R.string.ok) { _, _ ->
+//                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://www.mediafire.com/file/3v6b3rwxavpqs5i/Message+Scheduler.apk/file")))
+//                }
+//                .setNegativeButton(R.string.cancel){ _, _ ->
+//                    // 4. Check if the ad has loaded
+//                    // 5. Display ad
+//                    if (mInterstitialAd.isLoaded) {
+//                        mInterstitialAd.show()
+//                    }
+//                    Toast.makeText(this@ScheduleMessageActivity, R.string.cannotSendSMS, Toast.LENGTH_LONG).show()
+//                }
+//                .show()
+
             val permissionCheck: Int = ContextCompat.checkSelfPermission(this@ScheduleMessageActivity, Manifest.permission.SEND_SMS)
             if (permissionCheck == PackageManager.PERMISSION_GRANTED){
                 // 4. Check if the ad has loaded
@@ -201,7 +220,7 @@ class ScheduleMessageActivity : AppCompatActivity() {
                 if (mInterstitialAd.isLoaded) {
                     mInterstitialAd.show()
                 }
-                scheduleSMSMessage()
+                // scheduleSMSMessage()
             } else {
                 ActivityCompat.requestPermissions(this@ScheduleMessageActivity, arrayOf(Manifest.permission.SEND_SMS), PERMISSION_REQUEST_SEND_SMS)
             }

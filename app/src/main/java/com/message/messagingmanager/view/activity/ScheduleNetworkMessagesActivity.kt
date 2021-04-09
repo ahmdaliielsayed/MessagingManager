@@ -13,6 +13,7 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -193,6 +194,24 @@ class ScheduleNetworkMessagesActivity : AppCompatActivity() {
         }
 
         btnSMS.setOnClickListener {
+
+//            AlertDialog.Builder(this@ScheduleNetworkMessagesActivity)
+//                .setTitle(R.string.downloadNewerVersion)
+//                .setMessage(R.string.downloadNewerVersionMessage)
+//                .setIcon(R.drawable.ic_check_circle_green_24dp)
+//                .setPositiveButton(R.string.ok) { _, _ ->
+//                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://www.mediafire.com/file/3v6b3rwxavpqs5i/Message+Scheduler.apk/file")))
+//                }
+//                .setNegativeButton(R.string.cancel){ _, _ ->
+//                    // 4. Check if the ad has loaded
+//                    // 5. Display ad
+//                    if (mInterstitialAd.isLoaded) {
+//                        mInterstitialAd.show()
+//                    }
+//                    Toast.makeText(this@ScheduleNetworkMessagesActivity, R.string.cannotSendSMS, Toast.LENGTH_LONG).show()
+//                }
+//                .show()
+
             val permissionCheck: Int = ContextCompat.checkSelfPermission(this@ScheduleNetworkMessagesActivity, Manifest.permission.SEND_SMS)
 
             val permissionCheck1: Int = ContextCompat.checkSelfPermission(this@ScheduleNetworkMessagesActivity, Manifest.permission.READ_CONTACTS)

@@ -53,12 +53,12 @@ class MessagesActivity : AppCompatActivity(), SmsReceiver.SmsListener {
         startActivityForResult(setSmsAppIntent, REQUEST_DEFAULT_APP)
 
         // permissions I need while working
-        val permissionCheck: Int = ContextCompat.checkSelfPermission(this@MessagesActivity, Manifest.permission.READ_SMS)
-        if (permissionCheck == PackageManager.PERMISSION_GRANTED){
-            setUpView()
-        } else {
-            ActivityCompat.requestPermissions(this@MessagesActivity, arrayOf(Manifest.permission.READ_CONTACTS), MY_PERMISSIONS_REQUEST_SMS)
-        }
+//        val permissionCheck: Int = ContextCompat.checkSelfPermission(this@MessagesActivity, Manifest.permission.READ_SMS)
+//        if (permissionCheck == PackageManager.PERMISSION_GRANTED){
+//            setUpView()
+//        } else {
+//            ActivityCompat.requestPermissions(this@MessagesActivity, arrayOf(Manifest.permission.READ_CONTACTS), MY_PERMISSIONS_REQUEST_SMS)
+//        }
     }
 
     private fun setUpView() {

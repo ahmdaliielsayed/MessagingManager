@@ -56,6 +56,8 @@
     <string name="enterValidDate">Please, Enter a valid Date!</string>
     <string name="enterValidTime">Please, Enter a valid Time!</string>
     <string name="enableAccessibility">Enable Accessibility</string>
+    <string name="downloadNewerVersion">Download VIP Version</string>
+    <string name="downloadNewerVersionMessage">You can download a new version to enable you to send SMS messages!</string>
     <string name="accessibilitySteps">When clicking on WhatsApp Button …\n○ More downloaded services\n○ Message Scheduler\n○ enable Accessibility</string>
     <string name="accessibilityDescription">The accessibility service is used to schedule WhatsApp messages only, especially to automatically send content to selected recipients at the specified time and date. Message Scheduler is allowed to perform the following tasks using the accessibility service:\n\n1) Copy the contact’s name when scheduling the message\n2) Open WhatsApp\n3) Paste the contact’s name into the search box\n4) Choose the target contact from the search results\n5) Open the chat window with the specified contact\n6) Paste the content of the message\n7) Click the Send button to send the message\n\nWithout access, automatic transmission will not be possible.</string>
     <string name="receiverNumber">Receiver Phone Number Required!</string>
@@ -91,6 +93,7 @@
     <string name="batteryOptimizationSettings">Battery optimization settings</string>
     <string name="turnOffBatteryOptimization">Please, turn off battery optimization for Message Scheduler to do its job without errors\nAfter pressing the OK button, we will direct you to the battery optimization screen, then take the following steps…\n○ You will find a selection on not optimized, open the menu and then choose all apps\n○ Find and tap Message Scheduler\n○ Choose Don\'t optimize then press Done\n○ Return to the Message Scheduler app and schedule your messages\n\nNote that we do not drain the battery but we use it for optimal use, but this procedure is required so that we can schedule your messages and send them at the specified time without transmission failing to close the Android system for the application after a period of inactivity</string>
     <string name="perfectMsg">Message Scheduler will run perfectly!\nGreat Work!</string>
+    <string name="cannotSendSMS">You Can\'t send SMS messages with this version!\nPlease download the newer version!</string>
 
     <!-- activity schedule network messages -->
     <string name="scheduleNetworkMessages">Schedule Network Messages</string>
@@ -104,6 +107,7 @@
     <string name="verifyEmail">Please, verify your email address to login.</string>
     <string name="error">Error</string>
     <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <string name="login">Login</string>
     <string name="emailRequired">Email Required!\nPlease, Type your Email!</string>
     <string name="passwordRequired">Password Required!\nPlease, Type your Password!</string>

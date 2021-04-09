@@ -56,6 +56,8 @@
     <string name="enterValidDate">من فضلكـ ، ادخل تاريخ صحيح!</string>
     <string name="enterValidTime">يرجى إدخال وقت صالح!</string>
     <string name="enableAccessibility">تمكين الوصول</string>
+    <string name="downloadNewerVersion">تحميل نسخة VIP</string>
+    <string name="downloadNewerVersionMessage">يمكنك تنزيل إصدار جديد لتتمكن من إرسال رسائل SMS!</string>
     <string name="accessibilitySteps">عند النقر على زر WhatsApp …\n○ قم باختيار المزيد من الخدمات التي تم تنزيلها أو الخدمات التي تم تثبيتها\n○ ثم Message Scheduler\n○ ثم إمكانية الوصول قم بتفعيلها</string>
     <string name="accessibilityDescription">خدمة إمكانية الوصول مستخدمة في جدولة رسائل الواتس اب فقط ، خاصةََ لإرسال المضمون بشكل أوتوماتيكي للمستقبلين المختارين في الوقت و التاريخ المحدد. يتم السماح لـ Message Scheduler بأداء المهام التالية باستخدام خدمة إمكانية الوصول:\n\n1) نسخ اسم جهة الإتصال عند جدولة الرسالة\n2) فتح واتس اب\n3) لصق اسم جهة الإتصال في صندوق البحث\n4) اختيار جهة الإتصال المستهدفة من نتائج البحث\n5) فتح نافذة الدردشة مع جهة الإتصال المحددة\n6) لصق مضمون الرسالة\n7) الضغط على زر الإرسال لإرسال الرسالة\n\nبدون إمكانية الوصول ، لن يكون الإرسال بشكل أوتوماتيكي ممكناََ.</string>
     <string name="receiverNumber">رقم هاتف المُسْتَقْبِل مطلوب!</string>
@@ -91,6 +93,7 @@
     <string name="batteryOptimizationSettings">إعدادات تحسين البطارية</string>
     <string name="turnOffBatteryOptimization">من فضلكـ اغلق تحسين البطارية لتطبيق Message Scheduler ليقوم بعمله بدون أخطاء\nبعد الضغط على الزر حسناََ سنقوم بتوجيهكـ إلى شاشة تحسين البطارية ، ثم قم بالخطوات التالية…\n○ ستجد الاختيار على بدون تحسين ، افتح القائمة ثم اختر جميع التطبيقات\n○ ابحث عن تطبيق Message Scheduler ثم اضغط عليه\n○ اختر عدم تحسين ثم اضغط على تم\n○ عد إلى تطبيق Message Scheduler و جدول رسائلكـ\n\nلاحظ أننا لا نستنزف البطارية بل نستخدمها الإستخدام الأمثل و لكن هذا الإجراء مطلوب حتى نستطيع جدولة رسائلكـ و إرسالها في الوقت المحدد بدون فشل الإرسال لـ غلق نظام الأندرويد لـ التطبيق بعد فترة من الخمول</string>
     <string name="perfectMsg">سيتم تشغيل Message Scheduler بشكل مثالي!\nعمل عظيم!</string>
+    <string name="cannotSendSMS">لا يمكنك إرسال رسائل SMS باستخدام هذا الإصدار!\nيرجى تنزيل الإصدار الأحدث!</string>
 
     <!-- activity schedule network messages -->
     <string name="scheduleNetworkMessages">جدولة رسائل الشبكة</string>
@@ -104,6 +107,7 @@
     <string name="verifyEmail">من فضلكـ ، تحقق من عنوان بريدكـ الإلكتروني لتسجيل الدخول.</string>
     <string name="error">خطأ</string>
     <string name="ok">حسناََ</string>
+    <string name="cancel">إلغاء</string>
     <string name="login">تسجيل الدخول</string>
     <string name="emailRequired">البريد الإلكتروني مطلوب!\nمن فضلك ، اكتب بريدك الإلكتروني!</string>
     <string name="passwordRequired">كلمة المرور مطلوبة!\nمن فضلك ، اكتب كلمة المرور الخاصة بك!</string>
